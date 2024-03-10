@@ -1,28 +1,22 @@
-// server.js
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./mongodb/connect.js";
-import userRoutes from "./routes/userRoutes.js";
-
-
-dotenv.config();
+import register from "./routes/register.js";
+import login from "./routes/login.js";
 
 const app = express();
+dotenv.config();
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 
-// Use user routes
-app.use("/api/users", userRoutes);
+app.use("/api/users", register);
 
-app.get("/", (req, res) => {
-    res.send({ message: "Hello World!" });
-});
+app.use("/api/users", login);
 
 const startServer = async () => {
     try {
         await connectDB(process.env.MONGODB_URL);
-
         app.listen(8080, () =>
             console.log("Server started on port http://localhost:8080"),
         );

@@ -1,8 +1,7 @@
-// routes/UserRoutes.js
+// userRoutes.js
 import express from "express";
 const router = express.Router();
-import User from "../mongodb/models/User";
-
+import userModel from "../models/User";
 
 // User registration route
 router.post("/register", async (req, res) => {
@@ -33,5 +32,6 @@ router.get("/:id", async (req, res) => {
     res.status(404).send("User not found");
   }
 });
+
 
 export default router;

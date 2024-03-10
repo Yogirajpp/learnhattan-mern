@@ -5,7 +5,7 @@ import connectDB from "./mongodb/connect.js";
 import register from "./routes/register.js";
 import login from "./routes/login.js";
 import profileRoutes from "./routes/profileRoutes.js"
-
+import courseRoutes from "./routes/courseRoutes.js";
 const app = express();
 dotenv.config();
 app.use(cors());
@@ -16,6 +16,8 @@ app.use("/api/users", register);
 app.use("/api/users", login);
 
 app.use('/api/users', profileRoutes);
+
+app.use('/api/courses', courseRoutes);
 
 const startServer = async () => {
     try {

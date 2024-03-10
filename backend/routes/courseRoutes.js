@@ -1,27 +1,26 @@
-// routes/courseRoutes.js
-const express = require("express");
+// courseRoutes.js
+
+import express from "express";
+import Course from "../models/course.js";
 const router = express.Router();
-const Course = require("../models/Course");
 
-// Course retrieval route
-router.get("/", async (req, res) => {
+// Add a new course route
+router.post("/add", async (req, res) => {
   try {
-    const courses = await Course.find();
-    res.status(200).send(courses);
+    const { title, description, category } = req.body;
+
+    // Create a new course document
+    const newCourse = await Course.create({
+      title,
+      description,
+      category,
+    });
+
+    res.status(201).json({ success: true, data: newCourse });
   } catch (error) {
-    res.status(500).send(error);
+    console.error("Error adding new course:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
 
-// Course creation route
-router.post("/", async (req, res) => {
-  try {
-    const newCourse = new Course(req.body);
-    await newCourse.save();
-    res.status(201).send(newCourse);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
-
-module.exports = router;
+export default router;

@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   description: { type: String },
   interests: [{ type: String }],
   photo: { type: String },
+  enrolledCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }] // Reference to courses user is enrolled in
 });
 
 

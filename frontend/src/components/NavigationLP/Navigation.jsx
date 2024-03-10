@@ -37,7 +37,7 @@ const Navigation = ({ isLoggedIn }) => {
                   <button className='Btn' onClick={handleSignOut}>Sign out</button>
                 </div>
               ) : (
-                <Link to="/Login" className="Signup">
+                <Link to="/register" className="Signup">
                   <button className='Btn'>Sign up</button>
                 </Link>
               )}

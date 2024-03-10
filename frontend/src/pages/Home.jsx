@@ -13,6 +13,7 @@ import {
 import "./Home.css";
 import RoadmapComponent from "../components/roadMapComponent";
 import features from "../JSON/features.json";
+import Navigation from "../components/NavigationLP/Navigation";
 
 const FeatureBox = ({ icon, title, description }) => {
   const iconComponent = {
@@ -45,6 +46,7 @@ const MotionContainer = ({ children, direction = "right" }) => (
 const Home = () => {
   return (
     <>
+      <Navigation />
       <div className="bgcolor">
         {/* Hero section */}
         <div className="hero-section">

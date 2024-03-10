@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import axios from "axios";
 
-const Dashboard = ({ users, coursesCompleted }) => {
+const Dashboard = ({ users,rankings,coursesCompleted }) => {
   const [user, setUser] = useState({});
   const location = useLocation();
 
@@ -75,21 +75,21 @@ const Dashboard = ({ users, coursesCompleted }) => {
                   <h1 className="spaceHeading">
                     Advanced Arbitrium Development
                   </h1>
-                  <img
+                  {/* <img
                     src={spaceimg}
                     className="spaceimage object-cover"
                     alt="Sorry"
-                  />
+                  /> */}
                 </div>
                 <div className="space-box bg2">
                   <h1 className="spaceHeading ml-2">
                     Bitcoin <br /> Mining
                   </h1>
-                  <img
+                  {/* <img
                     src={spaceimg2}
                     className="spaceimage object-cover"
                     alt="Sorry"
-                  />
+                  /> */}
                 </div>
               </div>
             </div>

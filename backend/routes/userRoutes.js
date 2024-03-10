@@ -3,13 +3,13 @@
 import express from "express";
 import User from "../models/user.js";
 import Course from "../models/course.js"; // Assuming you have a Course model
+
 const router = express.Router();
 
 // Enroll in a course route
-router.post("/enroll/", async (req, res) => {
+router.post("/enroll", async (req, res) => {
   try {
-    const username = req.body.username;
-    const courseId = req.body.courseId;
+    const { username, courseId } = req.body;
 
     // Find the user by their username
     const user = await User.findOne({ username });
@@ -35,6 +35,37 @@ router.post("/enroll/", async (req, res) => {
     res.status(200).json({ message: "Successfully enrolled in the course", user });
   } catch (error) {
     console.error("Error enrolling in course:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get enrolled courses for a user route
+router.get("/enrolled-courses/:username", async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    // Find the user by their username
+    const user = await User.findOne({ username }).populate("enrolledCourses");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ enrolledCourses: user.enrolledCourses });
+  } catch (error) {
+    console.error("Error fetching enrolled courses:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get all courses route
+router.get("/allcourses", async (req, res) => {
+  try {
+    // Fetch all courses from the database
+    const courses = await Course.find();
+    res.status(200).json({ courses });
+  } catch (error) {
+    console.error("Error fetching courses:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });

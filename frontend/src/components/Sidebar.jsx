@@ -1,42 +1,33 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth";
-import {
-  FaBars,
-  FaGraduationCap,
-  FaNewspaper,
-  FaShoppingCart,
-  FaTachometerAlt,
-  FaSignOutAlt,
-} from "react-icons/fa";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios"; // Import axios for making HTTP requests
+import { FaBars, FaGraduationCap, FaNewspaper, FaShoppingCart, FaTachometerAlt, FaSignOutAlt } from "react-icons/fa";
 import "./Sidebar.css"; // Import your CSS file
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const auth = getAuth();
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
-  const SignOut = async () => {
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-        navigate("/");
-        console.log("signout success");
-      })
-      .catch((error) => {
-        // An error happened.
-        console.error("Sign out error:", error);
-      });
-  };
+  
+  const handleLogout = async () => {
+    try {
+      // Clear the authentication token from local storage or any other client-side storage
+      localStorage.removeItem("authToken");
+
+      // Redirect to the login page after logout
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  }
 
   return (
     <div className={`sideMenu ${isOpen ? "open" : ""}`}>
-      <div className="menu-toggle">
+      <div className="menu-toggle" onClick={toggleSidebar}>
         <FaBars />
       </div>
       <ul>
@@ -65,7 +56,7 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <button className="sidebar-link" onClick={SignOut}>
+          <button className="sidebar-link" onClick={handleLogout}>
             <FaSignOutAlt />
             {isOpen && <span>Sign out</span>}
           </button>

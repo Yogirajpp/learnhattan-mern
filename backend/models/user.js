@@ -1,5 +1,5 @@
 // userModel.js
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
@@ -8,6 +8,6 @@ const userSchema = new mongoose.Schema({
   // Add other user fields as needed (e.g., achievements, progress)
 });
 
-const userModel = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
 
-export default userModel;
+export default User;

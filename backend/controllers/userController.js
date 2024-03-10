@@ -1,5 +1,5 @@
 // userController.js
-import userModel from "../models/user"
+import User from "../models/user"
 
 // Controller for user registration
 const registerUser = async (req, res) => {
@@ -25,7 +25,7 @@ const loginUser = async (req, res) => {
 // Controller for retrieving user profile
 const getUserProfile = async (req, res) => {
   try {
-    const user = await userModel.findById(req.params.id);
+    const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }

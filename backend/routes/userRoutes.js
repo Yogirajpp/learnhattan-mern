@@ -1,7 +1,7 @@
 // userRoutes.js
 import express from "express";
 const router = express.Router();
-import userModel from "../models/User";
+import User from "../models/user.js";
 
 // User registration route
 router.post("/register", async (req, res) => {

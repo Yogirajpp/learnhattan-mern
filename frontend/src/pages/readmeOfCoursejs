@@ -1,0 +1,13 @@
+{/* <div className="list-of-courses">
+          {coursesData.map((course) => (
+            <div key={course.id} className="course-item">
+              <h2>{course.title}</h2>
+              <div className="teacher-profile">
+                <p>Teacher: {course.teacher}</p>
+              </div>
+              <div className="contributors">
+                <p>tags: {course.contributors.join(', ')}</p>
+              </div>
+            </div>
+          ))}
+        </div> */}

@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth";
+import { useLogout } from "../hooks/useLogout";
 import {
   FaBars,
   FaGraduationCap,
@@ -13,25 +12,11 @@ import {
 import "./Sidebar.css"; // Import your CSS file
 
 const Sidebar = () => {
-  const navigate = useNavigate();
-  const auth = getAuth();
+  const { logout } = useLogout();
   const [isOpen, setIsOpen] = useState(true);
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
   const SignOut = async () => {
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-        navigate("/");
-        console.log("signout success");
-      })
-      .catch((error) => {
-        // An error happened.
-        console.error("Sign out error:", error);
-      });
+    logout();
   };
 
   return (

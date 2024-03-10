@@ -8,45 +8,45 @@ const Dashboard = ({ users,rankings,coursesCompleted }) => {
   const [user, setUser] = useState({});
   const location = useLocation();
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        // Fetch user data from backend
-        const response = await axios.get("http://localhost:8080/user");
-        setUser(response.data);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       // Fetch user data from backend
+  //       const response = await axios.get("http://localhost:8080/user");
+  //       setUser(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   };
 
-    fetchUserData();
-  }, []);
+  //   fetchUserData();
+  // }, []);
 
-  useEffect(() => {
-    const fetchUserPhoto = async () => {
-      try {
-        // Fetch user photo from backend
-        const response = await axios.get("http://localhost:8080/user/photo");
-        setUser((prevUser) => ({ ...prevUser, photo: response.data }));
-      } catch (error) {
-        console.error("Error fetching user photo:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUserPhoto = async () => {
+  //     try {
+  //       // Fetch user photo from backend
+  //       const response = await axios.get("http://localhost:8080/user/photo");
+  //       setUser((prevUser) => ({ ...prevUser, photo: response.data }));
+  //     } catch (error) {
+  //       console.error("Error fetching user photo:", error);
+  //     }
+  //   };
 
-    fetchUserPhoto();
-  }, []);
+  //   fetchUserPhoto();
+  // }, []);
 
   // Similar useEffect hooks for fetching rankings, spaces, achievements, etc.
 
-  const handleSignOut = async () => {
-    try {
-      // Implement sign-out functionality using backend API
-      await axios.post("http://localhost:8080/logout");
-      console.log("User is logged out");
-    } catch (error) {
-      console.error("Error logging out user:", error);
-    }
-  };
+  // const handleSignOut = async () => {
+  //   try {
+  //     // Implement sign-out functionality using backend API
+  //     await axios.post("http://localhost:8080/logout");
+  //     console.log("User is logged out");
+  //   } catch (error) {
+  //     console.error("Error logging out user:", error);
+  //   }
+  // };
 
   return (
     <>

@@ -4,20 +4,23 @@ import cors from "cors";
 import connectDB from "./mongodb/connect.js";
 import register from "./routes/register.js";
 import login from "./routes/login.js";
-import profileRoutes from "./routes/profileRoutes.js"
+import profileRoutes from "./routes/profileRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+
 const app = express();
 dotenv.config();
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 
+// Use register and login routes for user authentication
 app.use("/api/users", register);
-
 app.use("/api/users", login);
 
-app.use('/api/users', profileRoutes);
-
-app.use('/api/courses', courseRoutes);
+// Use profile, course, and user routes
+app.use("/api/users", profileRoutes);
+app.use("/api/courses", courseRoutes);
+app.use("/api/users", userRoutes);
 
 const startServer = async () => {
     try {

@@ -1,154 +1,106 @@
-import { useEffect, useState } from "react";
-import "./Dashboard.css";
-import { useLocation } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import FileBase from 'react-file-base64';
 
-const Dashboard = ({ users,rankings,coursesCompleted }) => {
-  const [user, setUser] = useState({});
-  const location = useLocation();
+const Dashboard = () => {
+  const [isFilled, setIsFilled] = useState(false);
+  const [desData, setDesData] = useState({
+    description: '',
+    interests: '',
+    selectedFile: ''
+  });
+  const [displayData, setDisplayData] = useState(null);
 
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     try {
-  //       // Fetch user data from backend
-  //       const response = await axios.get("http://localhost:8080/user");
-  //       setUser(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching user data:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/dashboard/user/65edca9c4b469368bfd79317`);
+        const data = await response.json();
+        setIsFilled(data.isFilled);
+        if (data.isFilled) {
+          setDesData({
+            description: data.description,
+            interests: data.interests ? data.interests.join(', ') : '',
+            selectedFile: data.selectedFile
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchData();
+  }, []);
 
-  //   fetchUserData();
-  // }, []);
 
-  // useEffect(() => {
-  //   const fetchUserPhoto = async () => {
-  //     try {
-  //       // Fetch user photo from backend
-  //       const response = await axios.get("http://localhost:8080/user/photo");
-  //       setUser((prevUser) => ({ ...prevUser, photo: response.data }));
-  //     } catch (error) {
-  //       console.error("Error fetching user photo:", error);
-  //     }
-  //   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await fetch('http://localhost:8080/api/dashboard/user/store', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: "65edca9c4b469368bfd79317", ...desData })
+      });
+      setIsFilled(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  //   fetchUserPhoto();
-  // }, []);
+  useEffect(() => {
+    const fetchDescription = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/dashboard/user/display/65edca9c4b469368bfd79317`);
+        const data = await response.json();
+        setDisplayData(
+          <div className="bg-gray-100 p-4 rounded-lg flex flex-col items-center justify-center h-full">
+            <p className="text-lg font-semibold mb-4 text-black">Your information:</p>
+            <img src={data.selectedFile} alt="profileImg" className='w-20 h-20 rounded-full' />
+            <p className="mb-2 text-black"><strong>Description:</strong> {data.description}</p>
+            <p className="mb-2 text-black"><strong>Interests:</strong> {data.interests}</p>
+          </div>
+        );
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    if (isFilled) {
+      fetchDescription();
+    }
+  }, [isFilled]);
 
-  // Similar useEffect hooks for fetching rankings, spaces, achievements, etc.
-
-  // const handleSignOut = async () => {
-  //   try {
-  //     // Implement sign-out functionality using backend API
-  //     await axios.post("http://localhost:8080/logout");
-  //     console.log("User is logged out");
-  //   } catch (error) {
-  //     console.error("Error logging out user:", error);
-  //   }
-  // };
+  const handleChange = (e, field) => {
+    if (field === 'interests') {
+      const interestsArray = e.target.value.split(',').map((interest) => interest.trim());
+      setDesData((prevData) => ({
+        ...prevData,
+        [field]: interestsArray
+      }));
+    } else {
+      setDesData((prevData) => ({
+        ...prevData,
+        [field]: e.target.value
+      }));
+    }
+  };
 
   return (
-    <>
-      <div className="dashboardsidebar">
-        <Sidebar />
-      </div>
-      <div className="dashboard">
-        {user && user.username && (
-          <div className="name">Welcome {user.username}</div>
-        )}
-        <div className="welcome">
-          <div className="elite-space-achievement">
-            <div className="gradient-box">
-              <div id="rectangle-48"></div>
-              <div className="elite">
-                <h1 className="eliteHeading">Elite 3 </h1>
-                <h1 className="eliteDetails">
-                  {user && user.eliteStatus ? user.eliteStatus : "N/A"}
-                </h1>
-              </div>
-            </div>
-            <div className="space">
-              <div className="section-title">Spaces</div>
-              <div className="space-container">
-                <div className="space-box bg1">
-                  <h1 className="spaceHeading">
-                    Advanced Arbitrium Development
-                  </h1>
-                  {/* <img
-                    src={spaceimg}
-                    className="spaceimage object-cover"
-                    alt="Sorry"
-                  /> */}
-                </div>
-                <div className="space-box bg2">
-                  <h1 className="spaceHeading ml-2">
-                    Bitcoin <br /> Mining
-                  </h1>
-                  {/* <img
-                    src={spaceimg2}
-                    className="spaceimage object-cover"
-                    alt="Sorry"
-                  /> */}
-                </div>
-              </div>
-            </div>
-            <div className="achievements">
-              <div className="section-title">Achievements</div>
-              <div className="achieveContainer">
-                <div className="innerCont">
-                  <div className="b1"></div>
-                  <h1 className="btext">
-                    DevHackathon <br />
-                    Aug 2023
-                  </h1>
-                </div>
-                <div className="innerCont">
-                  <div className="b1"></div>
-                  <h1 className="btext">
-                    SpeedCode <br /> Aug 2023
-                  </h1>
-                </div>
-                <div className="innerCont">
-                  <div className="b1"></div>
-                  <h1 className="btext">
-                    FastestBug <br />
-                    Aug 2023
-                  </h1>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="divForRankingTileAndBox">
-            <div className="ranking-title">Ranking</div>
-            <div className="ranking-box">
-              <table border="1">
-                <thead>
-                  <tr>
-                    <th>Ranking</th>
-                    <th>Photo</th>
-                    <th>Name</th>
-                    <th>Tier</th>
-                    <th>XP</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rankings.map((rank, index) => (
-                    <tr key={index}>
-                      <td>{rank.ranking}</td>
-                      <td className="photoInsideRankingBox">{rank.photo}</td>
-                      <td>{rank.name}</td>
-                      <td>{rank.tier}</td>
-                      <td>{rank.xp}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+    <div className="flex items-center justify-center h-full">
+      {displayData ? (
+        displayData
+      ) : (
+        <form onSubmit={handleSubmit} className="bg-white p-4 rounded-lg shadow-md text-black">
+          <FileBase
+            type='file'
+            multiple={false}
+            onDone={({ base64 }) => setDesData({ ...desData, selectedFile: base64 })}
+          />
+          <input type="text" value={desData.description} onChange={(e) => handleChange(e, 'description')} placeholder="Description" className="w-full p-2 mb-4 border border-gray-300 rounded-md" />
+          <input type="text" value={desData.interests} onChange={(e) => handleChange(e, 'interests')} placeholder="Interests" className="w-full p-2 mb-4 border border-gray-300 rounded-md" />
+          <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md">Submit</button>
+        </form>
+      )}
+    </div>
   );
 };
 

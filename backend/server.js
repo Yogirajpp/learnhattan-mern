@@ -7,6 +7,7 @@ import login from "./routes/login.js";
 import profileRoutes from "./routes/profileRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import dashboard from "./routes/dashboard.js";
 
 const app = express();
 dotenv.config();
@@ -21,6 +22,7 @@ app.use("/api/users", login);
 app.use("/api/users", profileRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/dashboard",dashboard);
 
 const startServer = async () => {
     try {

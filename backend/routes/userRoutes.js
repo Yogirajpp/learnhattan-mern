@@ -9,10 +9,10 @@ const router = express.Router();
 // Enroll in a course route
 router.post("/enroll", async (req, res) => {
   try {
-    const { username, courseId } = req.body;
+    const { userId, courseId } = req.body;
 
-    // Find the user by their username
-    const user = await User.findOne({ username });
+    // Find the user by their ID
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -38,6 +38,7 @@ router.post("/enroll", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
 
 // Get enrolled courses for a user route
 router.get("/enrolled-courses/:username", async (req, res) => {

@@ -2,9 +2,34 @@
 import mongoose from "mongoose";
 
 const courseSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  description: { type: String },
-  category: { type: String },
+  title: {
+     type: String,
+      required: true
+  },
+  description: { 
+     type: String
+  },
+  category: {
+     type: String
+  },
+  tutor: {
+    type: String,
+    required: true
+  },
+  videos: [{
+    title: String,
+    url: String
+  }],
+  resources: [{
+    title: String,
+    description: String,
+    url: String
+  }],
+  assignments: [{
+    title: String,
+    description: String,
+    deadline: Date
+  }]
   // Add more fields as needed for your course model
 });
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
+import "./Courses.css";
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);

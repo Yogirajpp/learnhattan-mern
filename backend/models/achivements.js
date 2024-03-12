@@ -1,11 +1,13 @@
-// models/Achievement.js
-const mongoose = require("mongoose");
+// achievement.js
+
+import mongoose from "mongoose";
 
 const achievementSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   title: { type: String, required: true },
-  description: { type: String, required: true },
-  // Add other achievement fields as needed
+  description: { type: String },
+  courseId: { type: mongoose.Schema.Types.ObjectId, ref: "Course", required: true }, // Reference to the course
 });
 
-module.exports = mongoose.model("Achievement", achievementSchema);
+const Achievement = mongoose.model("Achievement", achievementSchema);
+
+export default Achievement;

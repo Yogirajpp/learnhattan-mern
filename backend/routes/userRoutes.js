@@ -3,6 +3,7 @@
 import express from "express";
 import User from "../models/user.js";
 import Course from "../models/course.js"; // Assuming you have a Course model
+import Achievement from "../models/achivements.js";
 
 const router = express.Router();
 
@@ -31,6 +32,7 @@ router.post("/enroll", async (req, res) => {
     // Add the course to the user's enrolled courses
     user.enrolledCourses.push(courseId);
     await user.save();
+
 
     res.status(200).json({ message: "Successfully enrolled in the course", user });
   } catch (error) {
@@ -93,6 +95,35 @@ router.post("/:userId/complete-course/:courseId", async (req, res) => {
     res.status(200).json({ message: "Course marked as completed for the user", user });
   } catch (error) {
     console.error("Error marking course as completed:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Route to award achievements to the user based on the completed course
+router.post("/:userId/award-achievements/:courseId", async (req, res) => {
+  try {
+    const { userId, courseId } = req.params;
+
+    // Find the user by their ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Fetch all achievements from the database that match the completed course
+    const matchingAchievements = await Achievement.find({ course: courseId });
+
+    // Award matching achievements to the user
+    for (const achievement of matchingAchievements) {
+      user.achievements.push(achievement._id);
+    }
+
+    // Save the updated user with achievements
+    await user.save();
+
+    res.status(200).json({ message: "Achievements awarded to the user", user });
+  } catch (error) {
+    console.error("Error awarding achievements:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });

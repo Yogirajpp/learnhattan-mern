@@ -1,32 +1,27 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import "./TopNavBar.css";
-import "./WalletButton";
+import { Link } from "react-router-dom";
 import WalletButton from "./WalletButton";
 
 const TopNavBar = () => {
-  // const navigate = useNavigate();
-  // const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <nav className="top-navbar">
-      <div className="top-nav-container">
-        {/* <div className="top-nav-wallet-heading">
-          <span className="top-nav-wallet-heading-1">Learn</span>
-          <span className="top-nav-wallet-heading-2">Hattan</span>
-        </div> */}
-
-        <div className="logo">
-          <Link to="/Dashboard">
-            <img src="/assets/images/logo2.png" alt="Learnhattan" />
-          </Link>
-        </div>
-
-        {/* Wallet Button */}
-        <div className="top-nav-wallet-button">
-          <span className="top-nav-wallet-btn">
-            <WalletButton />
-          </span>
+    <nav className="bg-gray-800">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex-shrink-0 flex items-center">
+            <div className="text-white font-bold">
+              <span>Learn</span>
+              <span className="ml-1">Hattan</span>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <div className="mr-4">
+              <Link to="/">
+                <img src="/assets/images/logo2.png" alt="Learnhattan" className="h-8" />
+              </Link>
+            </div>
+            <div>
+              <WalletButton />
+            </div>
+          </div>
         </div>
       </div>
     </nav>

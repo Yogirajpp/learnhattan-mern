@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { fadeIn } from "../components/motion/variants";
 import {
@@ -13,7 +14,7 @@ import {
 import "./Home.css";
 import RoadmapComponent from "../components/roadMapComponent";
 import features from "../JSON/features.json";
-import Navigation from "../components/NavigationLP/Navigation";
+
 
 const FeatureBox = ({ icon, title, description }) => {
   const iconComponent = {
@@ -26,7 +27,7 @@ const FeatureBox = ({ icon, title, description }) => {
   }[icon];
   return (
     <div className="fea-box glass" id="features ">
-      <i className="fa icon">{iconComponent}</i> <h3>{title}</h3>
+      {/* <i className="fa icon">{iconComponent}</i> <h3>{title}</h3> */}
       <p>{description}</p>
     </div>
   );
@@ -46,7 +47,31 @@ const MotionContainer = ({ children, direction = "right" }) => (
 const Home = () => {
   return (
     <>
-      <Navigation />
+      <nav className="fixed top-0 w-full bg-gray-800 text-white z-10">
+        <div className="container mx-auto">
+          <div className="flex items-center justify-between h-16">
+            <div className="">
+              <Link to="/" className="flex items-center">
+                <img src="/assets/images/logo2.png" alt="Learnhattan" className="w-12 h-12" />
+              </Link>
+            </div>
+
+            <div className="flex justify-center items-center ml-5">
+              <Link to="/" className="mr-5">Home</Link>
+              <a href="#about" className="mr-5">About</a>
+              <a href="#cta" className="mr-5">Community</a>
+              <a href="#footer" className="mr-5">Contact</a>
+            </div>
+
+            <div>
+              <Link to="/register">
+                <button className='bg-white text-black ml-8 px-4 py-2 mr-7 rounded'>Sign up</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <hr />
       <div className="bgcolor">
         {/* Hero section */}
         <div className="hero-section">

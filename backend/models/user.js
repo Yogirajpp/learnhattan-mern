@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   interests: [{ type: String }],
   photo: { type: String },
   enrolledCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }], // Reference to courses user is enrolled in
+  completedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }], // Array to store completed course IDs
 });
 
 const User = mongoose.model("User", userSchema);

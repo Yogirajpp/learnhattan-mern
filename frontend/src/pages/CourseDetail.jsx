@@ -1,187 +1,69 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios"; // Import axios library for making HTTP requests
-import "./CourseDetail.css";
-import Sidebar from "../components/Sidebar";
+import axios from "axios";
 
-const CourseDetail = ({ courseDetailData }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState(0);
-  const [videoPoints, setVideoPoints] = useState(
-    Array(courseDetailData.length).fill(0)
-  );
-  const [videoCompletion, setVideoCompletion] = useState(
-    Array(courseDetailData.length).fill(false)
-  );
-  const [assignments, setAssignments] = useState([]);
-  const [videoLoading, setVideoLoading] = useState(true);
-
-  const { id } = useParams();
-  const course = courseDetailData.find(
-    (course) => course.id.toString() === id
-  );
-
-  const toggleText = () => {
-    setIsExpanded(!isExpanded);
-  };
-
-  const loadVideo = (videoIndex) => {
-    setSelectedVideo(videoIndex);
-    setVideoLoading(true);
-  };
-
-  const completeVideo = async () => {
-    try {
-      // Make a POST request to mark video as complete and update points
-      const response = await axios.post(
-        `http://localhost:8080/completeVideo`,
-        {
-          userId: "USER_ID",
-          videoId: course.videos[selectedVideo].id,
-        }
-      );
-      console.log(response.data); // Log the response data if needed
-    } catch (error) {
-      console.error("Error completing video:", error);
-    }
-  };
+const CourseDetail = () => {
+  const { courseId } = useParams(); // Make sure courseId is correctly extracted
+  const [course, setCourse] = useState(null);
+  const [selectedVideoTitle, setSelectedVideoTitle] = useState(null);
 
   useEffect(() => {
-    // Fetch video points when component mounts
-    const fetchVideoPoints = async () => {
+    const fetchCourseDetail = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8080/videoPoints?userId=USER_ID`
-        );
-        setVideoPoints(response.data);
+        const response = await axios.get(`http://localhost:8080/api/courses/${courseId}`);
+        setCourse(response.data.course);
       } catch (error) {
-        console.error("Error fetching video points:", error);
+        console.error("Error fetching course details:", error);
       }
     };
-    fetchVideoPoints();
-  }, [courseDetailData]);
 
-  useEffect(() => {
-    // Fetch assignments for the selected video
-    const fetchAssignments = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/assignments?videoId=${course.videos[selectedVideo].id}`
-        );
-        setAssignments(response.data);
-      } catch (error) {
-        console.error("Error fetching assignments:", error);
-      }
-    };
-    fetchAssignments();
-  }, [selectedVideo]);
+    // Fetch course details when the component mounts
+    fetchCourseDetail();
+  }, [courseId]);
+
+  const handleVideoTitleClick = (title) => {
+    setSelectedVideoTitle(title);
+  };
 
   return (
-    <>
-      <div className="coursedetailsidebar">
-        <Sidebar />
-      </div>
-      <div className={`course-container `}>
-        <div className="left-container">
-          <div className="video-item">
-            <video
-              key={course.videos[selectedVideo].id}
-              controls
-              autoPlay
-              name="media"
-              onEnded={completeVideo}
-              className={` video-container ${
-                videoLoading ? "mint-background" : ""
-              }`}
-            >
-              <source
-                src={course.videos[selectedVideo].url}
-                type="video/webm"
-              />
-            </video>
-            {videoCompletion[selectedVideo] &&
-              !hasUserReceivedPoints[selectedVideo] && (
-                <button onClick={completeVideo}>Complete</button>
-              )}
-          </div>
-          <div className="column">
-            <div className="collapsible-box">
-              <h1 className="headingAboutthiscourse">{course.name} Details</h1>
-              <p className={`content ${isExpanded ? "expanded" : ""}`}>
-                {course.description}
-              </p>
-              <button className="collapse-button" onClick={toggleText}>
-                {isExpanded ? "Read Less" : "Read More"}
-              </button>
-            </div>
-          </div>
-
-          <div className="contributors-container">
-            <div className="contributor-section">
-              <h2 className="h4 mb-3">Contributors</h2>
-              <ul className="contributor-list">
-                {course.contributors.map((contributor, index) => (
-                  <li key={index} className="contributor-item">
-                    <a href={`https://github.com/${contributor.name}`}>
-                      <img
-                        src={contributor.avatar}
-                        alt={`@${contributor.name}`}
-                        className="avatar"
-                      />
-                    </a>
+    <div className="bg-gray-900 text-white min-h-screen">
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          {course ? (
+            <div className="bg-gray-800 p-6 rounded-lg shadow-md">
+              <h2 className="text-2xl font-semibold mb-4">{course.title}</h2>
+              <p className="text-gray-300 mb-4">Description: {course.description}</p>
+              <p className="text-gray-300 mb-4">Category: {course.category}</p>
+              <p className="text-gray-300 mb-4">Tutor: {course.tutor}</p>
+              <h3 className="text-xl font-semibold mb-2">Videos</h3>
+              <ul className="list-disc list-inside text-gray-300 mb-4">
+                {course.videos.map((video, index) => (
+                  <li key={index}>
+                    <h4
+                      className={`text-lg font-medium cursor-pointer ${
+                        video.title === selectedVideoTitle ? "text-blue-500" : ""
+                      }`}
+                      onClick={() => handleVideoTitleClick(video.title)}
+                    >
+                      {video.title}
+                    </h4>
+                    {video.title === selectedVideoTitle && (
+                      <video controls>
+                        <source src={video.url} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
                   </li>
                 ))}
               </ul>
-
-              <div className="add-contributor">
-                <a href="/your-link" className="additional-link">
-                  + Additional contributors
-                </a>
-              </div>
+              {/* Render additional course details as needed */}
             </div>
-          </div>
-          <div className="assignments-container">
-            <h2>Assignments for Video {selectedVideo + 1}</h2>
-            <ul>
-              {assignments.map((assignment, index) => (
-                <li key={index}>{assignment}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div className="right-container">
-          <p className="course-progress-title">{course.name} Progress</p>
-          <ul id="videoItems" className="video-list">
-            <div className="video-list-container">
-              {course.videos.map((video, index) => (
-                <li
-                  key={index}
-                  className={`video-list-item ${
-                    selectedVideo === index ? "active" : ""
-                  }`}
-                  onClick={() => loadVideo(index)}
-                >
-                  <div className="video-info">
-                    {/* <img
-                        className="video-thumbnail"
-                        src="images/img_image.png"
-                        alt="image"
-                      /> */}
-                    <div className="video-details">
-                      <p className="unit-title">{`Unit ${index + 1}`}</p>
-                      <span>{`Points: ${videoPoints[index]}`}</span>
-                      <p className="video-duration">1:57</p>
-                      {/* <span>{`Video ${index + 1}`}</span> */}
-                      {videoCompletion[index] && <span>{`(Completed)`}</span>}
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </div>
-          </ul>
+          ) : (
+            <p className="text-center text-gray-300">Loading...</p>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

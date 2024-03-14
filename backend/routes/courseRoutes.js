@@ -27,4 +27,23 @@ router.post("/add", async (req, res) => {
   }
 });
 
+// Get course details by courseId route
+router.get("/:courseId", async (req, res) => {
+  try {
+    const courseId = req.params.courseId;
+
+    // Find the course by courseId
+    const course = await Course.findById(courseId);
+
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    res.status(200).json({ course });
+  } catch (error) {
+    console.error("Error fetching course details:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 export default router;

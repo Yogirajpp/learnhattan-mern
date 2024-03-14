@@ -9,10 +9,10 @@ import Profile from "./pages/Profile";
 import Courses from "./pages/Courses";
 import Marketplace from "./pages/Marketplace";
 import CourseDetail from "./pages/CourseDetail";
-import courseDetailData from "./JSON/courseDetailData.json";
-import coursesCompleted from "./JSON/coursesCompleted.json";
-import rankings from "./JSON/rankings.json";
-import users from "./JSON/user.json";
+// import courseDetailData from "./JSON/courseDetailData.json";
+// import coursesCompleted from "./JSON/coursesCompleted.json";
+// import rankings from "./JSON/rankings.json";
+// import users from "./JSON/user.json";
 import Contributer from "./pages/Contributer";
 import { useAuthContext } from "./hooks/useAuthContext";
 
@@ -31,12 +31,12 @@ const App = () => {
           </Route>
         ) : (
           <Route element={<RootLayout />}>
-            <Route index element={<Dashboard users={users} rankings={rankings} coursesCompleted={coursesCompleted} />} />
-            <Route exact path="profile" element={<Profile />} />
-            <Route exact path="courses" element={<Courses />} />
-            <Route exact path="marketplace" element={<Marketplace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/courses" element={<Courses />} />
+            <Route exact path="/marketplace" element={<Marketplace />} />
             <Route path="/coursedetail/:courseId" element={<CourseDetail />} />
-            <Route exact path="contributer" element={<Contributer />} />
+            <Route exact path="/contributer" element={<Contributer />} />
           </Route>
         )}
       </Routes>

@@ -4,7 +4,7 @@ import { useLogout } from "../hooks/useLogout";
 import {
   FaBars,
   FaGraduationCap,
-  FaNewspaper,
+  // FaNewspaper,
   FaShoppingCart,
   FaTachometerAlt,
   FaSignOutAlt,
@@ -12,14 +12,19 @@ import {
 import "./Sidebar.css"; // Import your CSS file
 
 const Sidebar = () => {
+  // const { user2 } = useParams();
   const navigate = useNavigate();
   const { logout } = useLogout();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen] = useState(true);
+
+  // const user = JSON.parse(localStorage.getItem("user"));
+  // console.log(user);
 
   const SignOut = async () => {
     logout();
     navigate('/login');
   };
+  
 
   return (
     <div className={`sideMenu ${isOpen ? "open" : ""}`}>
@@ -46,10 +51,10 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/" className="sidebar-link">
-            <FaTachometerAlt />
-            {isOpen && <span>Dashboard</span>}
-          </Link>
+        <Link to={`/dashboard`} className="sidebar-link">
+          <FaTachometerAlt />
+          {isOpen && <span>Dashboard</span>}
+        </Link>
         </li>
         <li>
           <button className="sidebar-link" onClick={SignOut}>

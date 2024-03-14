@@ -28,7 +28,7 @@ router.post("/login", async (req, res) => {
         },
       };
       const authToken = jwt.sign(data,"SECRET123", { expiresIn: "30d" });
-      res.json({ success: true, authToken: authToken });
+      res.json({ success: true, authToken: authToken ,user: data.user.id });
     } catch (err) {
       console.log(err);
       return res.json({ success: false });

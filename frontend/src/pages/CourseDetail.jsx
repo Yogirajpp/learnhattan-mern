@@ -10,7 +10,9 @@ const CourseDetail = () => {
   useEffect(() => {
     const fetchCourseDetail = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/courses/${courseId}`);
+        const response = await axios.get(
+          `http://localhost:8080/api/courses/${courseId}`
+        );
         setCourse(response.data.course);
       } catch (error) {
         console.error("Error fetching course details:", error);
@@ -32,7 +34,9 @@ const CourseDetail = () => {
           {course ? (
             <div className="bg-gray-800 p-6 rounded-lg shadow-md">
               <h2 className="text-2xl font-semibold mb-4">{course.title}</h2>
-              <p className="text-gray-300 mb-4">Description: {course.description}</p>
+              <p className="text-gray-300 mb-4">
+                Description: {course.description}
+              </p>
               <p className="text-gray-300 mb-4">Category: {course.category}</p>
               <p className="text-gray-300 mb-4">Tutor: {course.tutor}</p>
               <h3 className="text-xl font-semibold mb-2">Videos</h3>
@@ -41,7 +45,9 @@ const CourseDetail = () => {
                   <li key={index}>
                     <h4
                       className={`text-lg font-medium cursor-pointer ${
-                        video.title === selectedVideoTitle ? "text-blue-500" : ""
+                        video.title === selectedVideoTitle
+                          ? "text-blue-500"
+                          : ""
                       }`}
                       onClick={() => handleVideoTitleClick(video.title)}
                     >
@@ -60,7 +66,14 @@ const CourseDetail = () => {
               <ul className="list-disc list-inside text-gray-300 mb-4">
                 {course.resources.map((resource, index) => (
                   <li key={index}>
-                    <a href={resource.url} className="text-blue-500" target="_blank" rel="noopener noreferrer">{resource.title}</a>
+                    <a
+                      href={resource.url}
+                      className="text-blue-500"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {resource.title}
+                    </a>
                     <p className="text-gray-300">{resource.description}</p>
                   </li>
                 ))}
@@ -71,7 +84,9 @@ const CourseDetail = () => {
                   <li key={index}>
                     <h4 className="text-lg font-medium">{assignment.title}</h4>
                     <p className="text-gray-300">{assignment.description}</p>
-                    <p className="text-gray-300">Deadline: {new Date(assignment.deadline).toLocaleString()}</p>
+                    <p className="text-gray-300">
+                      Deadline: {new Date(assignment.deadline).toLocaleString()}
+                    </p>
                   </li>
                 ))}
               </ul>

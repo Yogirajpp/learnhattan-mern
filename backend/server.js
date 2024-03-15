@@ -8,7 +8,8 @@ import profileRoutes from "./routes/profileRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import dashboard from "./routes/dashboard.js";
-import achivementsRoutes from "./routes/achivementsRoutes.js"
+import achivementsRoutes from "./routes/achivementsRoutes.js";
+import rankingRoutes from "./routes/rankingRoutes.js";
 
 const app = express();
 dotenv.config();
@@ -25,6 +26,9 @@ app.use("/api/courses", courseRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/dashboard",dashboard);
 app.use("/api/achivements",achivementsRoutes);
+
+//Ranking System
+app.use("/api/ranking",rankingRoutes);
 
 const startServer = async () => {
     try {

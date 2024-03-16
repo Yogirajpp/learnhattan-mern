@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
-
+import "./Courses.css";
 const Courses = () => {
   const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
@@ -40,8 +40,8 @@ const Courses = () => {
                   <img
                     alt="Course thumbnail"
                     height={225}
-                    src="/assets/images/img6.png"
-                    width={410}
+                    src={course.image}
+                    className="h-200 object-cover w-full"
                   />
                   <div className="p-4 flex-1">
                     <h2 className="text-lg font-semibold">{course.title}</h2>

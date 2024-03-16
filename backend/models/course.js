@@ -2,14 +2,17 @@ import mongoose from "mongoose";
 
 const courseSchema = new mongoose.Schema({
   title: {
-     type: String,
-      required: true
+    type: String,
+    required: true
   },
-  description: { 
-     type: String
+  description: {
+    type: String
   },
   category: {
-     type: String
+    type: String
+  },
+  image: {
+    type: String,
   },
   tutor: {
     type: String,

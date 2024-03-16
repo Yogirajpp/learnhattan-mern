@@ -7,13 +7,14 @@ const router = express.Router();
 // Add a new course route
 router.post("/add", async (req, res) => {
   try {
-    const { title, description, category, tutor, videos, resources, assignments } = req.body;
+    const { title, description, category, image, tutor, videos, resources, assignments } = req.body;
 
     // Create a new course document
     const newCourse = await Course.create({
       title,
-      description, 
+      description,
       category,
+      image,
       tutor,
       videos,
       resources,

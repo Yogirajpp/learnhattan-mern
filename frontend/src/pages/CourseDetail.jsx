@@ -129,7 +129,12 @@ const CourseDetail = () => {
             </div>
           </div>
 
-          <div className="grid gap-4 bg-white rounded-lg shadow-lg">
+          <div
+            className="grid gap-4 bg-white rounded-lg  shadow-md overflow-y-auto"
+            style={{
+              maxHeight: "calc(170vh - 400px)",
+            }}
+          >
             <Card>
               <CardHeader>
                 <h3 className="card-title">Course Playlist</h3>

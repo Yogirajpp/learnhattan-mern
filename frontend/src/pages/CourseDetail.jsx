@@ -32,7 +32,7 @@ const CourseDetail = () => {
     course.videos.map((video, index) => (
       <div key={index}>
         {video.title === selectedVideoTitle && (
-          <video controls autoplay>
+          <video controls autoPlay>
             <source src={video.url} type="video/mp4" />
             Your browser does not support the video tag.
           </video>

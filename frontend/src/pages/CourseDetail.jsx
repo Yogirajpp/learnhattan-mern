@@ -47,14 +47,14 @@ const CourseDetail = () => {
 
   const renderVideos = (course, selectedVideoTitle) =>
     course.videos.map((video, index) => (
-      <li key={index}>
+      <div key={index}>
         {video.title === selectedVideoTitle && (
-          <video controls>
-            <source src={video.url} type="video/mp4" autoPlay />
+          <video controls autoplay>
+            <source src={video.url} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         )}
-      </li>
+      </div>
     ));
 
   const renderResources = (course) =>

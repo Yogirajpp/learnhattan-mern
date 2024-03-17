@@ -35,13 +35,13 @@ const Courses = () => {
               {courses.map((course) => (
                 <div
                   key={course._id}
-                  className="flex flex-col shadow-lg rounded-3xl overflow-hidden"
+                  className="course flex flex-col shadow-lg rounded-3xl overflow-hidden"
                 >
                   <img
                     alt="Course thumbnail"
                     height={225}
                     src={course.image}
-                    className="h-200 object-cover w-full"
+                    className=" h-200 object-cover w-full"
                   />
                   <div className="p-4 flex-1">
                     <h2 className="text-lg font-semibold">{course.title}</h2>

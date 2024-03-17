@@ -27,23 +27,6 @@ const CourseDetail = () => {
   const handleVideoTitleClick = (title) => {
     setSelectedVideoTitle(title);
   };
-  const renderVideoTitles = (
-    course,
-    selectedVideoTitle,
-    handleVideoTitleClick
-  ) =>
-    course.videos.map((video, index) => (
-      <li key={index}>
-        <h4
-          className={`text-lg font-medium cursor-pointer ${
-            video.title === selectedVideoTitle ? "text-black" : ""
-          }`}
-          onClick={() => handleVideoTitleClick(video.title)}
-        >
-          {video.title}
-        </h4>
-      </li>
-    ));
 
   const renderVideos = (course, selectedVideoTitle) =>
     course.videos.map((video, index) => (

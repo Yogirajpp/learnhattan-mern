@@ -109,7 +109,7 @@ const CourseDetail = () => {
                 </div>
               </div>
             </div>
-            <div className="grid gap-4">
+            <div className="grid gap-4 w-3/5">
               <p className="text-sm leading-6">
                 In this course, you will gain a deep understanding of quantum
                 mechanics, covering topics such as wave-particle duality,
@@ -118,18 +118,18 @@ const CourseDetail = () => {
                 your knowledge.
               </p>
             </div>
-            <div className="grid gap-4">
+            <div className="grid gap-4 p-4 bg-white rounded-lg shadow-lg w-3/5">
               <h3 className="text-lg font-semibold">Course Resources</h3>
               <ul className="grid gap-2">{renderResources(course)}</ul>
             </div>
 
-            <div className="grid gap-4">
+            <div className="grid gap-4 p-4 bg-white rounded-lg shadow-lg w-3/5">
               <h3 className="text-lg font-semibold">Assignments</h3>
               <ul className="grid gap-2">{renderAssignments(course)}</ul>
             </div>
           </div>
 
-          <div className="grid gap-4">
+          <div className="grid gap-4 bg-white rounded-lg shadow-lg">
             <Card>
               <CardHeader>
                 <h3 className="card-title">Course Playlist</h3>

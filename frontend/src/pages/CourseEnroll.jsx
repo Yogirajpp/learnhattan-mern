@@ -6,23 +6,10 @@ const CourseEnroll = () => {
   return (
     <>
       <div key="1" className="bg-[#1a1a1a] text-white min-h-screen">
-        <nav className="bg-[#333] p-4 flex justify-between items-center">
-          <div className="flex space-x-4">
-            <a className="text-violet-300" href="#">
-              Development
-            </a>
-            <a className="text-violet-300" href="#">
-              Web Development
-            </a>
-            <a className="text-violet-300" href="#">
-              Web Development
-            </a>
-          </div>
-          <button className="bg-violet-600 text-white py-2 px-4 rounded">
-            My Wallet
-          </button>
-        </nav>
-        <main className="p-8 bg-white text-black">
+        <div>
+          <Sidebar />
+        </div>
+        <main className="p-8 ml-44 bg-white text-black">
           <section className="grid md:grid-cols-3  gap-8">
             <div className="md:col-span-2">
               <h1 className="text-3xl font-bold mb-4">

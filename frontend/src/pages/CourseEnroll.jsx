@@ -10,7 +10,7 @@ const CourseEnroll = () => {
           <Sidebar />
         </div>
         <main className="p-8 ml-44 bg-white text-black">
-          <section className="grid md:grid-cols-3  gap-8">
+          <section className="grid md:grid-cols-3 gap-8 p-5 shadow-xl rounded-xl">
             <div className="md:col-span-2">
               <h1 className="text-3xl font-bold mb-4">
                 The Complete 2024 Web3 Development Bootcamp
@@ -27,7 +27,7 @@ const CourseEnroll = () => {
               </div>
               <div className="text-sm mb-4">
                 Created by
-                <span className="text-violet-300">Yogi Bhalu</span>
+                <span className="text-violet-300"> Devin</span>
               </div>
               <div className="flex items-center text-sm mb-4">
                 <span>Last updated 3/2024</span>
@@ -39,17 +39,7 @@ const CourseEnroll = () => {
               <Button className="bg-violet-600 text-white py-2 px-4 rounded">
                 Go to course
               </Button>
-              <div className="mt-4">
-                <div className="text-sm mb-2">This course includes:</div>
-                <ul className="text-sm list-disc pl-5 space-y-1">
-                  <li>67 hours on-demand video</li>
-                  <li>6 articles</li>
-                  <li>74 downloadable resources</li>
-                  <li>Access on mobile and TV</li>
-                  <li>Certificate of completion</li>
-                  <li>Full lifetime access</li>
-                </ul>
-              </div>
+
               <div className="flex space-x-2 mt-4">
                 <Button
                   className="border border-violet-600 text-violet-600"
@@ -66,14 +56,25 @@ const CourseEnroll = () => {
               </div>
             </div>
             <div className="bg-white text-black shadow-xl t p-4 rounded">
-              <div className="bg-white h-56 shadow-xl w-full mb-4" />
+              <div className="bg-white h-56 shadow-xl w-full mb-4 rounded-xl" />
               <div className="text-sm">
                 <div className="mb-2">30-Day Money-Back Guarantee</div>
+                <div className="mt-4">
+                  <div className="text-sm mb-2">This course includes:</div>
+                  <ul className="text-sm list-disc pl-5 space-y-1">
+                    <li>67 hours on-demand video</li>
+                    <li>6 articles</li>
+                    <li>74 downloadable resources</li>
+                    <li>Access on mobile and TV</li>
+                    <li>Certificate of completion</li>
+                    <li>Full lifetime access</li>
+                  </ul>
+                </div>
                 <div className="mb-2">Share this course</div>
               </div>
             </div>
           </section>
-          <section className="mt-8">
+          <section className="mt-8 shadow-xl rounded-xl p-5">
             <h2 className="text-xl font-bold mb-4">What you'll learn</h2>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-2">
@@ -150,7 +151,7 @@ const CourseEnroll = () => {
             <div className="flex items-center mb-4">
               <div className="w-24 h-24 rounded-full bg-[#222] mr-4" />
               <div>
-                <h3 className="text-lg font-bold">Yogi Bhalu</h3>
+                <h3 className="text-lg font-bold">Devin </h3>
                 <p className="text-sm">Developer and Lead Instructor</p>
                 <p className="text-sm">4.7 Instructor Rating</p>
                 <p className="text-sm">72,046 Reviews</p>
@@ -159,7 +160,7 @@ const CourseEnroll = () => {
               </div>
             </div>
             <p className="text-sm mb-4">
-              I'm Yogi, I'm a developer with a passion for teaching. I've had
+              I'm devin, I'm a developer with a passion for teaching. I've had
               the instructor at the London App Brewery, London's leading
               Programming Bootcamp. I've helped hundreds of thousands of
               students learn to code and change their lives by becoming

@@ -70,7 +70,7 @@ const CourseDetail = () => {
     <>
       <Sidebar />
       {course ? (
-        <div className="grid md:grid-cols-[140%_50%] p-4 sm:ml-64 mt-5 gap-6 max-w-2xl w-full items-start">
+        <div className="grid md:grid-cols-[145%_50%] p-4 sm:ml-52 mt-16 gap-6 max-w-2xl w-full items-start">
           <div className="flex flex-col gap-4">
             <div className="aspect-video overflow-hidden bg-gray-100 rounded-lg">
               <span className="w-full h-full object-cover rounded-md bg-muted">

@@ -24,47 +24,44 @@ const Courses = () => {
   }, []);
 
   return (
-    <div className=" bg-zinc-200 min-h-screen">
-      <div className="container mx-auto px-4 ">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="md:col-span-1">
-            <Sidebar />
-          </div>
-          <div className="md:col-span-2 ml-48">
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {courses.map((course) => (
-                <div
-                  key={course._id}
-                  className="course flex flex-col shadow-lg rounded-3xl overflow-hidden"
-                >
-                  <img
-                    alt="Course thumbnail"
-                    height={225}
-                    src={course.image}
-                    className=" h-200 object-cover w-full"
-                  />
-                  <div className="p-4 flex-1">
-                    <h2 className="text-lg font-semibold">{course.title}</h2>
-                    <p className="text-sm text-gray-500 line-clamp-2">
-                      {course.description}{" "}
-                    </p>
-                    <p className="text-sm text-gray-500 mt-2">
-                      {course.category}
-                    </p>
-                  </div>
-                  <button
-                    className="flex items-center justify-center p-4 bg-gray-100 text-sm w-full"
-                    onClick={() => navigate(`/coursedetail/${course._id}`)}
-                  >
-                    View Details
-                  </button>
-                </div>
-              ))}
+    <>
+      {/* // <div className=" bg-zinc-200 min-h-screen">
+    //   <div className="container mx-auto px-4 ">
+    //     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    //       <div className="md:col-span-1"> */}
+      <Sidebar />
+      {/* // </div> */}
+      <div className="md:col-span-2 p-4 sm:ml-52 mt-16">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {courses.map((course) => (
+            <div
+              key={course._id}
+              className="course flex flex-col shadow-lg rounded-3xl overflow-hidden"
+            >
+              <img
+                alt="Course thumbnail"
+                height={225}
+                src={course.image}
+                className=" h-200 object-cover w-full"
+              />
+              <div className="p-4 flex-1">
+                <h2 className="text-lg font-semibold">{course.title}</h2>
+                <p className="text-sm text-gray-500 line-clamp-2">
+                  {course.description}{" "}
+                </p>
+                <p className="text-sm text-gray-500 mt-2">{course.category}</p>
+              </div>
+              <button
+                className="flex items-center justify-center p-4 bg-gray-100 text-sm w-full"
+                onClick={() => navigate(`/coursedetail/${course._id}`)}
+              >
+                View Details
+              </button>
             </div>
-          </div>
+          ))}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

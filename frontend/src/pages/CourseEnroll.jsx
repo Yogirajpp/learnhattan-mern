@@ -1,8 +1,17 @@
 import { Button } from "@/components/ui/button";
 import Sidebar from "../components/Sidebar";
 import React from "react";
-
+import { signData } from "../components/EnrollContract";
 const CourseEnroll = () => {
+  const enrollCourse = async (courseId) => {
+    try {
+      const signature = await signData(courseId);
+
+      console.log("Signature:", signature);
+    } catch (error) {
+      console.error("Error signing data:", error);
+    }
+  };
   return (
     <>
       <Sidebar />
@@ -55,7 +64,14 @@ const CourseEnroll = () => {
           <div className="bg-white text-black shadow-xl t p-4 rounded">
             <div className="bg-white h-56 shadow-xl w-full mb-4 rounded-xl" />
             <div className="text-sm">
-              <div className="mb-2">30-Day Money-Back Guarantee</div>
+              <div className="mb-2 flex justify-center ">
+                <Button
+                  className="bg-purple-600 hover:bg-purple-700 px-16"
+                  onClick={() => enrollCourse(course._id)}
+                >
+                  Enroll
+                </Button>
+              </div>
               <div className="mt-4">
                 <div className="text-sm mb-2">This course includes:</div>
                 <ul className="text-sm list-disc pl-5 space-y-1">

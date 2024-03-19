@@ -139,25 +139,6 @@ const CourseEnroll = () => {
               <li>Pathfinder 02:23</li>
             </ul>
           </div>
-          <div className="shadow-xl p-4 rounded mb-4">
-            <h3 className="text-sm font-bold mb-2">
-              Front-End Web Development Lectures • 37min
-            </h3>
-            <ul className="text-sm list-none space-y-1">
-              <li>What You'll Get In This Course Preview 03:18</li>
-              <li>Download the Course Syllabus Preview 00:32</li>
-              <li>
-                Download the 12 Rules to Learn to Code eBook [Latest Edition]
-                00:42
-              </li>
-              <li>Assignment 1: Make a Website 00:43</li>
-              <li>How Does the Internet Actually Work? Preview 03:27</li>
-              <li>How Does JavaScript Work? 05:22</li>
-              <li>How to Get the Most Out of the Course 03:33</li>
-              <li>How to Get Help When You're Stuck 04:39</li>
-              <li>Pathfinder 02:23</li>
-            </ul>
-          </div>
         </section>
         <section className="mt-8 p-7 rounded-xl shadow-xl">
           <h2 className="text-xl font-bold mb-4">Instructor</h2>
@@ -179,19 +160,6 @@ const CourseEnroll = () => {
             code and change their lives by becoming developers. But most
             importantly, I realized that my greatest joy is teaching others what
             I was once desperate to learn.
-          </p>
-          <p className="text-sm mb-4">
-            I've spent close to two years teaching myself Java at 12 years old,
-            wanting to build my own Space Invader game. Since then, I've
-            launched hundreds of websites, apps and games. But most importantly,
-            I realized that my greatest pleasure is teaching.
-          </p>
-          <p className="text-sm">
-            I spend most of my time researching how to make learning to code fun
-            and make hard concepts easy to understand. I apply my love of
-            teaching to my bootcamp courses. My courses could feel different,
-            but also lots of explanations and animations to make sure everything
-            is easy to understand.
           </p>
         </section>
         <section className="mt-8 shadow-xl p-7 rounded-xl">

@@ -15,7 +15,7 @@ const CourseEnroll = () => {
   return (
     <>
       <Sidebar />
-      <main className="p-8 ml-52 mt-16  bg-white text-black">
+      <main className="p-8 ml-52 mt-16 bg-white text-black">
         <section className="grid md:grid-cols-3 gap-8 p-5 shadow-xl rounded-xl">
           <div className="md:col-span-2">
             <h1 className="text-3xl font-bold mb-4">

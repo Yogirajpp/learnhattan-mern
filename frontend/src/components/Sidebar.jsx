@@ -98,8 +98,10 @@ const Sidebar = () => {
             </li>
 
             <li>
-              <button onClick={SignOut} className="flex items-center p-2 pr-20 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
->
+              <button
+                onClick={SignOut}
+                className="flex items-center p-2 pr-20 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
                 <FaSignOutAlt className={iconClass} />
                 <span className="flex-1 ms-3 whitespace-nowrap">Sign Out</span>
               </button>

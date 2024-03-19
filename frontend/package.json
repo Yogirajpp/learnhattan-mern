@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
+    "@rainbow-me/rainbowkit": "^2.0.2",
+    "@tanstack/react-query": "^5.28.4",
     "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
@@ -25,6 +27,8 @@
     "react-router-dom": "^6.22.1",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
+    "viem": "^2.8.13",
+    "wagmi": "^2.5.11",
     "web-vitals": "^3.5.2"
   },
   "devDependencies": {

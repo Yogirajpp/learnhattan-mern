@@ -1,11 +1,11 @@
 // import Sidebar from "../components/Sidebar";
-import TopNavBar from "../components/TopNavBar";
+// import TopNavBar from "../components/TopNavBar";
 import { Outlet } from "react-router-dom";
 
 const RootLayout = () => {
   return (
     <div className="">
-      <TopNavBar />
+      {/* <TopNavBar /> */}
       {/* <Sidebar /> */}
       <section>
         <Outlet />

@@ -53,7 +53,7 @@ const Courses = () => {
               </div>
               <button
                 className="flex items-center justify-center p-4 bg-gray-100 text-sm w-full"
-                onClick={() => navigate(`/coursedetail/${course._id}`)}
+                onClick={() => navigate(`/courseEnroll/${course._id}`)}
               >
                 View Details
               </button>

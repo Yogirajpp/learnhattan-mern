@@ -38,7 +38,7 @@ const App = () => {
             <Route exact path="/marketplace" element={<Marketplace />} />
             <Route path="/coursedetail/:courseId" element={<CourseDetail />} />
             <Route exact path="/contributer" element={<Contributer />} />
-            <Route exact path="/CourseEnroll" element={<CourseEnroll />} />
+            <Route exact path="/courseEnroll/:courseId" element={<CourseEnroll />} />
           </Route>
         )}
       </Routes>

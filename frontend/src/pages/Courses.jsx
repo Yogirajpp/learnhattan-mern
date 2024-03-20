@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
-
+import "./Courses.css";
 const Courses = () => {
   const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
@@ -10,7 +10,9 @@ const Courses = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/users/allcourses");
+        const response = await axios.get(
+          "http://localhost:8080/api/users/allcourses"
+        );
         setCourses(response.data.courses);
       } catch (error) {
         console.error("Error fetching courses:", error);
@@ -22,37 +24,44 @@ const Courses = () => {
   }, []);
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen">
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="md:col-span-1">
-            <Sidebar />
-          </div>
-          <div className="md:col-span-2">
-            <div className="grid grid-cols-1 gap-4">
-              {courses.map((course) => (
-                <div
-                  key={course._id}
-                  className="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300"
-                >
-                  {/* Course card content */}
-                  <h3 className="text-xl font-semibold mb-2">{course.title}</h3>
-                  <p className="text-gray-300 mb-2">Description: {course.description}</p>
-                  <p className="text-gray-300 mb-4">Category: {course.category}</p>
-                  {/* Additional course information can be rendered here */}
-                  <button
-                    className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
-                    onClick={() => navigate(`/coursedetail/${course._id}`)}
-                  >
-                    View Details
-                  </button>
-                </div>
-              ))}
+    <>
+      {/* // <div className=" bg-zinc-200 min-h-screen">
+    //   <div className="container mx-auto px-4 ">
+    //     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    //       <div className="md:col-span-1"> */}
+      <Sidebar />
+      {/* // </div> */}
+      <div className="md:col-span-2 p-4 sm:ml-52 mt-16">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {courses.map((course) => (
+            <div
+              key={course._id}
+              className="course flex flex-col shadow-lg rounded-3xl overflow-hidden"
+            >
+              <img
+                alt="Course thumbnail"
+                height={225}
+                src={course.image}
+                className=" h-200 object-cover w-full"
+              />
+              <div className="p-4 flex-1">
+                <h2 className="text-lg font-semibold">{course.title}</h2>
+                <p className="text-sm text-gray-500 line-clamp-2">
+                  {course.description}{" "}
+                </p>
+                <p className="text-sm text-gray-500 mt-2">{course.category}</p>
+              </div>
+              <button
+                className="flex items-center justify-center p-4 bg-gray-100 text-sm w-full"
+                onClick={() => navigate(`/coursedetail/${course._id}`)}
+              >
+                View Details
+              </button>
             </div>
-          </div>
+          ))}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

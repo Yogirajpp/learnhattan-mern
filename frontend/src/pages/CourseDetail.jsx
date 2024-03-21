@@ -130,37 +130,38 @@ const CourseDetail = () => {
           </div>
 
           <div
-            className="grid gap-4 bg-white rounded-lg  shadow-md overflow-y-auto"
+            className="grid gap-4 bg-white rounded-lg  shadow-md overflow-y-auto md:w-[100%] md:mr-10"
             style={{
               maxHeight: "calc(140vh - 400px)",
             }}
           >
-            <Card>
-              <CardHeader>
-                <h3 className="card-title">Course Playlist</h3>
-              </CardHeader>
-              <CardContent className="p-0">
-                <ul className="divide-y">
-                  {course.videos.map((video, index) => (
-                    <li key={index} className="flex items-center gap-4 p-4">
-                      <VideoIcon className="h-6 w-6" />
-                      <div className="grid gap-1.5">
-                        <h3
-                          className="font-medium text-sm cursor-pointer"
-                          onClick={() => handleVideoTitleClick(video.title)}
-                        >
-                          {video.title}
-                        </h3>
-                        <p className="text-xs text-gray-500">
-                          {video.description}unit-1
-                        </p>
-                      </div>
-                      <span className="text-sm">{video.duration}5:45</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+            <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-md mx-auto">
+              <h2 className="text-2xl font-bold mb-4">Course Playlist</h2>
+
+              <ul className="space-y-2">
+                {course.videos.map((video, index) => (
+                  <li
+                    key={index}
+                    className="flex items-center justify-between p-2 rounded hover:bg-gray-100 cursor-pointer"
+                  >
+                    <div className="flex items-center space-x-2"></div>
+                    <VideoIcon className="h-6 w-6" />
+                    <div>
+                      <p
+                        className="font-medium"
+                        onClick={() => handleVideoTitleClick(video.title)}
+                      >
+                        {video.title}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        {video.description}unit-1
+                      </p>
+                    </div>
+                    <span className="text-sm">{video.duration}5:45</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       ) : (

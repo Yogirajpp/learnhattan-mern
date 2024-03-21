@@ -68,17 +68,14 @@ const CourseEnroll = () => {
               <span className="mx-2">·</span>
               <span>3 more</span>
             </div>
-            <Button className="bg-violet-600 text-white py-2 px-4 rounded">
-              Go to course
+            <Button
+              className="bg-violet-600 text-white py-2 px-4 rounded"
+              onClick={() => navigate("/courses")}
+            >
+              Go to courses
             </Button>
 
             <div className="flex space-x-2 mt-4">
-              <Button
-                className="border border-violet-600 text-violet-600"
-                variant="outline"
-              >
-                Gift this course
-              </Button>
               <Button
                 className="border border-violet-600 text-violet-600"
                 variant="outline"
@@ -171,7 +168,19 @@ const CourseEnroll = () => {
         <section className="mt-8 p-7 rounded-xl shadow-xl">
           <h2 className="text-xl font-bold mb-4">Instructor</h2>
           <div className="flex items-center mb-4">
-            <div className="w-24 h-24 rounded-full bg-[#222] mr-4" />
+            <div className="w-24 h-24 rounded-full  mr-4">
+              <img
+                alt="Avatar"
+                className="rounded-full"
+                height="100"
+                src="https://avatars.githubusercontent.com/u/266302?v=4"
+                style={{
+                  aspectRatio: "40/40",
+                  objectFit: "cover",
+                }}
+                width="100"
+              />
+            </div>
             <div>
               <h3 className="text-lg font-bold">Devin </h3>
               <p className="text-sm">Developer and Lead Instructor</p>

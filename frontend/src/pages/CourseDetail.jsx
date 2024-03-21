@@ -70,8 +70,8 @@ const CourseDetail = () => {
     <>
       <Sidebar />
       {course ? (
-        <div className="grid md:grid-cols-[145%_50%] p-4 sm:ml-52 mt-16 gap-6 max-w-2xl w-full items-start">
-          <div className="flex flex-col gap-4">
+        <div className="md:flex justify-between p-4 gap-6 sm:ml-52 mt-16 sm:w-full items-start">
+          <div className="flex flex-col gap-4 md:w-[65%]">
             <div className="aspect-video overflow-hidden bg-gray-100 rounded-lg">
               <span className="w-full h-full object-cover rounded-md bg-muted">
                 {renderVideos(course, selectedVideoTitle)}
@@ -129,38 +129,31 @@ const CourseDetail = () => {
             </div>
           </div>
 
-          <div
-            className="grid gap-4 bg-white rounded-lg  shadow-md overflow-y-auto"
-            style={{
-              maxHeight: "calc(140vh - 400px)",
-            }}
-          >
-            <Card>
-              <CardHeader>
-                <h3 className="card-title">Course Playlist</h3>
-              </CardHeader>
-              <CardContent className="p-0">
-                <ul className="divide-y">
-                  {course.videos.map((video, index) => (
-                    <li key={index} className="flex items-center gap-4 p-4">
-                      <VideoIcon className="h-6 w-6" />
-                      <div className="grid gap-1.5">
-                        <h3
-                          className="font-medium text-sm cursor-pointer"
-                          onClick={() => handleVideoTitleClick(video.title)}
-                        >
-                          {video.title}
-                        </h3>
-                        <p className="text-xs text-gray-500">
-                          {video.description}unit-1
+          <div className="md:w-[35%] w-[100%] md:mr-28">
+            <section className="bg-white rounded-lg shadow-md p-6 max-w-sm ">
+              <h2 className="text-2xl font-bold mb-4">Course content</h2>
+              <ul className="space-y-2">
+                {course.videos.map((video, index) => (
+                  <li
+                    key={index}
+                    className="flex items-center justify-between p-2 rounded hover:bg-gray-100 cursor-pointer"
+                    onClick={() => handleVideoTitleClick(video.title)}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <VideoIcon className="w-6 h-6" />
+                      <div>
+                        <p className="font-medium">{video.title}</p>
+                        <p className="text-sm text-gray-600">
+                          {video.unit}unit1
                         </p>
                       </div>
-                      <span className="text-sm">{video.duration}5:45</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+                    </div>
+                    <span>{video.duration}5:00</span>
+                  </li>
+                ))}
+              </ul>
+              {/* </div> */}
+            </section>
           </div>
         </div>
       ) : (

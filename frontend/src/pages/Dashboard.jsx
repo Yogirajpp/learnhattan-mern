@@ -30,11 +30,11 @@ const Dashboard = () => {
       <Sidebar />
       <h1 className="text-4xl font-bold">Dashboard</h1>
       {user && (
-        <div className=" text-black min-h-screen">
-          <div className="flex flex-col items-center p-6">
+        <div className=" sm:ml-52 text-black min-h-screen">
+          <div className="flex flex-col shadow-xl  rounded-xl items-center p-6">
             <div className="flex items-center space-x-4 mb-6">
               {/* <MenuIcon className="text-white" /> */}
-              <h1 className="text-4xl font-bold">Dashboard</h1>
+              <h1 className="text-4xl font-bold mt-10">Dashboard</h1>
             </div>
             <div className="flex flex-col items-center p-6 rounded-lg w-full max-w-4xl">
               <div className="flex flex-col items-center mb-6">
@@ -52,9 +52,9 @@ const Dashboard = () => {
                       <span className="text-xs font-bold uppercase tracking-wide text-gray-400">Elite</span>
                       <span className="text-xs font-bold text-gray-400">425</span>
                     </div>
-                    <div className=" h-2 rounded-full">
+                    <div className="shadow-xl  h-2 rounded-full">
                       <div
-                        className="bg-[#bd1e59] h-2 rounded-full"
+                        className="bg-[#bd1e59] h-2 shadow-xl rounded-full"
                         style={{
                           width: "60%",
                         }}

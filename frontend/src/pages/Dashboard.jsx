@@ -30,13 +30,13 @@ const Dashboard = () => {
       <Sidebar />
       <h1 className="text-4xl font-bold">Dashboard</h1>
       {user && (
-        <div className="bg-[#1a1a1a] text-white min-h-screen">
+        <div className=" text-black min-h-screen">
           <div className="flex flex-col items-center p-6">
             <div className="flex items-center space-x-4 mb-6">
               {/* <MenuIcon className="text-white" /> */}
               <h1 className="text-4xl font-bold">Dashboard</h1>
             </div>
-            <div className="flex flex-col items-center bg-[#252525] p-6 rounded-lg w-full max-w-4xl">
+            <div className="flex flex-col items-center p-6 rounded-lg w-full max-w-4xl">
               <div className="flex flex-col items-center mb-6">
                 <Avatar>
                   <AvatarImage alt="user name" src="/placeholder.svg?height=120&width=120" />
@@ -47,12 +47,12 @@ const Dashboard = () => {
               </div>
               <div className="flex flex-col lg:flex-row lg:space-x-6 w-full">
                 <div className="flex-1 mb-6 lg:mb-0">
-                  <div className="bg-[#1e1e1e] p-4 rounded-lg">
+                  <div className=" p-4 shadow-xl  rounded-xl ">
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-xs font-bold uppercase tracking-wide text-gray-400">Elite</span>
                       <span className="text-xs font-bold text-gray-400">425</span>
                     </div>
-                    <div className="bg-gray-700 h-2 rounded-full">
+                    <div className=" h-2 rounded-full">
                       <div
                         className="bg-[#bd1e59] h-2 rounded-full"
                         style={{
@@ -69,7 +69,7 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="flex-1">
-                  <div className="bg-[#1e1e1e] p-4 rounded-lg h-full">
+                  <div className="p-4 shadow-xl  rounded-xl h-full">
                     <h3 className="text-xl font-semibold mb-4">ACHIVEMENTS</h3>
                     <ul>
                       <li className="flex items-center mb-2">
@@ -88,7 +88,7 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="flex-1">
-                  <div className="bg-[#1e1e1e] p-4 rounded-lg h-full">
+                  <div className="shadow-xl  rounded-xl p-4 h-full">
                     <h3 className="text-xl font-semibold mb-4">PROFILE</h3>
                     <ul>
                       <li className="flex items-center mb-2">

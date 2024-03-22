@@ -24,17 +24,17 @@ const Dashboard = () => {
   }, [user2]);
 
   return (
-    <div>
+    <>
       <h1>User Dashboard</h1>
       {user && (
         <div>
           <h2>{user.username}</h2>
           <p>Email: {user.email}</p>
           <p>Description: {user.description}</p>
-          {/* Render additional user details as needed */}
+
         </div>
       )}
-    </div>
+    </>
   );
 };
 

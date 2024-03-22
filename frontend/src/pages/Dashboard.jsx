@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 // import { useParams } from "react-router-dom";
 import axios from "axios";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
+import Sidebar from "../components/Sidebar";
 
 const Dashboard = () => {
   // const { userId } = useParams();
@@ -26,6 +27,7 @@ const Dashboard = () => {
 
   return (
     <>
+      <Sidebar />
       <h1 className="text-4xl font-bold">Dashboard</h1>
       {user && (
         <div className="bg-[#1a1a1a] text-white min-h-screen">

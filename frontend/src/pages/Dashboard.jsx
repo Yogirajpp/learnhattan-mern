@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 // import { useParams } from "react-router-dom";
 import axios from "axios";
+import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 
 const Dashboard = () => {
   // const { userId } = useParams();

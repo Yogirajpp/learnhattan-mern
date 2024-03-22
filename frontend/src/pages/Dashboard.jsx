@@ -39,7 +39,7 @@ const Dashboard = () => {
             <div className="flex flex-col items-center p-6 rounded-lg w-full max-w-4xl">
               <div className="flex flex-col items-center mb-6">
                 <Avatar>
-                  <AvatarImage alt="user name" src="/placeholder.svg?height=120&width=120" />
+                  <AvatarImage alt="user name" src={user.photo} />
                   <AvatarFallback>VM</AvatarFallback>
                 </Avatar>
                 <h2 className="text-3xl font-semibold mt-4">{user.username}</h2>

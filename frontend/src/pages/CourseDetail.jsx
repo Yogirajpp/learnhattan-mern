@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { CardHeader, CardContent, Card } from "@/components/ui/card";
 import Sidebar from "../components/Sidebar";
+import { Button } from "@/components/ui/button";
 const CourseDetail = () => {
   const { courseId } = useParams(); // Make sure courseId is correctly extracted
   const [course, setCourse] = useState(null);
@@ -70,6 +71,7 @@ const CourseDetail = () => {
         <p className="text-gray-400">
           Deadline: {new Date(assignment.deadline).toLocaleString()}
         </p>
+        <Button>View Detail</Button>
       </li>
     ));
 
@@ -133,6 +135,7 @@ const CourseDetail = () => {
             <div className="grid gap-4 p-4 bg-white rounded-lg shadow-lg w-3/5">
               <h3 className="text-lg font-semibold">Assignments</h3>
               <ul className="grid gap-2">{renderAssignments(course)}</ul>
+              {/* <Button>View Detail</Button>/ */}
             </div>
           </div>
 

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 // import { useParams } from "react-router-dom";
 import axios from "axios";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
@@ -6,17 +7,20 @@ import Sidebar from "../components/Sidebar";
 
 const Dashboard = () => {
   // const { userId } = useParams();
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
 
   const user2 = JSON.parse(localStorage.getItem("user"));
-  // console.log(user2);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/users/${user2.user}`);
         setUser(response.data.user);
-        // console.log(response);
+        // Fetch enrolled courses for the user
+        const enrolledCoursesResponse = await axios.get(`http://localhost:8080/api/users/enrolled-courses/${user2.user}`);
+        setEnrolledCourses(enrolledCoursesResponse.data.enrolledCourses);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -106,6 +110,41 @@ const Dashboard = () => {
                     </ul>
                   </div>
                 </div>
+
+
+              </div>
+            </div>
+
+            {/* Enrolled Courses */}
+            <div className="mt-8">
+              <h2 className="text-2xl font-semibold mb-4">Enrolled Courses</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {enrolledCourses.map(course => (
+                  <div
+                    key={course._id}
+                    className="course flex flex-col shadow-lg rounded-3xl overflow-hidden"
+                  >
+                    <img
+                      alt="Course thumbnail"
+                      height={225}
+                      src={course.image}
+                      className=" h-200 object-cover w-full"
+                    />
+                    <div className="p-4 flex-1">
+                      <h2 className="text-lg font-semibold">{course.title}</h2>
+                      <p className="text-sm text-gray-500 line-clamp-2">
+                        {course.description}{" "}
+                      </p>
+                      <p className="text-sm text-gray-500 mt-2">{course.category}</p>
+                    </div>
+                    <button
+                      className="flex items-center justify-center p-4 bg-gray-100 text-sm w-full"
+                      onClick={() => navigate(`/courseEnroll/${course._id}`)}
+                    >
+                      View Details
+                    </button>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

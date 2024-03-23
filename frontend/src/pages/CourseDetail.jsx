@@ -4,6 +4,11 @@ import axios from "axios";
 import { CardHeader, CardContent, Card } from "@/components/ui/card";
 import Sidebar from "../components/Sidebar";
 import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 const CourseDetail = () => {
   const { courseId } = useParams(); // Make sure courseId is correctly extracted
   const [course, setCourse] = useState(null);
@@ -71,7 +76,14 @@ const CourseDetail = () => {
         <p className="text-gray-400">
           Deadline: {new Date(assignment.deadline).toLocaleString()}
         </p>
-        <Button>View Detail</Button>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline">View Detail</Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <div>hi</div>
+          </PopoverContent>
+        </Popover>
       </li>
     ));
 

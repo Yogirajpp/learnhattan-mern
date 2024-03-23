@@ -81,11 +81,10 @@ const CourseDetail = () => {
           <PopoverTrigger asChild>
             <Button variant="outline">View Detail</Button>
           </PopoverTrigger>
-          <PopoverContent className="sm:w-full">
+          <PopoverContent className="w-full">
             <Card >
               <CardContent className="space-y-2">
                 <div className="flex items-center space-x-2">
-                  {/* <FileCodeIcon className="w-5 h-5" /> */}
                   <div className="font-semibold hover:underline" href="#">
                     {assignment.title}
                   </div>
@@ -97,7 +96,7 @@ const CourseDetail = () => {
               <CardFooter>
                 <div>
                   <div className="grid w-full gap-4 p-4">
-                    <h2 className="text-lg font-semibold">Bubble Sort</h2>
+
                     <p className="text-sm text-gray-500">Paste your code here. Click submit when you are ready.</p>
                     <Textarea className="min-h-[100px]" id="bubble-sort" placeholder="Paste your code here." />
                     <div className="flex justify-end w-full gap-2">

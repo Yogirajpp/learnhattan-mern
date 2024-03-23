@@ -4,6 +4,9 @@ import express from "express";
 import User from "../models/user.js";
 import Course from "../models/course.js"; // Assuming you have a Course model
 import Achievement from "../models/achivements.js";
+// import Submission from "../models/submission.js";
+import Assignment from "../models/assignment.js";
+
 
 const router = express.Router();
 
@@ -60,6 +63,24 @@ router.get("/enrolled-courses/:userId", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+router.post("/submit-assignment", async (req, res) => {
+  try {
+    const { userId, assignmentId } = req.body;
+
+    // Update user's submitted assignments
+    await User.findByIdAndUpdate(userId, { $addToSet: { submittedAssignments: assignmentId } });
+
+    // Update assignment's submission status
+    await Assignment.findByIdAndUpdate(assignmentId, { submissionStatus: "submitted" });
+
+    res.status(200).json({ success: true, message: "Assignment submitted successfully" });
+  } catch (error) {
+    console.error("Error submitting assignment:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
 
 // Mark a course as completed for a user route
 router.post("/:userId/complete-course/:courseId", async (req, res) => {

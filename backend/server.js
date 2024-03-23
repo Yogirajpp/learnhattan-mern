@@ -10,6 +10,7 @@ import userRoutes from "./routes/userRoutes.js";
 import dashboard from "./routes/dashboard.js";
 import achivementsRoutes from "./routes/achivementsRoutes.js";
 import rankingRoutes from "./routes/rankingRoutes.js";
+import assignmentsRoutes from "./routes/assignmentRoutes.js";
 import markContributorRouter from "./routes/markContributorRoutes.js"; // Import the router
 
 const app = express();
@@ -27,6 +28,9 @@ app.use("/api/courses", courseRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/dashboard",dashboard);
 app.use("/api/achivements",achivementsRoutes);
+
+
+app.use("/api/assignments", assignmentsRoutes);
 
 // Mount the router at the desired endpoint
 app.use("/api/users", markContributorRouter);

@@ -26,6 +26,8 @@ const userSchema = new mongoose.Schema({
     },
   ],
   contributor: { type: Boolean, default: false }, // New field for contributor tag
+  submittedAssignments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Assignment" }], // Track submitted assignments
+  completedAssignments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Assignment" }], // Track completed assignments
 });
 
 const User = mongoose.model("User", userSchema);

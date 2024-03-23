@@ -96,7 +96,6 @@ const CourseDetail = () => {
               <CardFooter>
                 <div>
                   <div className="grid w-full gap-4 p-4">
-
                     <p className="text-sm text-gray-500">Paste your code here. Click submit when you are ready.</p>
                     <Textarea className="min-h-[100px]" id="bubble-sort" placeholder="Paste your code here." />
                     <div className="flex justify-end w-full gap-2">
@@ -171,7 +170,6 @@ const CourseDetail = () => {
             <div className="grid gap-4 p-4 bg-white rounded-lg shadow-lg w-3/5">
               <h3 className="text-lg font-semibold">Assignments</h3>
               <ul className="grid gap-2">{renderAssignments(course)}</ul>
-              {/* <Button>View Detail</Button>/ */}
             </div>
           </div>
 
@@ -198,7 +196,6 @@ const CourseDetail = () => {
                   </li>
                 ))}
               </ul>
-              {/* </div> */}
             </section>
           </div>
         </div>

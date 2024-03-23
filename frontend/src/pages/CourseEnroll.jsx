@@ -98,7 +98,7 @@ const CourseEnroll = () => {
               className="bg-violet-600 text-white py-2 px-4 rounded"
               onClick={() => navigate("/courses")}
             >
-              Go to courses
+              Go Back to Courses
             </Button>
 
             <div className="flex space-x-2 mt-4">

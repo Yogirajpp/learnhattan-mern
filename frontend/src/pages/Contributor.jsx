@@ -2,12 +2,31 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import { CardTitle, CardDescription, CardHeader, CardContent, Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 const Contributor = () => {
+  const [course, setCourse] = useState(null);
+  const { courseId } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/courses/${courseId}`);
+        setCourse(response.data.course);
+      } catch (error) {
+        console.error("Error fetching course:", error);
+      }
+    };
+
+    // Fetch the specific course when the component mounts
+    fetchCourse();
+  }, [courseId]);
   return (
     <>
       <Sidebar />
-      <Card className="w-full max-w-3xl sm:ml-52 mt-16">
+      <Card className="w-full max-w-5xl sm:ml-52 mt-16">
         <CardHeader className="pb-0">
           <CardTitle>Contributor Panel</CardTitle>
           <CardDescription>View contributor details and course assignments.</CardDescription>
@@ -53,27 +72,27 @@ const Contributor = () => {
               </div>
               <div className="grid grid-cols-3 items-center py-3 border-t">
                 <span className="flex items-center space-x-2">
-                  <span className="font-semibold">Introduction to Biology</span>
+                  <span className="font-semibold  text-lg">Course 1</span>
                 </span>
                 <span>Mar 12, 2023</span>
                 <span>Mar 30, 2023</span>
-                <Button className="w-20">Review</Button>
+                <Button className="w-20 h-8">Review</Button>
               </div>
               <div className="grid grid-cols-3 items-center py-3 border-t">
                 <span className="flex items-center space-x-2">
-                  <span className="font-semibold">History of Art</span>
+                  <span className="font-semibold text-lg">Course 2</span>
                 </span>
                 <span>Jan 20, 2023</span>
                 <span>Feb 10, 2023</span>
-                <Button className="w-20">Review</Button>
+                <Button className="w-20 h-8">Review</Button>
               </div>
               <div className="grid grid-cols-3 items-center py-3 border-t">
                 <span className="flex items-center space-x-2">
-                  <span className="font-semibold">Creative Writing Workshop</span>
+                  <span className="font-semibold text-lg">Course 2</span>
                 </span>
                 <span>Apr 5, 2023</span>
                 <span>Apr 25, 2023</span>
-                <Button className="w-20" >Review</Button>
+                <Button className="w-20 h-8" >Review</Button>
               </div>
             </div>
           </div>

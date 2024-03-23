@@ -24,7 +24,8 @@ const userSchema = new mongoose.Schema({
       assignmentId: mongoose.Schema.Types.ObjectId,
       completed: { type: Boolean, default: false },
     },
-  ]
+  ],
+  contributor: { type: Boolean, default: false }, // New field for contributor tag
 });
 
 const User = mongoose.model("User", userSchema);

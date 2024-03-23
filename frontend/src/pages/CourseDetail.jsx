@@ -81,17 +81,17 @@ const CourseDetail = () => {
           <PopoverTrigger asChild>
             <Button variant="outline">View Detail</Button>
           </PopoverTrigger>
-          <PopoverContent>
-            <Card>
+          <PopoverContent className="sm:w-full">
+            <Card >
               <CardContent className="space-y-2">
                 <div className="flex items-center space-x-2">
                   {/* <FileCodeIcon className="w-5 h-5" /> */}
                   <div className="font-semibold hover:underline" href="#">
-                    Implement Bubble Sort
+                    {assignment.title}
                   </div>
                 </div>
                 <p className="text-sm text-gray-500">
-                  Implement the bubble sort algorithm in the programming language of your choice.
+                  {assignment.description}
                 </p>
               </CardContent>
               <CardFooter>
@@ -101,7 +101,6 @@ const CourseDetail = () => {
                     <p className="text-sm text-gray-500">Paste your code here. Click submit when you are ready.</p>
                     <Textarea className="min-h-[100px]" id="bubble-sort" placeholder="Paste your code here." />
                     <div className="flex justify-end w-full gap-2">
-                      <Button variant="outline">Cancel</Button>
                       <Button>Submit</Button>
                     </div>
                   </div>

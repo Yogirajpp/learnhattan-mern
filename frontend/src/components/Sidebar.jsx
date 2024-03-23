@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import WalletButton from "./WalletButton";
-import { FaBook } from "react-icons/fa6";
+import { FaBook, FaUserGroup } from "react-icons/fa6";
 import { RiPieChart2Fill } from "react-icons/ri";
 import { TiThMenu } from "react-icons/ti";
 import { FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
@@ -17,9 +17,8 @@ const Sidebar = () => {
     logout();
     navigate("/login");
   };
-  const sidebarClass = `fixed top-0 left-0 z-40 w-52 shadow-xl h-screen pt-20 transition-transform ${
-    isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-  } bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700`;
+  const sidebarClass = `fixed top-0 left-0 z-40 w-52 shadow-xl h-screen pt-20 transition-transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+    } bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700`;
 
   const menuItemClass =
     "flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group";
@@ -93,6 +92,14 @@ const Sidebar = () => {
                 <FaShoppingCart className={iconClass} />
                 <span className="flex-1 ms-3 whitespace-nowrap">
                   MarketPlace
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/Contributor" className={menuItemClass}>
+                <FaUserGroup className={iconClass} />
+                <span className="flex-1 ms-3 whitespace-nowrap">
+                  Contributor
                 </span>
               </Link>
             </li>

@@ -1,8 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { CardHeader, CardContent, Card } from "@/components/ui/card";
+import { CardContent, Card, CardFooter } from "@/components/ui/card";
 import Sidebar from "../components/Sidebar";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 const CourseDetail = () => {
   const { courseId } = useParams(); // Make sure courseId is correctly extracted
   const [course, setCourse] = useState(null);
@@ -70,6 +77,36 @@ const CourseDetail = () => {
         <p className="text-gray-400">
           Deadline: {new Date(assignment.deadline).toLocaleString()}
         </p>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline">View Detail</Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-full">
+            <Card >
+              <CardContent className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <div className="font-semibold hover:underline" href="#">
+                    {assignment.title}
+                  </div>
+                </div>
+                <p className="text-sm text-gray-500">
+                  {assignment.description}
+                </p>
+              </CardContent>
+              <CardFooter>
+                <div>
+                  <div className="grid w-full gap-4 p-4">
+                    <p className="text-sm text-gray-500">Paste your code here. Click submit when you are ready.</p>
+                    <Textarea className="min-h-[100px]" id="bubble-sort" placeholder="Paste your code here." />
+                    <div className="flex justify-end w-full gap-2">
+                      <Button>Submit</Button>
+                    </div>
+                  </div>
+                </div>
+              </CardFooter>
+            </Card>
+          </PopoverContent>
+        </Popover>
       </li>
     ));
 
@@ -159,7 +196,6 @@ const CourseDetail = () => {
                   </li>
                 ))}
               </ul>
-              {/* </div> */}
             </section>
           </div>
         </div>

@@ -14,7 +14,7 @@ import CourseEnroll from "./pages/CourseEnroll";
 // import coursesCompleted from "./JSON/coursesCompleted.json";
 // import rankings from "./JSON/rankings.json";
 // import users from "./JSON/user.json";
-import Contributer from "./pages/Contributer";
+import Contributor from "./pages/Contributor";
 import { useAuthContext } from "./hooks/useAuthContext";
 
 const App = () => {
@@ -37,7 +37,7 @@ const App = () => {
             <Route exact path="/courses" element={<Courses />} />
             <Route exact path="/marketplace" element={<Marketplace />} />
             <Route path="/coursedetail/:courseId" element={<CourseDetail />} />
-            <Route exact path="/contributer" element={<Contributer />} />
+            <Route exact path="/Contributor" element={<Contributor />} />
             <Route exact path="/courseEnroll/:courseId" element={<CourseEnroll />} />
           </Route>
         )}

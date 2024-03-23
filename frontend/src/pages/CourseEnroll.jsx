@@ -7,6 +7,9 @@ import { signData } from "../components/EnrollContract";
 
 const CourseEnroll = () => {
   const [course, setCourse] = useState(null);
+  // const { userId } = useParams(); // Get the userId from URL param
+  const user2 = JSON.parse(localStorage.getItem("user"));
+  console.log(user2);
   const { courseId } = useParams(); // Get the courseId from URL params
   const navigate = useNavigate();
 
@@ -28,16 +31,39 @@ const CourseEnroll = () => {
 
   const enrollCourse = async () => {
     try {
-      // Call the signData function to get the signature
-      const signature = await signData(course.title);
-      console.log("Signature:", signature);
-
-      // Navigate to the course detail page
-      navigate(`/coursedetail/${courseId}`);
+      console.log(user2.user);
+      
+      // Fetch enrolled courses of the user
+      const enrolledCoursesResponse = await axios.get(`http://localhost:8080/api/users/enrolled-courses/${user2.user}`);
+      const enrolledCourses = enrolledCoursesResponse.data.enrolledCourses;
+  
+      // Check if the courseId exists in the enrolled courses array
+      const isEnrolled = enrolledCourses.some(course => course._id === courseId);
+  
+      if (isEnrolled) {
+        // If user is already enrolled, navigate directly to course detail page
+        navigate(`/coursedetail/${courseId}`);
+      } else {
+        // Call the signData function to get the signature
+        const signature = await signData(course.title);
+        console.log("Signature:", signature);
+        
+        // If not enrolled, proceed with enrollment
+        const response = await axios.post("http://localhost:8080/api/users/enroll", {
+          userId: user2.user, // Assuming user has a property _id
+          courseId: courseId
+        });
+        
+        console.log("Enrollment response:", response.data);
+  
+        // Navigate to the course detail page
+        navigate(`/coursedetail/${courseId}`);
+      }
     } catch (error) {
       console.error("Error signing data:", error);
     }
   };
+  
 
   if (!course) {
     return <p>Loading...</p>;

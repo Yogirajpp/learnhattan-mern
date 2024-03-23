@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { CardHeader, CardContent, Card } from "@/components/ui/card";
+import { CardContent, Card, CardFooter } from "@/components/ui/card";
 import Sidebar from "../components/Sidebar";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea"
 import {
   Popover,
   PopoverContent,
@@ -81,7 +82,32 @@ const CourseDetail = () => {
             <Button variant="outline">View Detail</Button>
           </PopoverTrigger>
           <PopoverContent>
-            <div>hi</div>
+            <Card>
+              <CardContent className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  {/* <FileCodeIcon className="w-5 h-5" /> */}
+                  <div className="font-semibold hover:underline" href="#">
+                    Implement Bubble Sort
+                  </div>
+                </div>
+                <p className="text-sm text-gray-500">
+                  Implement the bubble sort algorithm in the programming language of your choice.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <div>
+                  <div className="grid w-full gap-4 p-4">
+                    <h2 className="text-lg font-semibold">Bubble Sort</h2>
+                    <p className="text-sm text-gray-500">Paste your code here. Click submit when you are ready.</p>
+                    <Textarea className="min-h-[100px]" id="bubble-sort" placeholder="Paste your code here." />
+                    <div className="flex justify-end w-full gap-2">
+                      <Button variant="outline">Cancel</Button>
+                      <Button>Submit</Button>
+                    </div>
+                  </div>
+                </div>
+              </CardFooter>
+            </Card>
           </PopoverContent>
         </Popover>
       </li>

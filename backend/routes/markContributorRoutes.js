@@ -6,10 +6,11 @@ import Contributor from "../models/contributor.js";
 // Create a router instance
 const router = express.Router();
 
-// Route to mark a user as a contributor
-router.put("/:userId/mark-contributor", async (req, res) => {
+// Route to mark a user as a contributor for a specific course
+router.put("/:userId/mark-contributor/:courseId", async (req, res) => {
     try {
       const userId = req.params.userId;
+      const courseId = req.params.courseId;
   
       // Find the user by their ID
       const user = await User.findById(userId);
@@ -21,12 +22,12 @@ router.put("/:userId/mark-contributor", async (req, res) => {
       user.contributor = true; // Set the contributor field to true
       await user.save();
   
-      // Add the user to the Contributor model if they are a contributor
+      // Add the user to the Contributor model for the specific course
       if (user.contributor) {
-        await Contributor.create({ userId: user._id });
+        await Contributor.create({ userId: user._id, courseId });
       }
   
-      res.status(200).json({ message: "User marked as contributor", user });
+      res.status(200).json({ message: "User marked as contributor for the course", user });
     } catch (error) {
       console.error("Error marking user as contributor:", error);
       res.status(500).json({ message: "Internal server error" });

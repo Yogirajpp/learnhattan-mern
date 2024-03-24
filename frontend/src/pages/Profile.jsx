@@ -56,48 +56,6 @@ const Profile = () => {
   };
 
   return (
-    // <div className="procontainer">
-    //   <form onSubmit={handleSubmit} className="proformContainer">
-    //     <div className="prophotoContainer">
-    //       <label className="prolabel">Photo:</label>
-    //       <input type="file" onChange={handleFileChange} accept="image/*" />
-    //       {photo && <img src={photo} alt="Preview" className="prophotoPreview" />}
-    //     </div>
-    //     <div>
-    //       <label className="prolabel">Username:</label>
-    //       <input
-    //         type="text"
-    //         value={username}
-    //         onChange={(e) => setUsername(e.target.value)}
-    //         className="proinputField"
-    //         required
-    //       />
-    //     </div>
-    //     <div>
-    //       <label className="prolabel">Description:</label>
-    //       <textarea
-    //         value={description}
-    //         onChange={(e) => setDescription(e.target.value)}
-    //         className="protextareaField"
-    //         required
-    //       />
-    //     </div>
-    //     <div>
-    //       <label className="prolabel">Skills:</label>
-    //       <TagsInput tags={interests} onChange={setInterests} placeholder="Add Skills" className="protagsInput" />
-    //     </div>
-    //     <div>
-    //       <button type="submit" className="probutton">
-    //         Complete form
-    //       </button>
-    //     </div>
-    //     <div onClick={SignOut}>
-    //       <button type="button" className="probutton">
-    //         Sign Out
-    //       </button>
-    //     </div>
-    //   </form>
-    // </div
     <>
 
 
@@ -116,7 +74,7 @@ const Profile = () => {
                     <Avatar className="w-20 h-20">
                       {photo && <img src={photo} alt="Preview" className=" w-full rounded-full" />}
                     </Avatar>
-                    <span className="font-medium rounded-xl" variant="outline">Upload Photo </span>
+                    <span className="font-semibold  text-base  rounded-xl" >Upload Photo </span>
                   </div>
                 </Label>
 
@@ -130,7 +88,7 @@ const Profile = () => {
             <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-4">
 
               <div className="space-y-2">
-                <Label htmlFor="username">Username</Label>
+                <Label htmlFor="username" placeholder="Username">Username</Label>
                 <Input id="username " type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
               </div>
 

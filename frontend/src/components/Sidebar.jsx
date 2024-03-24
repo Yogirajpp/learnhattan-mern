@@ -5,7 +5,7 @@ import WalletButton from "./WalletButton";
 import { FaBook, FaUserGroup } from "react-icons/fa6";
 import { RiPieChart2Fill } from "react-icons/ri";
 import { TiThMenu } from "react-icons/ti";
-import { FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 const Sidebar = () => {
   const navigate = useNavigate();
   const { logout } = useLogout();

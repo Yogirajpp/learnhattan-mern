@@ -66,13 +66,17 @@ router.get("/enrolled-courses/:userId", async (req, res) => {
 
 router.post("/submit-assignment", async (req, res) => {
   try {
-    const { userId, assignmentId } = req.body;
+    const { userId, assignmentId, code } = req.body;
+
+    // Create a submitted assignment object
+    const submittedAssignment = {
+      assignmentId: assignmentId,
+      code: code,
+      submittedAt: new Date()
+    };
 
     // Update user's submitted assignments
-    await User.findByIdAndUpdate(userId, { $addToSet: { submittedAssignments: assignmentId } });
-
-    // Update assignment's submission status
-    await Assignment.findByIdAndUpdate(assignmentId, { submissionStatus: "submitted" });
+    await User.findByIdAndUpdate(userId, { $push: { submittedAssignments: submittedAssignment } });
 
     res.status(200).json({ success: true, message: "Assignment submitted successfully" });
   } catch (error) {
@@ -80,6 +84,10 @@ router.post("/submit-assignment", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
+
+
+
+
 
 
 // Mark a course as completed for a user route

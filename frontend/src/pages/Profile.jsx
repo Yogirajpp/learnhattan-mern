@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import TagsInput from '../components/TagsInput/TagsInput';
 import axios from 'axios'; // Import Axios for making HTTP requests
 import './Profile.css';
-
+import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 const Profile = () => {
   const navigate = useNavigate();
 
@@ -39,7 +43,7 @@ const Profile = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      
+
       console.log('Data added/updated successfully:', response.data);
       alert('Data added/updated successfully!');
       navigate('/dashboard');

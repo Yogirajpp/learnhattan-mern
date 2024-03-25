@@ -6,6 +6,8 @@ import { FaBook, FaUserGroup } from "react-icons/fa6";
 import { RiPieChart2Fill } from "react-icons/ri";
 import { TiThMenu } from "react-icons/ti";
 import { FaShoppingCart } from "react-icons/fa";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+
 const Sidebar = () => {
   const navigate = useNavigate();
   const { logout } = useLogout();
@@ -56,7 +58,7 @@ const Sidebar = () => {
               </div>
             </div>
             <div className="flex items-center">
-              <WalletButton />
+              <ConnectButton />
               <div className="flex items-center ms-3 relative">
                 <button
                   type="button"

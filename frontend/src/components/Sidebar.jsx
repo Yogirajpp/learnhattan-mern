@@ -5,11 +5,18 @@ import WalletButton from "./WalletButton";
 import { FaBook, FaUserGroup } from "react-icons/fa6";
 import { RiPieChart2Fill } from "react-icons/ri";
 import { TiThMenu } from "react-icons/ti";
-import { FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+
 const Sidebar = () => {
   const navigate = useNavigate();
   const { logout } = useLogout();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -32,9 +39,9 @@ const Sidebar = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
               <button
-                onClick={toggleSidebar}
                 type="button"
                 className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                onClick={toggleSidebar}
               >
                 <span className="sr-only">Open sidebar</span>
                 <TiThMenu />
@@ -51,21 +58,51 @@ const Sidebar = () => {
               </div>
             </div>
             <div className="flex items-center">
-              <WalletButton />
-              <div className="flex items-center ms-3">
-                <div>
-                  <button
-                    type="button"
-                    className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                  >
-                    <span className="sr-only">Open user menu</span>
-                    <img
-                      className="w-8 h-8 rounded-full"
-                      src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                      alt="user photo"
-                    />
-                  </button>
-                </div>
+              <ConnectButton />
+              <div className="flex items-center ms-3 relative">
+                <button
+                  type="button"
+                  className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                  aria-expanded={isMenuOpen}
+                  onClick={toggleMenu}
+                >
+                  <span className="sr-only">Open user menu</span>
+                  <img
+                    className="w-8 h-8 rounded-full"
+                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                    alt="user photo"
+                  />
+                </button>
+                {isMenuOpen && (
+                  <div className="absolute z-50 mt-4 top-4 right-10 bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
+                    <div className="px-4 py-3" role="none">
+                      <p className="text-sm text-gray-900 dark:text-white">
+                        Alice Johnson
+                      </p>
+                      <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300">
+                        AliceJohnson@gmail.com
+                      </p>
+                    </div>
+                    <ul className="py-1" role="none">
+                      <li>
+                        <button onClick={() => navigate("/Profile")}
+                          className="flex items-center p-2 pr-20 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                          role="menuitem"
+                        >
+                          <span className="flex-1 ms-3 whitespace-nowrap">Profile</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={SignOut}
+                          className="flex items-center p-2 pr-20 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                        >
+                          <span className="flex-1 ms-3 whitespace-nowrap">Sign Out</span>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -102,16 +139,6 @@ const Sidebar = () => {
                   Contributor
                 </span>
               </Link>
-            </li>
-
-            <li>
-              <button
-                onClick={SignOut}
-                className="flex items-center p-2 pr-20 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <FaSignOutAlt className={iconClass} />
-                <span className="flex-1 ms-3 whitespace-nowrap">Sign Out</span>
-              </button>
             </li>
           </ul>
         </div>

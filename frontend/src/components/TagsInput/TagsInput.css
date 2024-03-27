@@ -7,7 +7,7 @@
 }
 
 .tag-item {
-  background-color: #3498db;
+  background-color: #b12cff;
   color: #fff;
   padding: 4px 8px;
   border-radius: 4px;
@@ -22,7 +22,7 @@
 
 .tags-input {
   padding: 4px 8px;
-  border: 1px solid #3498db;
+  border: 1px solid #b12cff;
   border-radius: 4px;
   outline: none;
   color: black;

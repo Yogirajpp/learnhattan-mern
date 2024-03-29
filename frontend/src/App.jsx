@@ -16,6 +16,8 @@ import CourseEnroll from "./pages/CourseEnroll";
 // import users from "./JSON/user.json";
 import Contributor from "./pages/Contributor";
 import { useAuthContext } from "./hooks/useAuthContext";
+import RegisterTutor from "./pages/RegisterTutor";
+import LoginTutor from "./pages/LoginTutor";
 
 const App = () => {
   const { user } = useAuthContext();
@@ -28,7 +30,9 @@ const App = () => {
           <Route element={<AuthLayout />}>
             <Route exact index element={<HomePage />} />
             <Route exact path="login" element={<Login />} />
+            <Route exact path="login-tutor" element={<LoginTutor />} />
             <Route exact path="register" element={<Register />} />
+            <Route exact path="register-tutor" element={<RegisterTutor />}/>
           </Route>
         ) : (
           <Route element={<RootLayout />}>

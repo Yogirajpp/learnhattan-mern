@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Register = () => {
+const RegisterTutor = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -19,7 +19,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:8080/api/users/register", {
+    const response = await fetch("http://localhost:8080/api/tutor/register", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ const Register = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="bg-slate-100 backdrop-blur-5 border border-white/30 p-8 rounded shadow-md flex flex-col justify-center items-center w-96">
-        <h2 className="text-2xl font-semibold mb-4 text-black">Sign Up</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-black">Tutor Registration</h2>
         <form onSubmit={handleSubmit} className='w-full'>
           <div className="mb-4">
             <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Username</label>
@@ -92,17 +92,16 @@ const Register = () => {
           </button>
           <div className='mt-3'>
             <p className="text-sm font-light text-gray-900 ">
-              Already have an Account ? <Link to='/login' className="font-medium text-blue-700 hover:underline">Log In</Link>
+              Already have an Account ? <Link to='/login-tutor' className="font-medium text-blue-700 hover:underline">Log In as tutor</Link>
             </p>
             <p className="text-sm font-light text-gray-900 ">
-              Register as User instead? <Link to='/register-tutor' className="font-medium text-blue-700 hover:underline">Register as Tutor</Link>
+              Register as User instead? <Link to='/register' className="font-medium text-blue-700 hover:underline">Register as User</Link>
             </p>
           </div>
         </form>
       </div>
     </div>
-
   );
 };
 
-export default Register;
+export default RegisterTutor;

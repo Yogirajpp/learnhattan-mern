@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 const submittedAssignmentSchema = new mongoose.Schema({
-  assignmentId: { type: mongoose.Schema.Types.ObjectId, ref: "Assignment", required: true },
-  code: { type: String, required: true },
+  assignmentId: { type: mongoose.Schema.Types.ObjectId, ref: "Assignment" },
+  code: { type: String },
   submittedAt: { type: Date, default: Date.now }
 });
 

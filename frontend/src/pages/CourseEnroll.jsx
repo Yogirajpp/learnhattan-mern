@@ -7,6 +7,7 @@ import { signData } from "../components/EnrollContract";
 import { useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 const CourseEnroll = () => {
+  const [isEnrolled, setIsEnrolled] = useState(false);
   const { address, isConnected } = useAccount();
   const [course, setCourse] = useState(null);
   // const { userId } = useParams(); // Get the userId from URL param
@@ -14,7 +15,16 @@ const CourseEnroll = () => {
   console.log(user2);
   const { courseId } = useParams(); // Get the courseId from URL params
   const navigate = useNavigate();
+  const getUserStatus = async () => {
+    const enrolledCoursesResponse = await axios.get(`http://localhost:8080/api/users/enrolled-courses/${user2.user}`);
+    const enrolledCourses = enrolledCoursesResponse.data.enrolledCourses;
 
+    // Check if the courseId exists in the enrolled courses array
+    const isEnrolled = enrolledCourses.some(course => course._id === courseId);
+    if (isEnrolled) {
+      setIsEnrolled(true)
+    }
+  }
   useEffect(() => {
     const fetchCourse = async () => {
       try {
@@ -26,7 +36,7 @@ const CourseEnroll = () => {
         console.error("Error fetching course:", error);
       }
     };
-
+    getUserStatus();
     // Fetch the specific course when the component mounts
     fetchCourse();
   }, [courseId]);
@@ -123,18 +133,29 @@ const CourseEnroll = () => {
             <div className="text-sm">
               <div className="mb-2 flex justify-center ">
                 {isConnected ? (
-                  <Button
-                    className="bg-purple-600 hover:bg-purple-700 px-16"
-                    onClick={enrollCourse}
-                  >
-                    Enroll
-                  </Button>
+                  isEnrolled ? (
+                    <Button
+                      onClick={() => navigate(`/coursedetail/${courseId}`)}
+                      className="bg-purple-600 hover:bg-purple-700 px-16"
+                    >
+                      View Course
+                    </Button>
+                  ) : (
+                    <Button
+                      className="bg-purple-600 hover:bg-purple-700 px-16"
+                      onClick={enrollCourse}
+                    >
+                      Enroll
+                    </Button>
+                  )
                 ) : (
-                  <ConnectButton className="bg-purple-600 hover:bg-purple-700 px-16" onClick={() => { navigate(`/coursedetail/${courseId}`) }}>
+                  <ConnectButton
+                    className="bg-purple-600 hover:bg-purple-700 px-16"
+                    onClick={() => { navigate(`/coursedetail/${courseId}`) }}
+                  >
                     Connect Wallet
                   </ConnectButton>
-                )
-                }
+                )}
               </div>
               <div className="mt-4">
                 <div className="text-sm mb-2">This course includes:</div>

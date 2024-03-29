@@ -9,7 +9,8 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
+import { ethers } from "ethers";
 const CourseDetail = () => {
   const { courseId } = useParams(); // Make sure courseId is correctly extracted
 
@@ -18,6 +19,282 @@ const CourseDetail = () => {
   const [selectedVideoTitle, setSelectedVideoTitle] = useState(null);
 
   const user2 = JSON.parse(localStorage.getItem("user"));
+
+  const completeCourse = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const addr = "0xAA71824Ac7c4C82A2E0d8dDcA71Cf395Ee554979";
+    const abi = [
+      {
+        inputs: [],
+        stateMutability: "nonpayable",
+        type: "constructor",
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: true,
+            internalType: "address",
+            name: "owner",
+            type: "address",
+          },
+          {
+            indexed: true,
+            internalType: "address",
+            name: "spender",
+            type: "address",
+          },
+          {
+            indexed: false,
+            internalType: "uint256",
+            name: "value",
+            type: "uint256",
+          },
+        ],
+        name: "Approval",
+        type: "event",
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: true,
+            internalType: "address",
+            name: "from",
+            type: "address",
+          },
+          {
+            indexed: true,
+            internalType: "address",
+            name: "to",
+            type: "address",
+          },
+          {
+            indexed: false,
+            internalType: "uint256",
+            name: "value",
+            type: "uint256",
+          },
+        ],
+        name: "Transfer",
+        type: "event",
+      },
+      {
+        inputs: [
+          {
+            internalType: "address",
+            name: "owner",
+            type: "address",
+          },
+          {
+            internalType: "address",
+            name: "spender",
+            type: "address",
+          },
+        ],
+        name: "allowance",
+        outputs: [
+          {
+            internalType: "uint256",
+            name: "",
+            type: "uint256",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "address",
+            name: "spender",
+            type: "address",
+          },
+          {
+            internalType: "uint256",
+            name: "amount",
+            type: "uint256",
+          },
+        ],
+        name: "approve",
+        outputs: [
+          {
+            internalType: "bool",
+            name: "",
+            type: "bool",
+          },
+        ],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "address",
+            name: "account",
+            type: "address",
+          },
+        ],
+        name: "balanceOf",
+        outputs: [
+          {
+            internalType: "uint256",
+            name: "",
+            type: "uint256",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "decimals",
+        outputs: [
+          {
+            internalType: "uint8",
+            name: "",
+            type: "uint8",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "uint256",
+            name: "amount",
+            type: "uint256",
+          },
+        ],
+        name: "mint",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "name",
+        outputs: [
+          {
+            internalType: "string",
+            name: "",
+            type: "string",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "symbol",
+        outputs: [
+          {
+            internalType: "string",
+            name: "",
+            type: "string",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "totalSupply",
+        outputs: [
+          {
+            internalType: "uint256",
+            name: "",
+            type: "uint256",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "address",
+            name: "recipient",
+            type: "address",
+          },
+          {
+            internalType: "uint256",
+            name: "amount",
+            type: "uint256",
+          },
+        ],
+        name: "transfer",
+        outputs: [
+          {
+            internalType: "bool",
+            name: "",
+            type: "bool",
+          },
+        ],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "address",
+            name: "sender",
+            type: "address",
+          },
+          {
+            internalType: "address",
+            name: "recipient",
+            type: "address",
+          },
+          {
+            internalType: "uint256",
+            name: "amount",
+            type: "uint256",
+          },
+        ],
+        name: "transferFrom",
+        outputs: [
+          {
+            internalType: "bool",
+            name: "",
+            type: "bool",
+          },
+        ],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+    ];
+    const contract = new ethers.Contract(addr, abi, signer);
+    const tx = await contract.mint(100);
+    console.log(tx);
+    console.log(contract);
+
+    const wasAdded = await window.ethereum // Or window.ethereum if you don't support EIP-6963.
+      .request({
+        method: "wallet_watchAsset",
+        params: {
+          type: "ERC20",
+          options: {
+            // The address of the token.
+            address: addr,
+            // A ticker symbol or shorthand, up to 5 characters.
+            symbol: "LHT",
+            // The number of decimals in the token.
+            decimals: 0,
+            // A string URL of the token logo.
+            // image: tokenImage,
+          },
+        },
+      });
+
+    if (wasAdded) {
+      console.log("Thanks for your interest!");
+    } else {
+      console.log("Your loss!");
+    }
+  };
 
   useEffect(() => {
     const fetchCourseDetail = async () => {
@@ -47,12 +324,15 @@ const CourseDetail = () => {
       }
       // Submit assignment to backend
       const userId = user2.user;
-      const response = await axios.post("http://localhost:8080/api/users/submit-assignment", {
-        userId: userId,
-        assignmentId: assignmentId,
-        courseId: courseId,
-        code: code
-      });
+      const response = await axios.post(
+        "http://localhost:8080/api/users/submit-assignment",
+        {
+          userId: userId,
+          assignmentId: assignmentId,
+          courseId: courseId,
+          code: code,
+        }
+      );
 
       if (response.data.success) {
         // Assignment submitted successfully
@@ -88,7 +368,6 @@ const CourseDetail = () => {
       </div>
     ));
 
-
   const renderResources = (course) =>
     course.resources.map((resource, index) => (
       <li key={index}>
@@ -116,7 +395,7 @@ const CourseDetail = () => {
           </p>
           <Popover>
             <PopoverTrigger asChild>
-              <Button variant="outline" >View Detail</Button>
+              <Button variant="outline">View Detail</Button>
             </PopoverTrigger>
             <PopoverContent className="w-full">
               <Card>
@@ -126,7 +405,9 @@ const CourseDetail = () => {
                       {assignment.title}
                     </div>
                   </div>
-                  <p className="text-sm text-gray-500">{assignment.description}</p>
+                  <p className="text-sm text-gray-500">
+                    {assignment.description}
+                  </p>
                 </CardContent>
                 <CardFooter>
                   <div>
@@ -142,7 +423,13 @@ const CourseDetail = () => {
                         onChange={(e) => setCode(e.target.value)}
                       />
                       <div className="flex justify-end w-full gap-2">
-                        <button onClick={() => handleAssignmentSubmission(assignmentId)}>Submit Assignment</button>
+                        <button
+                          onClick={() =>
+                            handleAssignmentSubmission(assignmentId)
+                          }
+                        >
+                          Submit Assignment
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -151,7 +438,7 @@ const CourseDetail = () => {
             </PopoverContent>
           </Popover>
         </li>
-      )
+      );
     });
 
   return (
@@ -214,6 +501,15 @@ const CourseDetail = () => {
             <div className="grid gap-4 p-4 bg-white rounded-lg shadow-lg w-3/5">
               <h3 className="text-lg font-semibold">Assignments</h3>
               <ul className="grid gap-2">{renderAssignments(course)}</ul>
+            </div>
+
+            <div>
+              <button
+                className="w-25 bg-blue-500 text-white py-2 px-4 rounded-3xl hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
+                onClick={completeCourse}
+              >
+                Complete Course and Claim tokens
+              </button>
             </div>
           </div>
 

@@ -15,6 +15,7 @@ import contributorRouter from "./routes/contributorRoutes.js";
 import submissionRoutes from "./routes/submissionRoutes.js";
 import registerTutor from "./routes/tutorRoutes/register.js";
 import loginTutor from "./routes/tutorRoutes/login.js"
+import tutorRoutes from "./routes/tutorRoutes/tutorRoutes.js";
 
 const app = express();
 dotenv.config();
@@ -24,6 +25,7 @@ app.use(express.json({ limit: "50mb" }));
 // Use register and login routes for tutor Authentication
 app.use("/api/tutor", registerTutor);
 app.use("/api/tutor", loginTutor);
+app.use("/api/tutor", tutorRoutes);
 
 // Use register and login routes for user authentication
 app.use("/api/users", register);

@@ -1,5 +1,3 @@
-// achievement.js
-
 import mongoose from "mongoose";
 
 const achievementSchema = new mongoose.Schema({

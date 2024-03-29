@@ -4,7 +4,7 @@ import express from "express";
 import User from "../models/user.js";
 import Course from "../models/course.js"; // Assuming you have a Course model
 import Achievement from "../models/achivements.js";
-// import Submission from "../models/submission.js";
+import Submission from "../models/submission.js";
 import Assignment from "../models/assignment.js";
 
 
@@ -66,17 +66,22 @@ router.get("/enrolled-courses/:userId", async (req, res) => {
 
 router.post("/submit-assignment", async (req, res) => {
   try {
-    const { userId, assignmentId, code } = req.body;
+    const { userId, assignmentId, courseId, code } = req.body;
 
-    // Create a submitted assignment object
-    const submittedAssignment = {
+    // Create a new Submission document
+    const submission = new Submission({
       assignmentId: assignmentId,
+      userId: userId,
+      courseId: courseId, // Include courseId
       code: code,
       submittedAt: new Date()
-    };
+    });
+
+    // Save the submission to the database
+    await submission.save();
 
     // Update user's submitted assignments
-    await User.findByIdAndUpdate(userId, { $push: { submittedAssignments: submittedAssignment } });
+    await User.findByIdAndUpdate(userId, { $push: { submittedAssignments: submission._id } });
 
     res.status(200).json({ success: true, message: "Assignment submitted successfully" });
   } catch (error) {
@@ -84,9 +89,6 @@ router.post("/submit-assignment", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
-
-
-
 
 
 
@@ -177,6 +179,19 @@ router.get("/allusers", async (req, res) => {
     res.status(200).json({ users });
   } catch (error) {
     console.error("Error fetching users:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Backend route to get all users marked as contributors
+router.get("/contributors", async (req, res) => {
+  try {
+    // Find all users where contributor field is true
+    const contributors = await User.find({ contributor: true });
+
+    res.status(200).json({ contributors });
+  } catch (error) {
+    console.error("Error fetching contributors:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });

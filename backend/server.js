@@ -11,17 +11,25 @@ import dashboard from "./routes/dashboard.js";
 import achivementsRoutes from "./routes/achivementsRoutes.js";
 import rankingRoutes from "./routes/rankingRoutes.js";
 import assignmentsRoutes from "./routes/assignmentRoutes.js";
-import markContributorRouter from "./routes/markContributorRoutes.js"; // Import the router
+import contributorRouter from "./routes/contributorRoutes.js";
+import submissionRoutes from "./routes/submissionRoutes.js";
+import registerTutor from "./routes/tutorRoutes/register.js";
+import loginTutor from "./routes/tutorRoutes/login.js"
 
 const app = express();
 dotenv.config();
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 
+// Use register and login routes for tutor Authentication
+app.use("/api/tutor", registerTutor);
+app.use("/api/tutor", loginTutor);
+
 // Use register and login routes for user authentication
 app.use("/api/users", register);
 app.use("/api/users", login);
-app.use("/api/users", markContributorRouter);
+
+app.use("/api/users", contributorRouter);
 
 // Use profile, course, and user routes
 // app.use("/api/users", profileRoutes);
@@ -34,6 +42,9 @@ app.use("/api/assignments", assignmentsRoutes);
 
 //Ranking System
 app.use("/api/ranking",rankingRoutes);
+
+//Submission System
+app.use("/api/submissions", submissionRoutes);
 
 const startServer = async () => {
     try {

@@ -32,13 +32,18 @@ const App = () => {
           </Route>
         ) : (
           <Route element={<RootLayout />}>
+            <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route exact path="/Profile" element={<Profile />} />
             <Route exact path="/courses" element={<Courses />} />
             <Route exact path="/marketplace" element={<Marketplace />} />
             <Route path="/coursedetail/:courseId" element={<CourseDetail />} />
             <Route exact path="/Contributor" element={<Contributor />} />
-            <Route exact path="/courseEnroll/:courseId" element={<CourseEnroll />} />
+            <Route
+              exact
+              path="/courseEnroll/:courseId"
+              element={<CourseEnroll />}
+            />
           </Route>
         )}
       </Routes>

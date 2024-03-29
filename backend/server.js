@@ -21,19 +21,16 @@ app.use(express.json({ limit: "50mb" }));
 // Use register and login routes for user authentication
 app.use("/api/users", register);
 app.use("/api/users", login);
+app.use("/api/users", markContributorRouter);
 
 // Use profile, course, and user routes
-app.use("/api/users", profileRoutes);
+// app.use("/api/users", profileRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/dashboard",dashboard);
 app.use("/api/achivements",achivementsRoutes);
 
-
 app.use("/api/assignments", assignmentsRoutes);
-
-// Mount the router at the desired endpoint
-app.use("/api/users", markContributorRouter);
 
 //Ranking System
 app.use("/api/ranking",rankingRoutes);

@@ -6,8 +6,8 @@ export const markVideoCompleted = (req, res) => {
     {
       _id: userId,
       "videoProgress.courseId": courseId,
-      "videoProgress.videoId": videoId
-    //   "videoProgress.completed": false, // Check if not already completed
+      "videoProgress.videoId": videoId,
+      "videoProgress.completed": false 
     },
     { $inc: { points: 1 }, $set: { "videoProgress.$.completed": true } },
     { new: true },
@@ -16,7 +16,7 @@ export const markVideoCompleted = (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
       }
       if (!user) {
-        return res.status(200).json({ message: "User has not seen the video" });
+        return res.status(200).json({ message: "User has already seen the video" });
       }
       return res.status(200).json({ points: user.points });
     }
@@ -30,7 +30,7 @@ export const markAssignmentCompleted = (req, res) => {
       _id: userId,
       "assignmentProgress.courseId": courseId,
       "assignmentProgress.assignmentId": assignmentId,
-    //   "assignmentProgress.completed":false
+      "assignmentProgress.completed":false
     },
     { $inc: { points: 5 },$set: { "assignmentProgress.$.completed": true } },
     { new: true },
@@ -41,7 +41,7 @@ export const markAssignmentCompleted = (req, res) => {
       if (!user) {
         return res
           .status(200)
-          .json({ message: "User has not completed the assignment" });
+          .json({ message: "User has already completed the assignment" });
       }
       return res.status(200).json({ user });
     }

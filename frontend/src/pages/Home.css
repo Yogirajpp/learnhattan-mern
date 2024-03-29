@@ -31,7 +31,7 @@ body {
 
 @font-face {
   font-family: "Helvetica";
-  src: url(HelveticaNeueMedium.ttf);
+  src: url(assets/texts/HelveticaNeueMedium.ttf);
 }
 /* .main {
   background-color: #120122;

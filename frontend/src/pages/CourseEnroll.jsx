@@ -4,8 +4,10 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import Sidebar from "../components/Sidebar";
 import { signData } from "../components/EnrollContract";
-
+import { useAccount } from "wagmi";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 const CourseEnroll = () => {
+  const { address, isConnected } = useAccount();
   const [course, setCourse] = useState(null);
   // const { userId } = useParams(); // Get the userId from URL param
   const user2 = JSON.parse(localStorage.getItem("user"));
@@ -120,12 +122,19 @@ const CourseEnroll = () => {
             </div>
             <div className="text-sm">
               <div className="mb-2 flex justify-center ">
-                <Button
-                  className="bg-purple-600 hover:bg-purple-700 px-16"
-                  onClick={enrollCourse}
-                >
-                  Enroll
-                </Button>
+                {isConnected ? (
+                  <Button
+                    className="bg-purple-600 hover:bg-purple-700 px-16"
+                    onClick={enrollCourse}
+                  >
+                    Enroll
+                  </Button>
+                ) : (
+                  <ConnectButton className="bg-purple-600 hover:bg-purple-700 px-16" onClick={() => { navigate(`/coursedetail/${courseId}`) }}>
+                    Connect Wallet
+                  </ConnectButton>
+                )
+                }
               </div>
               <div className="mt-4">
                 <div className="text-sm mb-2">This course includes:</div>

@@ -1,7 +1,6 @@
 import express from "express";
-import { markContributorForCourse, markAssignmentComplete } from "../controllers/markContributor.js";
-
 const router = express.Router();
+import { markContributorForCourse, markAssignmentComplete } from "../controllers/contributor.js";
 
 // Route to mark a user as a contributor for a specific course
 router.put("/:userId/mark-contributor/:courseId", markContributorForCourse);

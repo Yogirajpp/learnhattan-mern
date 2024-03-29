@@ -45,6 +45,19 @@ router.get("/allusers", async (req, res) => {
   }
 });
 
+// Backend route to get all users marked as contributors
+router.get("/contributors", async (req, res) => {
+  try {
+    // Find all users where contributor field is true
+    const contributors = await User.find({ contributor: true });
+
+    res.status(200).json({ contributors });
+  } catch (error) {
+    console.error("Error fetching contributors:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // GET user by ID
 router.get("/:userId", async (req, res) => {
   try {

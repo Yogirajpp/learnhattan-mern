@@ -50,6 +50,7 @@ const CourseDetail = () => {
       const response = await axios.post("http://localhost:8080/api/users/submit-assignment", {
         userId: userId,
         assignmentId: assignmentId,
+        courseId: courseId,
         code: code
       });
 

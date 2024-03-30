@@ -324,16 +324,12 @@ const CourseDetail = () => {
       }
       // Submit assignment to backend
       const userId = user2.user;
+      const courseId = course._id;
       const response = await axios.post(
-        "http://localhost:8080/api/users/submit-assignment",
-        {
-          userId: userId,
-          assignmentId: assignmentId,
-          courseId: courseId,
-          code: code,
-        }
+        `http://localhost:8080/api/submissions/submit/${userId}/${courseId}/${assignmentId}`,
+        { code }
       );
-
+  
       if (response.data.success) {
         // Assignment submitted successfully
         console.log("Assignment submitted successfully");
@@ -344,11 +340,12 @@ const CourseDetail = () => {
       console.error("Error submitting assignment:", error.message);
     }
   };
-
+  
   // Inside CourseDetail component
-  const handleAssignmentSubmission = (assignmentId) => {
-    handleSubmitAssignment(assignmentId);
+  const handleAssignmentSubmission = (assignmentId, courseId, code) => {
+    handleSubmitAssignment(assignmentId, courseId, code);
   };
+  
 
   const renderVideos = (course, selectedVideoTitle) =>
     course.videos.map((video, index) => (

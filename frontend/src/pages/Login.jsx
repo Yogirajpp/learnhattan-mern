@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLogIn } from '../hooks/useLogin';
+// import { ConnectButton } from '@rainbow-me/rainbowkit';
+import WalletConnectButton from '@/components/WalletConnectButton';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -65,6 +67,9 @@ const Login = () => {
           >
             Log-In
           </button>
+          <div className="px-5 m-1 flex">
+            <WalletConnectButton />
+          </div>
           {error &&
             <div>
               {error}

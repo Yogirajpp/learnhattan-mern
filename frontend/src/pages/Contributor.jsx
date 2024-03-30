@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
-import { Card, CardTitle, CardDescription, CardHeader, CardContent } from '@/components/ui/card';
+import { Card, CardTitle, CardDescription, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
 
@@ -82,7 +82,7 @@ const Contributor = () => {
               <p>Loading...</p>
             ) : (
               <div className="border-t border-b border-gray-200 dark:border-gray-800">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
+                <div className="flex flex-row p-6 flex-wrap gap-6">
                   {markedCourses.map((course) => (
                     <div
                       key={course._id}
@@ -97,7 +97,7 @@ const Contributor = () => {
                         <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{course.title}</h2>
                         <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{course.description}</p>
                         <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{course.category}</p>
-                        <div className="mt-4">
+                        <div className="mt-2">
                           <span className="text-sm text-gray-600 dark:text-gray-400">Assigned Date: {course.assignedDate}</span>
                           <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">Deadline: {course.deadline}</span>
                         </div>
@@ -107,37 +107,53 @@ const Contributor = () => {
                   ))}
                 </div>
               </div>
-
             )}
           </div>
         </CardContent>
       </Card>
 
       {selectedCourse && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <Card className="w-full md:w-1/2">
+        <div className=" fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 ">
+          <Card className="w-full h-screen md:w-1/2 overflow-y-auto mt-4 ">
             <CardHeader>
-              <CardTitle>Submissions for {selectedCourse} </CardTitle>
-              <Button onClick={() => setSelectedCourse(null)}>Close</Button>
-            </CardHeader>
-            <CardContent>
-              <div>
-                <h2>Submissions:</h2>
-                <ul>
-                  {submissions.map((submission) => (
-                    <li key={submission._id}>
-                      <p>Submitted By: {submission.userId}</p>
-                      <p>Submission Date: {submission.submittedAt}</p>
-                      <p>Code: {submission.code}</p>
-                      <div className="flex space-x-2">
-                        <Button onClick={() => handleApproveSubmission(submission._id)}>Approve</Button>
-                        <Button onClick={() => handleRejectSubmission(submission._id)}>Reject</Button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+              <div className="flex justify-between">
+                <h1 className="text-lg font-bold">Review Assignments</h1>
+                <Button size="sm" onClick={() => setSelectedCourse(null)}>Close</Button>
               </div>
-            </CardContent>
+              <div>
+                You are reviewing assignments for the
+                <strong> {selectedCourse} </strong>
+                course.{"\n              "}
+              </div>
+            </CardHeader>
+            <div className="flex flex-col gap-4">
+              <ul>
+                {submissions.map((submission) => (
+                  <li key={submission._id}>
+                    <CardContent className="flex flex-col gap-2">
+                      <div>
+                        <h2 className="text-lg font-bold">Submitted by:  </h2>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{submission.userId}</p>
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-bold">Date</h2>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{submission.submittedAt}</p>
+                      </div>
+                      <h2 className="text-text-base font-semibold">Submission</h2>
+                      <div className="border rounded-lg p-4">
+                        <pre className="text-sm/relaxed">
+                          {submission.code}
+                        </pre>
+                      </div>
+                    </CardContent>
+                    <CardFooter className="flex gap-2">
+                      <Button size="sm" onClick={() => handleApproveSubmission(submission._id)}>Approve</Button>
+                      <Button size="sm" variant="outline" onClick={() => handleRejectSubmission(submission._id)}>Reject</Button>
+                    </CardFooter>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </Card>
         </div>
       )}

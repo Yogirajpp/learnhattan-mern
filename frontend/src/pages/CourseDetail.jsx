@@ -390,12 +390,12 @@ const CourseDetail = () => {
           <p className="text-gray-400">
             Deadline: {new Date(assignment.deadline).toLocaleString()}
           </p>
-          <Popover>
+          <Popover className="">
             <PopoverTrigger asChild>
               <Button variant="outline">View Detail</Button>
             </PopoverTrigger>
-            <PopoverContent className="w-full">
-              <Card>
+            <PopoverContent className=" ml-64 mt-16" style={{ width: "60rem" }}>
+              <Card className="h-96">
                 <CardContent className="space-y-2">
                   <div className="flex items-center space-x-2">
                     <div className="font-semibold hover:underline" href="#">
@@ -420,13 +420,13 @@ const CourseDetail = () => {
                         onChange={(e) => setCode(e.target.value)}
                       />
                       <div className="flex justify-end w-full gap-2">
-                        <button
+                        <Button variant="outline"
                           onClick={() =>
                             handleAssignmentSubmission(assignmentId)
                           }
                         >
                           Submit Assignment
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </div>

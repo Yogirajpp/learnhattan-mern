@@ -10,7 +10,6 @@ import Courses from "./pages/Courses";
 import Marketplace from "./pages/Marketplace";
 import CourseDetail from "./pages/CourseDetail";
 import CourseEnroll from "./pages/CourseEnroll";
-import Assignments from "./pages/Assignments";
 // import courseDetailData from "./JSON/courseDetailData.json";
 // import coursesCompleted from "./JSON/coursesCompleted.json";
 // import rankings from "./JSON/rankings.json";
@@ -43,7 +42,6 @@ const App = () => {
             <Route exact path="/courses" element={<Courses />} />
             <Route exact path="/marketplace" element={<Marketplace />} />
             <Route path="/coursedetail/:courseId" element={<CourseDetail />} />
-            <Route path="/Assignments" element={<Assignments />} />
             <Route exact path="/Contributor" element={<Contributor />} />
             <Route
               exact

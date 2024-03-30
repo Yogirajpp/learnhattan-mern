@@ -67,9 +67,9 @@ const Login = () => {
           >
             Log-In
           </button>
-          <div className="px-5 m-1 flex">
-            <WalletConnectButton />
-          </div>
+
+          <WalletConnectButton />
+
           {error &&
             <div>
               {error}

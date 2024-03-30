@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import WalletConnectButton from '@/components/WalletConnectButton';
 
 const RegisterTutor = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const RegisterTutor = () => {
           <div className="mb-4">
             <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Username</label>
             <input
-            placeholder='Enter Username'
+              placeholder='Enter Username'
               type="text"
               id="username"
               name="username"
@@ -61,7 +62,7 @@ const RegisterTutor = () => {
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-bold mb-2 text-black">Email</label>
             <input
-            placeholder='Enter Email'
+              placeholder='Enter Email'
               type="email"
               id="email"
               name="email"
@@ -74,7 +75,7 @@ const RegisterTutor = () => {
           <div className="mb-6">
             <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Password</label>
             <input
-            placeholder='Enter Password'
+              placeholder='Enter Password'
               type="password"
               id="password"
               name="password"
@@ -90,6 +91,7 @@ const RegisterTutor = () => {
           >
             Sign Up
           </button>
+          <WalletConnectButton />
           <div className='mt-3'>
             <p className="text-sm font-light text-gray-900 ">
               Already have an Account ? <Link to='/login-tutor' className="font-medium text-blue-700 hover:underline">Log In as tutor</Link>

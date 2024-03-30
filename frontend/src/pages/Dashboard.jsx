@@ -16,10 +16,10 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/users/${user2.user}`);
+        const response = await axios.get(`https://learnhattan-mern.vercel.app/api/users/${user2.user}`);
         setUser(response.data.user);
         // Fetch enrolled courses for the user
-        const enrolledCoursesResponse = await axios.get(`http://localhost:8080/api/users/enrolled-courses/${user2.user}`);
+        const enrolledCoursesResponse = await axios.get(`https://learnhattan-mern.vercel.app/api/users/enrolled-courses/${user2.user}`);
         setEnrolledCourses(enrolledCoursesResponse.data.enrolledCourses);
       } catch (error) {
         console.error("Error fetching user data:", error);

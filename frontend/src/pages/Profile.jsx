@@ -41,7 +41,7 @@ const Profile = () => {
       formData.append('description', description);
       formData.append('interests', interests.join(','));
 
-      const response = await axios.post('http://localhost:8080/profile', formData, {
+      const response = await axios.post('https://learnhattan-mern.vercel.app/profile', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

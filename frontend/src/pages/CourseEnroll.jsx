@@ -16,7 +16,7 @@ const CourseEnroll = () => {
   const { courseId } = useParams(); // Get the courseId from URL params
   const navigate = useNavigate();
   const getUserStatus = async () => {
-    const enrolledCoursesResponse = await axios.get(`http://localhost:8080/api/users/enrolled-courses/${user2.user}`);
+    const enrolledCoursesResponse = await axios.get(`https://learnhattan-mern.vercel.app/api/users/enrolled-courses/${user2.user}`);
     const enrolledCourses = enrolledCoursesResponse.data.enrolledCourses;
 
     // Check if the courseId exists in the enrolled courses array
@@ -29,7 +29,7 @@ const CourseEnroll = () => {
     const fetchCourse = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/courses/${courseId}`
+          `https://learnhattan-mern.vercel.app/api/courses/${courseId}`
         );
         setCourse(response.data.course);
       } catch (error) {
@@ -46,7 +46,7 @@ const CourseEnroll = () => {
       console.log(user2.user);
 
       // Fetch enrolled courses of the user
-      const enrolledCoursesResponse = await axios.get(`http://localhost:8080/api/users/enrolled-courses/${user2.user}`);
+      const enrolledCoursesResponse = await axios.get(`https://learnhattan-mern.vercel.app/api/users/enrolled-courses/${user2.user}`);
       const enrolledCourses = enrolledCoursesResponse.data.enrolledCourses;
 
       // Check if the courseId exists in the enrolled courses array
@@ -61,7 +61,7 @@ const CourseEnroll = () => {
         console.log("Signature:", signature);
 
         // If not enrolled, proceed with enrollment
-        const response = await axios.post("http://localhost:8080/api/users/enroll", {
+        const response = await axios.post("https://learnhattan-mern.vercel.app/api/users/enroll", {
           userId: user2.user, // Assuming user has a property _id
           courseId: courseId
         });

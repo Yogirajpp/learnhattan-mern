@@ -15,7 +15,7 @@ const Contributor = () => {
   useEffect(() => {
     const fetchMarkedCourses = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/users/${user2.user}/marked-courses`);
+        const response = await axios.get(`https://learnhattan-mern.vercel.app/api/users/${user2.user}/marked-courses`);
         setMarkedCourses(response.data.data);
         setIsLoading(false);
       } catch (error) {
@@ -29,7 +29,7 @@ const Contributor = () => {
 
   const handleReviewClick = async (courseId) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/submissions/allSubmissions/${courseId}`);
+      const response = await axios.get(`https://learnhattan-mern.vercel.app/api/submissions/allSubmissions/${courseId}`);
       setSubmissions(response.data.submissions);
       setSelectedCourse(courseId);
     } catch (error) {
@@ -39,7 +39,7 @@ const Contributor = () => {
 
   const handleApproveSubmission = async (assignmentId) => {
     try {
-      await axios.put(`http://localhost:8080/api/users/mark-complete/${user2.user}/${assignmentId}`);
+      await axios.put(`https://learnhattan-mern.vercel.app/api/users/mark-complete/${user2.user}/${assignmentId}`);
       // Refresh submissions
       handleReviewClick(selectedCourse);
       console.log("approved successfully");
@@ -47,10 +47,10 @@ const Contributor = () => {
       console.error('Error approving submission:', error);
     }
   };
-  
+
   const handleRejectSubmission = async (assignmentId) => {
     try {
-      await axios.put(`http://localhost:8080/api/users/mark-reject/${user2.user}/${assignmentId}`);
+      await axios.put(`https://learnhattan-mern.vercel.app/api/users/mark-reject/${user2.user}/${assignmentId}`);
       // Refresh submissions
       handleReviewClick(selectedCourse);
       console.log("rejected successfully");

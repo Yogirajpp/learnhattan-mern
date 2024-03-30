@@ -27,8 +27,13 @@ router.post("/login", async (req, res) => {
           id: userData._id,
         },
       };
-      const authToken = jwt.sign(data,"SECRET123", { expiresIn: "30d" });
-      res.json({ success: true, authToken: authToken ,user: data.user.id });
+      const authToken = jwt.sign(data, "SECRET123", { expiresIn: "30d" });
+      res.json({
+        success: true,
+        authToken: authToken,
+        user: data.user.id,
+        isTutor: false,
+      });
     } catch (err) {
       console.log(err);
       return res.json({ success: false });
@@ -38,7 +43,5 @@ router.post("/login", async (req, res) => {
     res.status(400).send(error);
   }
 });
-
-
 
 export default router;

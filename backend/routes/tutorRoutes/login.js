@@ -27,8 +27,13 @@ router.post("/login", async (req, res) => {
           id: tutorData._id,
         },
       };
-      const authToken = jwt.sign(data,"SECRET123", { expiresIn: "30d" });
-      res.json({ success: true, authToken: authToken ,tutor: data.tutor.id });
+      const authToken = jwt.sign(data, "SECRET123", { expiresIn: "30d" });
+      res.json({
+        success: true,
+        authToken: authToken,
+        tutor: data.tutor.id,
+        isTutor: true,
+      });
     } catch (err) {
       console.log(err);
       return res.json({ success: false });

@@ -21,13 +21,14 @@ export const useLogInTutor = () => {
       }),
     });
     const json = await response.json();
+    const isTutor = json.isTutor;
     if (!json.success) {
       setIsLoading(false);
       setError(json.error);
     }
     if (json.success) {
       localStorage.setItem("user", JSON.stringify(json));
-      dispatch({ type: "LOGIN", payload: json });
+      dispatch({ type: "LOGIN", payload: { user: json, isTutor } });
       setIsLoading(false);
     }
   };

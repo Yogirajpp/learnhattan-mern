@@ -496,13 +496,13 @@ const CourseDetail = () => {
                       <img
                         alt="Avatar"
                         className="rounded-full"
-                        height="40"
+                        height="50"
                         src="https://avatars.githubusercontent.com/u/266302?v=4"
                         style={{
-                          aspectRatio: "40/40",
+                          aspectRatio: "50/50",
                           objectFit: "cover",
                         }}
-                        width="40"
+                        width="50"
                       />
                       <div className="flex flex-col">
                         <h3 className="font-medium text-sm">
@@ -529,10 +529,43 @@ const CourseDetail = () => {
               <h3 className="text-lg font-semibold">Course Resources</h3>
               <ul className="grid gap-2">{renderResources(course)}</ul>
              </div> */}
-              <div className=" w-96 ">
-                <img src="https://avatars.githubusercontent.com/u/31030257?v=4" alt="" />
-                <img src="https://avatars.githubusercontent.com/u/63950637?v=4" alt="" />
-                <img src="https://avatars.githubusercontent.com/u/15614124?v=4" alt="" />
+              <div className="flex flex-col w-96 gap-2 shadow-lg rounded-xl py-4 ">
+                <p className="px-2 text-base font-medium">Contributors</p>
+                <div className="flex px-4 gap-2">
+                  <img
+                    alt="Avatar"
+                    className="rounded-full"
+                    height="40"
+                    src="https://avatars.githubusercontent.com/u/31030257?v=4"
+                    style={{
+                      aspectRatio: "40/40",
+                      objectFit: "cover",
+                    }}
+                    width="40"
+                  />
+                  <img
+                    alt="Avatar"
+                    className="rounded-full"
+                    height="40"
+                    src="https://avatars.githubusercontent.com/u/15614124?v=4"
+                    style={{
+                      aspectRatio: "40/40",
+                      objectFit: "cover",
+                    }}
+                    width="40"
+                  />
+                  <img
+                    alt="Avatar"
+                    className="rounded-full"
+                    height="40"
+                    src="https://avatars.githubusercontent.com/u/63950637?v=4"
+                    style={{
+                      aspectRatio: "40/40",
+                      objectFit: "cover",
+                    }}
+                    width="40"
+                  />
+                </div>
               </div>
               <div className="w-full sm:h-16">
                 <div className="grid gap-4 p-4 bg-white rounded-lg shadow-lg w-3/5">

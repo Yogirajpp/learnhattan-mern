@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema({
   contributor: { type: Boolean, default: false },
   submittedAssignments: [submittedAssignmentSchema],
   completedAssignments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Assignment" }],
+  rejectedAssignments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Assignment" }],
   assignedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }], // Array of assigned courses
   markedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }] // Track marked courses
 });

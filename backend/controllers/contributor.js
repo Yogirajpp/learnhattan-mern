@@ -86,6 +86,32 @@ const getMarkedCourses = async (req, res) => {
   }
 };
 
+// Rejecting an assignment
+const rejectAssignment = async (req, res) => {
+  try {
+    const { userId, assignmentId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(assignmentId)) {
+      return res.status(400).json({ success: false, message: "Invalid assignment ID" });
+    }
+
+    // Update assignment's submission status
+    await Assignment.findByIdAndUpdate(assignmentId, { submissionStatus: "rejected" });
+
+    // Remove assignment from user's submittedAssignments
+    await User.findByIdAndUpdate(userId, {
+      $addToSet: { rejectedAssignments: assignmentId },
+      $pull: { submittedAssignments: assignmentId }
+    });
+
+    res.status(200).json({ success: true, message: "Assignment rejected" });
+  } catch (error) {
+    console.error("Error rejecting assignment:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+
 // const rejectAssignment = async (req, res) => {
 //   try {
 //     const { userId, assignmentId } = req.params;
@@ -105,4 +131,4 @@ const getMarkedCourses = async (req, res) => {
 // };
 
 
-export { markContributorForCourse, markAssignmentComplete , getMarkedCourses };
+export { markContributorForCourse, markAssignmentComplete , getMarkedCourses , rejectAssignment};

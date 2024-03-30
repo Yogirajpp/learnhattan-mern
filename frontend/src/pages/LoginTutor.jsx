@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLogInTutor } from '@/hooks/useLoginTutor';
+import WalletConnectButton from '@/components/WalletConnectButton';
 
 const LoginTutor = () => {
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ const LoginTutor = () => {
           >
             Log-In
           </button>
+          <WalletConnectButton />
           {error &&
             <div>
               {error}

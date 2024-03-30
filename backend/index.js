@@ -37,13 +37,13 @@ app.use("/api/users", contributorRouter);
 // app.use("/api/users", profileRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/dashboard",dashboard);
-app.use("/api/achivements",achivementsRoutes);
+app.use("/api/dashboard", dashboard);
+app.use("/api/achivements", achivementsRoutes);
 
 app.use("/api/assignments", assignmentsRoutes);
 
 //Ranking System
-app.use("/api/ranking",rankingRoutes);
+app.use("/api/ranking", rankingRoutes);
 
 //Submission System
 app.use("/api/submissions", submissionRoutes);

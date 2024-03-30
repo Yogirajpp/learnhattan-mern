@@ -10,7 +10,7 @@ export const useLogIn = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://localhost:8080/api/users/login", {
+    const response = await fetch("https://learnhattan-mern.vercel.app/api/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,9 +27,9 @@ export const useLogIn = () => {
     }
     if (json.success) {
       localStorage.setItem("user", JSON.stringify(json));
-      dispatch({type : "LOGIN", payload : json});
+      dispatch({ type: "LOGIN", payload: json });
       setIsLoading(false);
     }
   };
-  return { login,error,isLoading };
+  return { login, error, isLoading };
 };

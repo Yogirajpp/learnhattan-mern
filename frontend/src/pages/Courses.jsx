@@ -11,7 +11,7 @@ const Courses = () => {
     const fetchCourses = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/users/allcourses"
+          "https://learnhattan-mern.vercel.app/api/users/allcourses"
         );
         setCourses(response.data.courses);
       } catch (error) {

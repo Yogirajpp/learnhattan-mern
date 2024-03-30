@@ -394,7 +394,7 @@ const CourseDetail = () => {
             <PopoverTrigger asChild>
               <Button variant="outline">View Detail</Button>
             </PopoverTrigger>
-            <PopoverContent className=" ml-64 mt-16" style={{ width: "60rem" }}>
+            <PopoverContent className="ml-80 mt-16" style={{ width: "60rem" }}>
               <Card className="h-96">
                 <CardContent className="space-y-2">
                   <div className="flex items-center space-x-2">

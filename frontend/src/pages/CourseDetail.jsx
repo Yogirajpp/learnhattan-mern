@@ -390,7 +390,7 @@ const CourseDetail = () => {
           <p className="text-gray-400">
             Deadline: {new Date(assignment.deadline).toLocaleString()}
           </p>
-          <Popover className="">
+          <Popover>
             <PopoverTrigger asChild>
               <Button variant="outline">View Detail</Button>
             </PopoverTrigger>
@@ -442,75 +442,118 @@ const CourseDetail = () => {
     <>
       <Sidebar />
       {course ? (
-        <div className="md:flex justify-between p-4 gap-6 sm:ml-52 mt-16 sm:w-full items-start">
-          <div className="flex flex-col gap-4 md:w-[65%]">
+        <div className=" p-4 sm:ml-52 mt-16">
+          <div className="md:flex justify-between gap-2 md:w-full items-start">
+            {/* <div className="flex flex-col gap-4 md:w-[65%]"> */}
             <div className="aspect-video overflow-hidden bg-gray-100 rounded-lg">
               <span className="w-full h-full object-cover rounded-md bg-muted">
                 {renderVideos(course, selectedVideoTitle)}
               </span>
             </div>
-            <div className="flex flex-col gap-4">
-              <div>
-                <h1 className="text-2xl font-bold">{course.title}</h1>
-                <p className="text-gray-400 mb-4">{course.category}</p>
-                <p className="text-sm text-gray-500">{course.description}</p>
-              </div>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-2">
-                    <img
-                      alt="Avatar"
-                      className="rounded-full"
-                      height="40"
-                      src="https://avatars.githubusercontent.com/u/266302?v=4"
-                      style={{
-                        aspectRatio: "40/40",
-                        objectFit: "cover",
-                      }}
-                      width="40"
-                    />
-                    <div className="flex flex-col">
-                      <h3 className="font-medium text-sm">
-                        Dr. Maria Rodriguez
-                      </h3>
-                      <p className="text-xs text-gray-500">
-                        Professor of Physics, MIT
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="grid gap-4 w-3/5">
-              <p className="text-sm leading-6">
-                In this course, you will gain a deep understanding of quantum
-                mechanics, covering topics such as wave-particle duality,
-                quantum superposition, and entanglement. The course includes
-                video lectures, interactive simulations, and quizzes to test
-                your knowledge.
-              </p>
-            </div>
-            <div className="grid gap-4 p-4 bg-white rounded-lg shadow-lg w-3/5">
-              <h3 className="text-lg font-semibold">Course Resources</h3>
-              <ul className="grid gap-2">{renderResources(course)}</ul>
-            </div>
-
-            <div className="grid gap-4 p-4 bg-white rounded-lg shadow-lg w-3/5">
-              <h3 className="text-lg font-semibold">Assignments</h3>
-              <ul className="grid gap-2">{renderAssignments(course)}</ul>
-            </div>
-
-            <div>
+            <div className="md:w-[65%] w-[100%] ">
+              <section className="bg-white rounded-lg shadow-md p-6 max-w-sm ">
+                <h2 className="text-2xl font-bold mb-4">Course content</h2>
+                <ul className="space-y-2">
+                  {course.videos.map((video, index) => (
+                    <li
+                      key={index}
+                      className="flex items-center justify-between p-2 rounded hover:bg-gray-100 cursor-pointer"
+                      onClick={() => handleVideoTitleClick(video.title)}
+                    >
+                      <div className="flex items-center space-x-2">
+                        <VideoIcon className="w-6 h-6" />
+                        <div>
+                          <p className="font-medium">{video.title}</p>
+                          <p className="text-sm text-gray-600">
+                            {video.unit}unit1
+                          </p>
+                        </div>
+                      </div>
+                      <span>{video.duration}5:00</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
               <button
-                className="w-25 bg-blue-500 text-white py-2 px-4 rounded-3xl hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
+                className="w-25 mt-8 mb-8 bg-blue-500 text-white py-2 px-4 rounded-3xl hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
                 onClick={completeCourse}
               >
                 Complete Course and Claim tokens
               </button>
             </div>
           </div>
+          <div className="flex">
+            <div className="flex flex-col gap-4 sm:w-[70%]">
+              <div className="flex flex-col gap-4 w-full">
+                <div>
+                  <h1 className="text-2xl font-bold">{course.title}</h1>
+                  <p className="text-gray-400 mb-4">{course.category}</p>
+                  <p className="text-sm text-gray-500">{course.description}</p>
+                </div>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                      <img
+                        alt="Avatar"
+                        className="rounded-full"
+                        height="40"
+                        src="https://avatars.githubusercontent.com/u/266302?v=4"
+                        style={{
+                          aspectRatio: "40/40",
+                          objectFit: "cover",
+                        }}
+                        width="40"
+                      />
+                      <div className="flex flex-col">
+                        <h3 className="font-medium text-sm">
+                          Dr. Maria Rodriguez
+                        </h3>
+                        <p className="text-xs text-gray-500">
+                          Professor of Physics, MIT
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid gap-4 w-3/5 ">
+                <p className="text-sm leading-6">
+                  In this course, you will gain a deep understanding of quantum
+                  mechanics, covering topics such as wave-particle duality,
+                  quantum superposition, and entanglement. The course includes
+                  video lectures, interactive simulations, and quizzes to test
+                  your knowledge.
+                </p>
+              </div>
+              {/* <div className="grid gap-4 p-4 bg-white rounded-lg shadow-lg w-3/5">
+              <h3 className="text-lg font-semibold">Course Resources</h3>
+              <ul className="grid gap-2">{renderResources(course)}</ul>
+             </div> */}
+              <div className="w-full sm:h-16">
+                <div className="grid gap-4 p-4 bg-white rounded-lg shadow-lg w-3/5">
+                  <h3 className="text-lg font-semibold">Assignments</h3>
+                  <ul className="grid gap-2">{renderAssignments(course)}</ul>
+                </div>
+              </div>
 
-          <div className="md:w-[35%] w-[100%] md:mr-28">
+            </div>
+            <div>
+
+              <div className="grid gap-4 p-4 bg-white rounded-lg shadow-lg  w-[100%] ">
+                <h3 className="text-lg font-semibold">Course Resources</h3>
+                <ul className="grid gap-2">{renderResources(course)}</ul>
+                <div>
+                </div>
+              </div>
+              {/* <button
+                className="w-25 mt-8 bg-blue-500 text-white py-2 px-4 rounded-3xl hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
+                onClick={completeCourse}
+              > 
+                Complete Course and Claim tokens
+              </button> */}
+            </div>
+          </div>
+          {/* <div className="md:w-[35%] w-[100%] md:mr-28">
             <section className="bg-white rounded-lg shadow-md p-6 max-w-sm ">
               <h2 className="text-2xl font-bold mb-4">Course content</h2>
               <ul className="space-y-2">
@@ -534,7 +577,8 @@ const CourseDetail = () => {
                 ))}
               </ul>
             </section>
-          </div>
+          </div> */}
+          {/* </div> */}
         </div>
       ) : (
         <p className="text-center text-gray-300">Loading...</p>

@@ -37,6 +37,28 @@ const Contributor = () => {
     }
   };
 
+  const handleApproveSubmission = async (assignmentId) => {
+    try {
+      await axios.put(`http://localhost:8080/api/users/mark-complete/${user2.user}/${assignmentId}`);
+      // Refresh submissions
+      handleReviewClick(selectedCourse);
+      console.log("approved successfully");
+    } catch (error) {
+      console.error('Error approving submission:', error);
+    }
+  };
+  
+  const handleRejectSubmission = async (assignmentId) => {
+    try {
+      await axios.put(`http://localhost:8080/api/users/mark-reject/${user2.user}/${assignmentId}`);
+      // Refresh submissions
+      handleReviewClick(selectedCourse);
+      console.log("rejected successfully");
+    } catch (error) {
+      console.error('Error rejecting submission:', error);
+    }
+  };
+
   return (
     <>
       <Sidebar />
@@ -97,6 +119,10 @@ const Contributor = () => {
                       <p>Submitted By: {submission.userId}</p>
                       <p>Submission Date: {submission.submittedAt}</p>
                       <p>Code: {submission.code}</p>
+                      <div className="flex space-x-2">
+                        <Button onClick={() => handleApproveSubmission(submission._id)}>Approve</Button>
+                        <Button onClick={() => handleRejectSubmission(submission._id)}>Reject</Button>
+                      </div>
                     </li>
                   ))}
                 </ul>

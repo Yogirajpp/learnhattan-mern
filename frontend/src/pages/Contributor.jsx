@@ -82,7 +82,7 @@ const Contributor = () => {
               <p>Loading...</p>
             ) : (
               <div className="border-t border-b border-gray-200 dark:border-gray-800">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
+                <div className="flex flex-row p-6 flex-wrap gap-6">
                   {markedCourses.map((course) => (
                     <div
                       key={course._id}
@@ -97,7 +97,7 @@ const Contributor = () => {
                         <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{course.title}</h2>
                         <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{course.description}</p>
                         <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{course.category}</p>
-                        <div className="mt-4">
+                        <div className="mt-2">
                           <span className="text-sm text-gray-600 dark:text-gray-400">Assigned Date: {course.assignedDate}</span>
                           <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">Deadline: {course.deadline}</span>
                         </div>
@@ -107,7 +107,6 @@ const Contributor = () => {
                   ))}
                 </div>
               </div>
-
             )}
           </div>
         </CardContent>

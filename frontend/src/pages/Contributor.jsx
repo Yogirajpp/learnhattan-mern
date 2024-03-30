@@ -25,7 +25,7 @@ const Contributor = () => {
     };
 
     fetchMarkedCourses();
-  }, [user2]);
+  }, []);
 
   const handleReviewClick = async (courseId) => {
     try {

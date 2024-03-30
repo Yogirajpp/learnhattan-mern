@@ -496,13 +496,13 @@ const CourseDetail = () => {
                       <img
                         alt="Avatar"
                         className="rounded-full"
-                        height="40"
+                        height="50"
                         src="https://avatars.githubusercontent.com/u/266302?v=4"
                         style={{
-                          aspectRatio: "40/40",
+                          aspectRatio: "50/50",
                           objectFit: "cover",
                         }}
-                        width="40"
+                        width="50"
                       />
                       <div className="flex flex-col">
                         <h3 className="font-medium text-sm">
@@ -525,14 +525,43 @@ const CourseDetail = () => {
                   your knowledge.
                 </p>
               </div>
-              {/* <div className="grid gap-4 p-4 bg-white rounded-lg shadow-lg w-3/5">
-              <h3 className="text-lg font-semibold">Course Resources</h3>
-              <ul className="grid gap-2">{renderResources(course)}</ul>
-             </div> */}
-              <div className=" w-96 ">
-                <img src="https://avatars.githubusercontent.com/u/31030257?v=4" alt="" />
-                <img src="https://avatars.githubusercontent.com/u/63950637?v=4" alt="" />
-                <img src="https://avatars.githubusercontent.com/u/15614124?v=4" alt="" />
+              <div className="flex flex-col w-96 gap-2 shadow-lg rounded-xl py-4 ">
+                <p className="px-2 text-base font-medium">Contributors</p>
+                <div className="flex px-4 gap-2">
+                  <img
+                    alt="Avatar"
+                    className="rounded-full"
+                    height="40"
+                    src="https://avatars.githubusercontent.com/u/31030257?v=4"
+                    style={{
+                      aspectRatio: "40/40",
+                      objectFit: "cover",
+                    }}
+                    width="40"
+                  />
+                  <img
+                    alt="Avatar"
+                    className="rounded-full"
+                    height="40"
+                    src="https://avatars.githubusercontent.com/u/15614124?v=4"
+                    style={{
+                      aspectRatio: "40/40",
+                      objectFit: "cover",
+                    }}
+                    width="40"
+                  />
+                  <img
+                    alt="Avatar"
+                    className="rounded-full"
+                    height="40"
+                    src="https://avatars.githubusercontent.com/u/63950637?v=4"
+                    style={{
+                      aspectRatio: "40/40",
+                      objectFit: "cover",
+                    }}
+                    width="40"
+                  />
+                </div>
               </div>
               <div className="w-full sm:h-16">
                 <div className="grid gap-4 p-4 bg-white rounded-lg shadow-lg w-3/5">
@@ -550,40 +579,8 @@ const CourseDetail = () => {
                 <div>
                 </div>
               </div>
-              {/* <button
-                className="w-25 mt-8 bg-blue-500 text-white py-2 px-4 rounded-3xl hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
-                onClick={completeCourse}
-              > 
-                Complete Course and Claim tokens
-              </button> */}
             </div>
           </div>
-          {/* <div className="md:w-[35%] w-[100%] md:mr-28">
-            <section className="bg-white rounded-lg shadow-md p-6 max-w-sm ">
-              <h2 className="text-2xl font-bold mb-4">Course content</h2>
-              <ul className="space-y-2">
-                {course.videos.map((video, index) => (
-                  <li
-                    key={index}
-                    className="flex items-center justify-between p-2 rounded hover:bg-gray-100 cursor-pointer"
-                    onClick={() => handleVideoTitleClick(video.title)}
-                  >
-                    <div className="flex items-center space-x-2">
-                      <VideoIcon className="w-6 h-6" />
-                      <div>
-                        <p className="font-medium">{video.title}</p>
-                        <p className="text-sm text-gray-600">
-                          {video.unit}unit1
-                        </p>
-                      </div>
-                    </div>
-                    <span>{video.duration}5:00</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          </div> */}
-          {/* </div> */}
         </div>
       ) : (
         <p className="text-center text-gray-300">Loading...</p>

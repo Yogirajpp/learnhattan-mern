@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const contributorSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  courseId: { type: mongoose.Schema.Types.ObjectId, ref: "Course", required: true }
+  courseIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }] // Array to store course IDs
   // You can add more fields to the contributor model if needed
 });
 

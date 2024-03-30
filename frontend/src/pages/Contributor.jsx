@@ -1,28 +1,35 @@
-import React from "react";
-import Sidebar from "../components/Sidebar";
-import { CardTitle, CardDescription, CardHeader, CardContent, Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+// Contributor.jsx
+
+import { useState, useEffect } from 'react';
+import Sidebar from '../components/Sidebar';
+import { Card, CardTitle, CardDescription, CardHeader, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import axios from 'axios';
+
+// import { useParams } from 'react-router-dom';
+
 const Contributor = () => {
-  const [course, setCourse] = useState(null);
-  const { courseId } = useParams();
-  const navigate = useNavigate();
+  const [markedCourses, setMarkedCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const user2 = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    const fetchCourse = async () => {
+    const fetchMarkedCourses = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/courses/${courseId}`);
-        setCourse(response.data.course);
+        const response = await axios.get(`http://localhost:8080/api/users/${user2.user}/marked-courses`);
+        setMarkedCourses(response.data.data);
+        // console.log(response.data.data);
+        setIsLoading(false);
       } catch (error) {
-        console.error("Error fetching course:", error);
+        console.error('Error fetching marked courses:', error);
+        setIsLoading(false);
       }
     };
 
-    // Fetch the specific course when the component mounts
-    fetchCourse();
-  }, [courseId]);
+    fetchMarkedCourses();
+  }, [user2]);
+
   return (
     <>
       <Sidebar />
@@ -55,46 +62,34 @@ const Contributor = () => {
           </div>
         </CardContent>
 
-
         <CardContent className="p-6 md:p-8">
           <div className="space-y-4">
             <div className="flex items-center space-x-4">
               <div className="space-y-1">
-                <h2 className="text-lg font-bold">My Courses</h2>
-                <p className="text-sm leading-none text-gray-500 dark:text-gray-400">Welcome back, Alice Johnson!</p>
+                <h2 className="text-lg font-bold">Marked Courses</h2>
               </div>
             </div>
-            <div className="border-t border-b border-gray-200 dark:border-gray-800">
-              <div className="grid grid-cols-3 items-center py-3 text-xs font-semibold text-gray-500 uppercase dark:text-gray-400">
-                <span className="ml-8">Course</span>
-                <span>Assigned</span>
-                <span>Deadline</span>
+            {isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <div className="border-t border-b border-gray-200 dark:border-gray-800">
+                <div className="grid grid-cols-3 items-center py-3 text-xs font-semibold text-gray-500 uppercase dark:text-gray-400">
+                  <span className="ml-8">Course Title</span>
+                  <span>Assigned Date</span>
+                  <span>Deadline</span>
+                </div>
+                {markedCourses.map((course) => (
+                  <div key={course._id} className="grid grid-cols-3 items-center py-3 border-t">
+                    <span className="flex items-center space-x-2">
+                      <span className="font-semibold text-lg">{course.title}</span>
+                    </span>
+                    <span>{course.assignedDate}</span>
+                    <span>{course.deadline}</span>
+                    <Button className="w-20 h-8">Review</Button>
+                  </div>
+                ))}
               </div>
-              <div className="grid grid-cols-3 items-center py-3 border-t">
-                <span className="flex items-center space-x-2">
-                  <span className="font-semibold  text-lg">Course 1</span>
-                </span>
-                <span>Mar 12, 2023</span>
-                <span>Mar 30, 2023</span>
-                <Button className="w-20 h-8">Review</Button>
-              </div>
-              <div className="grid grid-cols-3 items-center py-3 border-t">
-                <span className="flex items-center space-x-2">
-                  <span className="font-semibold text-lg">Course 2</span>
-                </span>
-                <span>Jan 20, 2023</span>
-                <span>Feb 10, 2023</span>
-                <Button className="w-20 h-8">Review</Button>
-              </div>
-              <div className="grid grid-cols-3 items-center py-3 border-t">
-                <span className="flex items-center space-x-2">
-                  <span className="font-semibold text-lg">Course 2</span>
-                </span>
-                <span>Apr 5, 2023</span>
-                <span>Apr 25, 2023</span>
-                <Button className="w-20 h-8" >Review</Button>
-              </div>
-            </div>
+            )}
           </div>
         </CardContent>
       </Card>

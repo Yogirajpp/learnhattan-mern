@@ -31,9 +31,11 @@ const userSchema = new mongoose.Schema({
       completed: { type: Boolean, default: false },
     },
   ],
-  contributor: { type: Boolean, default: false }, // New field for contributor tag
-  submittedAssignments: [submittedAssignmentSchema], // Track submitted assignments
-  completedAssignments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Assignment" }], // Track completed assignments
+  contributor: { type: Boolean, default: false },
+  submittedAssignments: [submittedAssignmentSchema],
+  completedAssignments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Assignment" }],
+  assignedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }], // Array of assigned courses
+  markedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }] // Track marked courses
 });
 
 const User = mongoose.model("User", userSchema);

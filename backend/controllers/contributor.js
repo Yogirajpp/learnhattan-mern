@@ -9,28 +9,30 @@ const markContributorForCourse = async (req, res) => {
     const userId = req.params.userId;
     const courseId = req.params.courseId;
 
-    // Find the user by their ID
     const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    // Find the contributor by their user ID
+    let contributor = await Contributor.findOne({ userId: userId });
+    if (!contributor) {
+      // If contributor record doesn't exist, create a new one
+      contributor = new Contributor({ userId: userId, courseIds: [] });
     }
 
-    // Update the user's contributor status
-    user.contributor = true; // Set the contributor field to true
+    // Push the courseId into the markedCourses array of the user
+    user.markedCourses.push(courseId);
     await user.save();
 
-    // Add the user to the Contributor model for the specific course
-    if (user.contributor) {
-      await Contributor.create({ userId: user._id, courseId });
-    }
+    // Push the courseId into the courseIds array of the contributor
+    contributor.courseIds.push(courseId);
+    await contributor.save();
 
     res.status(200).json({ message: "User marked as contributor for the course", 
-    contributor:user.contributor });
+    contributor: contributor });
   } catch (error) {
     console.error("Error marking user as contributor:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 // Marking assignment as complete
 const markAssignmentComplete = async (req, res) => {
@@ -57,6 +59,33 @@ const markAssignmentComplete = async (req, res) => {
   }
 };
 
+// Controller function to get marked courses for a contributor
+const getMarkedCourses = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Find the user by their ID
+    const user = await User.findById(userId).populate('markedCourses');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Check if the user is a contributor
+    if (!user.contributor) {
+      return res.status(400).json({ message: 'User is not a contributor' });
+    }
+
+    // Extract marked courses from the user object
+    const markedCourses = user.markedCourses;
+
+    res.status(200).json({ success: true, data: markedCourses });
+  } catch (error) {
+    console.error('Error fetching marked courses:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
 // const rejectAssignment = async (req, res) => {
 //   try {
 //     const { userId, assignmentId } = req.params;
@@ -76,4 +105,4 @@ const markAssignmentComplete = async (req, res) => {
 // };
 
 
-export { markContributorForCourse, markAssignmentComplete };
+export { markContributorForCourse, markAssignmentComplete , getMarkedCourses };

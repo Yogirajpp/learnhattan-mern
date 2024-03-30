@@ -5,7 +5,6 @@ import { markContributorForCourse, markAssignmentComplete ,getMarkedCourses , re
 // Route to mark a user as a contributor for a specific course
 router.put("/:userId/mark-contributor/:courseId", markContributorForCourse);
 
-
 router.get('/:userId/marked-courses', getMarkedCourses);
 
 // Marking assignment as complete route
@@ -13,7 +12,5 @@ router.put("/mark-complete/:userId/:assignmentId", markAssignmentComplete);
 
 // Route to reject an assignment
 router.put('/mark-reject/:userId/:assignmentId', rejectAssignment);
-
-
 
 export default router;

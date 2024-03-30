@@ -60,9 +60,9 @@ const Contributor = () => {
   };
 
   return (
-    <>
+    <div className="flex">
       <Sidebar />
-      <Card className="w-full max-w-5xl sm:ml-52 mt-16">
+      <Card className="w-full max-w-5xl sm:ml-56 mt-20">
         <CardHeader className="pb-0">
           <CardTitle>Contributor Panel</CardTitle>
           <CardDescription>View contributor details and course assignments.</CardDescription>
@@ -141,7 +141,7 @@ const Contributor = () => {
           </Card>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

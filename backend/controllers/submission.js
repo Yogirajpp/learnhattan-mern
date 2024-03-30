@@ -1,6 +1,8 @@
 import Submission from "../models/submission.js";
 import Contributor from "../models/contributor.js";
+import User from "../models/user.js";
 
+// Submission controller
 export const submitAssignment = async (req, res) => {
   try {
     const { userId, courseId, assignmentId } = req.params;
@@ -27,16 +29,32 @@ export const submitAssignment = async (req, res) => {
     // Save the submission
     await submission.save();
 
+     // Create a submitted assignment object
+     const submittedAssignment = {
+      userId: userId,
+      courseId: courseId,
+      assignmentId: assignmentId,
+      code: code,
+      submittedAt: new Date(),
+    };
+
+    // Update user's submitted assignments
+    await User.findByIdAndUpdate(userId, {
+      $push: { submittedAssignments: submittedAssignment },
+    });
+
     res
       .status(200)
       .json({
+        success: true,
         message: "Assignment submitted successfully to the contributor",
       });
   } catch (error) {
     console.error("Error submitting assignment:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
+
 
 // Controller function to get all submissions
 export const getAllSubmissions = async (req, res) => {

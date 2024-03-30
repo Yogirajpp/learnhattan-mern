@@ -60,9 +60,9 @@ const Contributor = () => {
   };
 
   return (
-    <>
+    <div className="flex">
       <Sidebar />
-      <Card className="w-full max-w-5xl sm:ml-52 mt-16">
+      <Card className="w-full max-w-5xl sm:ml-56 mt-20">
         <CardHeader className="pb-0">
           <CardTitle>Contributor Panel</CardTitle>
           <CardDescription>View contributor details and course assignments.</CardDescription>
@@ -82,22 +82,32 @@ const Contributor = () => {
               <p>Loading...</p>
             ) : (
               <div className="border-t border-b border-gray-200 dark:border-gray-800">
-                <div className="grid grid-cols-3 items-center py-3 text-xs font-semibold text-gray-500 uppercase dark:text-gray-400">
-                  <span className="ml-8">Course Title</span>
-                  <span>Assigned Date</span>
-                  <span>Deadline</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
+                  {markedCourses.map((course) => (
+                    <div
+                      key={course._id}
+                      className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden"
+                    >
+                      <img
+                        alt="Course thumbnail"
+                        src={course.image}
+                        className="h-48 w-full object-cover"
+                      />
+                      <div className="p-4">
+                        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{course.title}</h2>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{course.description}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{course.category}</p>
+                        <div className="mt-4">
+                          <span className="text-sm text-gray-600 dark:text-gray-400">Assigned Date: {course.assignedDate}</span>
+                          <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">Deadline: {course.deadline}</span>
+                        </div>
+                        <Button className="w-full mt-4" onClick={() => handleReviewClick(course._id)}>Review</Button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                {markedCourses.map((course) => (
-                  <div key={course._id} className="grid grid-cols-3 items-center py-3 border-t">
-                    <span className="flex items-center space-x-2">
-                      <span className="font-semibold text-lg">{course.title}</span>
-                    </span>
-                    <span>{course.assignedDate}</span>
-                    <span>{course.deadline}</span>
-                    <Button className="w-20 h-8" onClick={() => handleReviewClick(course._id)}>Review</Button>
-                  </div>
-                ))}
               </div>
+
             )}
           </div>
         </CardContent>
@@ -131,7 +141,7 @@ const Contributor = () => {
           </Card>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

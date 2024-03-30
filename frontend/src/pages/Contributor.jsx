@@ -1,25 +1,22 @@
-// Contributor.jsx
-
 import { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import { Card, CardTitle, CardDescription, CardHeader, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
 
-// import { useParams } from 'react-router-dom';
-
 const Contributor = () => {
   const [markedCourses, setMarkedCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [submissions, setSubmissions] = useState([]);
 
-  const user2 = JSON.parse(localStorage.getItem("user"));
+  const user2 = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     const fetchMarkedCourses = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/users/${user2.user}/marked-courses`);
         setMarkedCourses(response.data.data);
-        // console.log(response.data.data);
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching marked courses:', error);
@@ -30,6 +27,16 @@ const Contributor = () => {
     fetchMarkedCourses();
   }, [user2]);
 
+  const handleReviewClick = async (courseId) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/submissions/allSubmissions/${courseId}`);
+      setSubmissions(response.data.submissions);
+      setSelectedCourse(courseId);
+    } catch (error) {
+      console.error('Error fetching submissions:', error);
+    }
+  };
+
   return (
     <>
       <Sidebar />
@@ -39,27 +46,7 @@ const Contributor = () => {
           <CardDescription>View contributor details and course assignments.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="flex items-center space-x-4">
-            <div className="rounded-full overflow-hidden w-12 h-12">
-              <img
-                alt="Image"
-                className="border border-gray-200 dark:border-gray-800 rounded-full aspect-square"
-                height="48"
-                src="https://avatars.githubusercontent.com/u/11247099?v=4"
-                width="48"
-              />
-            </div>
-            <div className="space-y-1">
-              <h2 className="text-2xl font-bold">Alice Johnson</h2>
-              <p className="text-gray-500 dark:text-gray-400">Contributor</p>
-            </div>
-          </div>
-          <div className="grid gap-1">
-            <p className="text-sm">
-              Alice Johnson is a dedicated contributor who is passionate about learning and sharing knowledge with the
-              world.
-            </p>
-          </div>
+          {/* Profile details */}
         </CardContent>
 
         <CardContent className="p-6 md:p-8">
@@ -85,7 +72,7 @@ const Contributor = () => {
                     </span>
                     <span>{course.assignedDate}</span>
                     <span>{course.deadline}</span>
-                    <Button className="w-20 h-8">Review</Button>
+                    <Button className="w-20 h-8" onClick={() => handleReviewClick(course._id)}>Review</Button>
                   </div>
                 ))}
               </div>
@@ -93,6 +80,31 @@ const Contributor = () => {
           </div>
         </CardContent>
       </Card>
+
+      {selectedCourse && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <Card className="w-full md:w-1/2">
+            <CardHeader>
+              <CardTitle>Submissions for {selectedCourse} </CardTitle>
+              <Button onClick={() => setSelectedCourse(null)}>Close</Button>
+            </CardHeader>
+            <CardContent>
+              <div>
+                <h2>Submissions:</h2>
+                <ul>
+                  {submissions.map((submission) => (
+                    <li key={submission._id}>
+                      <p>Submitted By: {submission.userId}</p>
+                      <p>Submission Date: {submission.submittedAt}</p>
+                      <p>Code: {submission.code}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </>
   );
 };

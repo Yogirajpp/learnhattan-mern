@@ -529,6 +529,11 @@ const CourseDetail = () => {
               <h3 className="text-lg font-semibold">Course Resources</h3>
               <ul className="grid gap-2">{renderResources(course)}</ul>
              </div> */}
+              <div className=" w-96 ">
+                <img src="https://avatars.githubusercontent.com/u/31030257?v=4" alt="" />
+                <img src="https://avatars.githubusercontent.com/u/63950637?v=4" alt="" />
+                <img src="https://avatars.githubusercontent.com/u/15614124?v=4" alt="" />
+              </div>
               <div className="w-full sm:h-16">
                 <div className="grid gap-4 p-4 bg-white rounded-lg shadow-lg w-3/5">
                   <h3 className="text-lg font-semibold">Assignments</h3>

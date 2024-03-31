@@ -27,7 +27,7 @@ const Dashboard = () => {
     };
 
     fetchUserData();
-  }, [user2]);
+  }, []);
 
   return (
     <>

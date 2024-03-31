@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import "./Courses.css";
+import { FaBookOpen, FaTrophy } from "react-icons/fa";
 const Courses = () => {
   const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
@@ -50,6 +51,16 @@ const Courses = () => {
                   {course.description}{" "}
                 </p>
                 <p className="text-sm text-gray-500 mt-2">{course.category}</p>
+                <div className="flex gap-16 mt-1">
+                  <div className="flex gap-2 justify-center  align-middle items-center">
+                    <FaBookOpen />
+                    <p className="text-sm text-gray-500 ">Modules:6</p>
+                  </div>
+                  <div className="flex gap-2 justify-center  align-middle items-center">
+                    <FaTrophy />
+                    <p className="text-sm text-gray-500 ">Reward Pool : 2000$</p>
+                  </div>
+                </div>
               </div>
               <button
                 className="flex items-center justify-center p-4 bg-gray-100 text-sm w-full"

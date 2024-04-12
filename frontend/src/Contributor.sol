@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
-// contract address = 0x28bf93bd2df975edcb71d1588bac73cc4ed9f05a
+// contract address = 0x28bf93bd2df975edcb71d1588bac73cc4ed9f05a deployed on sepolia
 contract Contributor {
     struct Course {
         uint id;

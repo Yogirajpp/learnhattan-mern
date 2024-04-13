@@ -62,7 +62,7 @@ const Contributor = () => {
 
   const handleApproveSubmission = async (assignmentId) => {
     try {
-      const response = await axios.post(`http://localhost:8080/api/users/mark-complete/${user2.user}/${assignmentId}`);
+      const response = await axios.post(`https://learnhattan-mern.vercel.app/api/users/mark-complete/${user2.user}/${assignmentId}`);
       if (response.data.success) {
         console.log("approved successfully");
       }
@@ -73,7 +73,7 @@ const Contributor = () => {
 
   const handleRejectSubmission = async (assignmentId) => {
     try {
-      const response=await axios.post(`http://localhost:8080/api/users/mark-reject/${user2.user}/${assignmentId}`);
+      const response=await axios.post(`https://learnhattan-mern.vercel.app/api/users/mark-reject/${user2.user}/${assignmentId}`);
       if(response.data.success){
         console.log("rejected successfully");
       }

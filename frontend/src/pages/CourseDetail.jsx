@@ -317,7 +317,7 @@ const CourseDetail = () => {
     // Function to fetch contributors when the component mounts
     const fetchContributors = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/courses/${courseId}/contributors`);
+        const response = await axios.get(`https://learnhattan-mern.vercel.app/api/courses/${courseId}/contributors`);
         setContributors(response.data.contributors);
       } catch (error) {
         console.error('Error fetching contributors:', error);

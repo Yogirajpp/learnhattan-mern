@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useParams } from "react-router-dom";
 import axios from "axios";
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 import Sidebar from "../components/Sidebar";
 
 const Dashboard = () => {
-  // const { userId } = useParams();
+  let i = 1;
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [achievements, setAchievements] = useState(null);
+  const [check, setCheck] = useState(false); // Define check state
 
   const user2 = JSON.parse(localStorage.getItem("user"));
 
@@ -18,9 +18,26 @@ const Dashboard = () => {
       try {
         const response = await axios.get(`https://learnhattan-mern.vercel.app/api/users/${user2.user}`);
         setUser(response.data.user);
-        // Fetch enrolled courses for the user
+
+        const achievementsData = await Promise.all(
+          response.data.user.achievements.map(async (achievementId) => {
+            const achievementResponse = await axios.get(`https://learnhattan-mern.vercel.app/api/achivements/${achievementId}`);
+            return achievementResponse.data;
+          })
+        );
+        setAchievements(achievementsData);
+
+        const checkResponse = await axios.get(`https://learnhattan-mern.vercel.app/api/dashboard/user/${user2.user}`);
+        setCheck(checkResponse.data);
+
+        if (checkResponse.data) {
+          const profileData = await axios.get(`https://learnhattan-mern.vercel.app/api/dashboard/user/display/${user2.user}`);
+          console.log(profileData.data)
+        }
+
         const enrolledCoursesResponse = await axios.get(`https://learnhattan-mern.vercel.app/api/users/enrolled-courses/${user2.user}`);
         setEnrolledCourses(enrolledCoursesResponse.data.enrolledCourses);
+
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -37,15 +54,15 @@ const Dashboard = () => {
         <div className=" sm:ml-52 text-black min-h-screen">
           <div className="flex flex-col shadow-xl  rounded-xl items-center p-6">
             <div className="flex items-center space-x-4 mb-6">
-              {/* <MenuIcon className="text-white" /> */}
               <h1 className="text-4xl font-bold mt-10">Dashboard</h1>
             </div>
             <div className="flex flex-col items-center p-6 rounded-lg w-full max-w-4xl">
               <div className="flex flex-col items-center mb-6">
-                <Avatar>
+                {/* <Avatar>
                   <AvatarImage alt="user name" src={user.photo} />
                   <AvatarFallback>VM</AvatarFallback>
-                </Avatar>
+                </Avatar> */}
+                <img src={user.photo} alt="userPhoto" className="w-32 rounded-full" />
                 <h2 className="text-3xl font-semibold mt-4">{user.username}</h2>
                 <p className="text-sm text-gray-400 mt-2">{user.description}</p>
               </div>
@@ -66,56 +83,31 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div className="flex justify-center space-x-4 mt-6">
-                    {/* <CameraIcon className="text-gray-400" />
-                    <VideoIcon className="text-gray-400" />
-                    <TwitterIcon className="text-gray-400" />
-                    <LinkedinIcon className="text-gray-400" /> */}
                   </div>
                 </div>
                 <div className="flex-1">
                   <div className="p-4 shadow-xl  rounded-xl h-full">
-                    <h3 className="text-xl font-semibold mb-4">ACHIVEMENTS</h3>
+                    <h3 className="text-xl font-semibold mb-4">ACHIEVEMENTS</h3>
                     <ul>
-                      <li className="flex items-center mb-2">
-                        {/* <TrophyIcon className="text-[#bd1e59] mr-2" /> */}
-                        <span className="text-sm">Dev Hackathon – Aug 2023</span>
-                      </li>
-                      <li className="flex items-center mb-2">
-                        {/* <TrophyIcon className="text-[#bd1e59] mr-2" /> */}
-                        <span className="text-sm">Eth India – Apr 2024</span>
-                      </li>
-                      <li className="flex items-center">
-                        {/* <TrophyIcon className="text-[#bd1e59] mr-2" /> */}
-                        <span className="text-sm">Speed Code – Aug 2022</span>
-                      </li>
+                      {achievements && achievements.map(achievement => (
+                        <li key={achievement._id}><span className="font-bold">{i++}.</span> {achievement.title}</li>
+                      ))}
                     </ul>
                   </div>
                 </div>
                 <div className="flex-1">
                   <div className="shadow-xl  rounded-xl p-4 h-full">
                     <h3 className="text-xl font-semibold mb-4">PROFILE</h3>
-                    <ul>
-                      <li className="flex items-center mb-2">
-                        {/* <CalendarIcon className="text-gray-400 mr-2" /> */}
-                        <span className="text-sm">23 Years</span>
-                      </li>
-                      <li className="flex items-center mb-2">
-                        {/* <LocateIcon className="text-gray-400 mr-2" /> */}
-                        <span className="text-sm">Noida, UP, India</span>
-                      </li>
-                      <li className="flex items-center">
-                        {/* <BedSingleIcon className="text-gray-400 mr-2" /> */}
-                        <span className="text-sm">Single</span>
-                      </li>
-                    </ul>
+                    {!check && <p>Please Fill Profile Info</p>}
+                    {check && (
+                      <div>
+                        <p><strong>Interests:</strong> {user.interests.join(", ")}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
-
-
               </div>
             </div>
-
-            {/* Enrolled Courses */}
             <div className="mt-8">
               <h2 className="text-2xl font-semibold mb-4">Enrolled Courses</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -149,10 +141,10 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-
       )}
     </>
   );
 };
 
 export default Dashboard;
+

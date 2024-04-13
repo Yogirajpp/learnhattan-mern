@@ -30,14 +30,14 @@ router.get("/user/display/:id", async (req, res) => {
 });
 
 // Save user's information
-router.post("/user/store", async (req, res) => {
-  const { id, selectedFile, description, interests } = req.body;
+router.post("/user/saveInfo", async (req, res) => {
+  const { id, photo, description, interests } = req.body;
   try {
     let user = await User.findById(id);
     if (!user) {
       user = new User({ _id: id });
     }
-    user.photo = selectedFile;
+    user.photo = photo;
     user.description = description;
     user.interests = interests;
     await user.save();

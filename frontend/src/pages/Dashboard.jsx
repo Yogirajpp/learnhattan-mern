@@ -32,7 +32,8 @@ const Dashboard = () => {
 
         if (checkResponse.data) {
           const profileData = await axios.get(`https://learnhattan-mern.vercel.app/api/dashboard/user/display/${user2.user}`);
-          console.log(profileData.data)
+          // console.log(profileData.data)
+          setCheck(profileData.data)
         }
 
         const enrolledCoursesResponse = await axios.get(`https://learnhattan-mern.vercel.app/api/users/enrolled-courses/${user2.user}`);

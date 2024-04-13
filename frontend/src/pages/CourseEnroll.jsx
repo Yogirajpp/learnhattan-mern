@@ -12,7 +12,7 @@ const CourseEnroll = () => {
   const [course, setCourse] = useState(null);
   // const { userId } = useParams(); // Get the userId from URL param
   const user2 = JSON.parse(localStorage.getItem("user"));
-  console.log(user2);
+  // console.log(user2);
   const { courseId } = useParams(); // Get the courseId from URL params
   const navigate = useNavigate();
   const getUserStatus = async () => {
@@ -39,7 +39,7 @@ const CourseEnroll = () => {
     getUserStatus();
     // Fetch the specific course when the component mounts
     fetchCourse();
-  }, [courseId]);
+  }, []);
 
   const enrollCourse = async () => {
     try {

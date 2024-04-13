@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
+import axios from "axios";
 // import WalletButton from "./WalletButton";
 import { FaBook, FaUserGroup } from "react-icons/fa6";
 import { RiPieChart2Fill } from "react-icons/ri";
@@ -13,6 +14,36 @@ const Sidebar = () => {
   const { logout } = useLogout();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+
+  const [user, setUser] = useState(null);
+  
+
+  const user2 = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`https://learnhattan-mern.vercel.app/api/users/${user2.user}`);
+        setUser(response.data.user);
+
+
+        // const checkResponse = await axios.get(`https://learnhattan-mern.vercel.app/api/dashboard/user/${user2.user}`);
+        // setCheck(checkResponse.data);
+
+        
+        const profileData = await axios.get(`https://learnhattan-mern.vercel.app/api/dashboard/user/display/${user2.user}`);
+        // console.log(profileData.data)
+        setUser(profileData.data)
+        
+
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -57,54 +88,52 @@ const Sidebar = () => {
                 </span>
               </div>
             </div>
-            <div className="flex items-center">
-              <ConnectButton />
-              <div className="flex items-center ms-3 relative">
-                <button
-                  type="button"
-                  className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                  aria-expanded={isMenuOpen}
-                  onClick={toggleMenu}
-                >
-                  <span className="sr-only">Open user menu</span>
-                  <img
-                    className="w-8 h-8 rounded-full"
-                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                    alt="user photo"
-                  />
-                </button>
-                {isMenuOpen && (
-                  <div className="absolute z-50 mt-4 top-4 right-10 bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
-                    <div className="px-4 py-3" role="none">
-                      <p className="text-sm text-gray-900 dark:text-white">
-                        Alice Johnson
-                      </p>
-                      <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300">
-                        AliceJohnson@gmail.com
-                      </p>
+            {user && (
+              <div className="flex items-center">
+                <ConnectButton />
+                <div className="flex items-center ms-3 relative">
+                  <button
+                    type="button"
+                    className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                    aria-expanded={isMenuOpen}
+                    onClick={toggleMenu}
+                  >
+                    <span className="sr-only">Open user menu</span>
+                    <img src={user.photo} alt="userPhoto" className="w-8 h-8 rounded-full" />
+                  </button>
+                  {isMenuOpen && (
+                    <div className="absolute z-50 mt-4 top-4 right-10 bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
+                      <div className="px-4 py-3" role="none">
+                        <p className="text-sm text-gray-900 dark:text-white">
+                          Alice Johnson
+                        </p>
+                        <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300">
+                          AliceJohnson@gmail.com
+                        </p>
+                      </div>
+                      <ul className="py-1" role="none">
+                        <li>
+                          <button onClick={() => navigate("/Profile")}
+                            className="flex items-center p-2 pr-20 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                            role="menuitem"
+                          >
+                            <span className="flex-1 ms-3 whitespace-nowrap">Profile</span>
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            onClick={SignOut}
+                            className="flex items-center p-2 pr-20 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                          >
+                            <span className="flex-1 ms-3 whitespace-nowrap">Sign Out</span>
+                          </button>
+                        </li>
+                      </ul>
                     </div>
-                    <ul className="py-1" role="none">
-                      <li>
-                        <button onClick={() => navigate("/Profile")}
-                          className="flex items-center p-2 pr-20 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                          role="menuitem"
-                        >
-                          <span className="flex-1 ms-3 whitespace-nowrap">Profile</span>
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          onClick={SignOut}
-                          className="flex items-center p-2 pr-20 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                        >
-                          <span className="flex-1 ms-3 whitespace-nowrap">Sign Out</span>
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </div>
+                  )}
+                </div>
+              </div>  
+            )}
           </div>
         </div>
       </nav>

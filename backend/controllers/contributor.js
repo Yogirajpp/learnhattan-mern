@@ -13,6 +13,12 @@ const markContributorForCourse = async (req, res) => {
 
     const user = await User.findById(userId);
     const course = await Course.findById(courseId);
+
+    // Check if the user is already marked as a contributor for the course
+    if (course.contributors.includes(userId)) {
+      return res.status(400).json({ message: "User is already a contributor for this course" });
+    }
+    
     // Find the contributor by their user ID
     let contributor = await Contributor.findOne({ userId: userId });
     if (!contributor) {

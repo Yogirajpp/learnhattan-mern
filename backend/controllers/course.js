@@ -51,4 +51,28 @@ const getCourseById = async (req, res) => {
   }
 };
 
-export { addCourse, getCourseById };
+const getAllContributorsForCourse = async (req, res) => {
+  try {
+    const courseId = req.params.courseId;
+
+    // Find the course by its ID
+    const course = await Course.findById(courseId).populate('contributors', 'username'); // Assuming 'username' is a field in the User model
+
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    // Extract contributors from the course object
+    const contributors = course.contributors;
+
+    res.status(200).json({
+      message: "Successfully retrieved contributors for the course",
+      contributors: contributors
+    });
+  } catch (error) {
+    console.error("Error fetching contributors for the course:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export { addCourse, getCourseById, getAllContributorsForCourse };

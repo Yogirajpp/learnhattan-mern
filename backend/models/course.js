@@ -31,7 +31,12 @@ const courseSchema = new mongoose.Schema({
     title: String,
     description: String,
     deadline: Date
+  }],
+  contributors: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }]
+
   // Add more fields as needed for your course model
 });
 

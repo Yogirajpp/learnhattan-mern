@@ -2,6 +2,7 @@ import User from "../models/user.js";
 import Contributor from "../models/contributor.js";
 import Assignment from "../models/assignment.js";
 import Submission from "../models/submission.js";
+import Course from "../models/course.js";
 import mongoose from "mongoose";
 
 // mark a user as a contributor for a specific course
@@ -11,6 +12,13 @@ const markContributorForCourse = async (req, res) => {
     const courseId = req.params.courseId;
 
     const user = await User.findById(userId);
+    const course = await Course.findById(courseId);
+
+    // Check if the user is already marked as a contributor for the course
+    if (course.contributors.includes(userId)) {
+      return res.status(400).json({ message: "User is already a contributor for this course" });
+    }
+    
     // Find the contributor by their user ID
     let contributor = await Contributor.findOne({ userId: userId });
     if (!contributor) {
@@ -25,6 +33,10 @@ const markContributorForCourse = async (req, res) => {
     // Push the courseId into the courseIds array of the contributor
     contributor.courseIds.push(courseId);
     await contributor.save();
+
+    // Push the userId into the contributors array of the course
+    course.contributors.push(userId);
+    await course.save();
 
     res.status(200).json({
       message: "User marked as contributor for the course",

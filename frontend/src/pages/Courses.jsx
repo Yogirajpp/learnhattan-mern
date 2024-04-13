@@ -52,11 +52,11 @@ const Courses = () => {
                 </p>
                 <p className="text-sm text-gray-500 mt-2">{course.category}</p>
                 <div className="flex gap-16 mt-1">
-                  <div className="flex gap-2 justify-center  align-middle items-center">
+                  <div className="flex gap-2 justify-center align-middle items-center">
                     <FaBookOpen />
-                    <p className="text-sm text-gray-500 ">Modules:6</p>
+                    <p className="text-sm text-gray-500 ">Modules: {course.videos.length}</p> {/* Display number of videos */}
                   </div>
-                  <div className="flex gap-2 justify-center  align-middle items-center">
+                  <div className="flex gap-2 justify-center align-middle items-center">
                     <FaTrophy />
                     <p className="text-sm text-gray-500 ">Reward Pool : 2000$</p>
                   </div>

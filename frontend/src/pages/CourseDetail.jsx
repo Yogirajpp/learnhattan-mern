@@ -17,6 +17,7 @@ const CourseDetail = () => {
   const [course, setCourse] = useState(null);
   const [code, setCode] = useState(""); // State to store the code
   const [selectedVideoTitle, setSelectedVideoTitle] = useState(null);
+  const [contributors, setContributors] = useState([]);
 
   const user2 = JSON.parse(localStorage.getItem("user"));
 
@@ -312,6 +313,22 @@ const CourseDetail = () => {
     fetchCourseDetail();
   }, [courseId]);
 
+  useEffect(() => {
+    // Function to fetch contributors when the component mounts
+    const fetchContributors = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/courses/${courseId}/contributors`);
+        setContributors(response.data.contributors);
+      } catch (error) {
+        console.error('Error fetching contributors:', error);
+      }
+    };
+
+    fetchContributors(); // Call the fetchContributors function
+  }, [courseId]);
+
+  // console.log(setContributors);
+
   const handleVideoTitleClick = (title) => {
     setSelectedVideoTitle(title);
   };
@@ -528,39 +545,12 @@ const CourseDetail = () => {
               <div className="flex flex-col w-96 gap-2 shadow-lg rounded-xl py-4 ">
                 <p className="px-2 text-base font-medium">Contributors</p>
                 <div className="flex px-4 gap-2">
-                  <img
-                    alt="Avatar"
-                    className="rounded-full"
-                    height="40"
-                    src="https://avatars.githubusercontent.com/u/31030257?v=4"
-                    style={{
-                      aspectRatio: "40/40",
-                      objectFit: "cover",
-                    }}
-                    width="40"
-                  />
-                  <img
-                    alt="Avatar"
-                    className="rounded-full"
-                    height="40"
-                    src="https://avatars.githubusercontent.com/u/15614124?v=4"
-                    style={{
-                      aspectRatio: "40/40",
-                      objectFit: "cover",
-                    }}
-                    width="40"
-                  />
-                  <img
-                    alt="Avatar"
-                    className="rounded-full"
-                    height="40"
-                    src="https://avatars.githubusercontent.com/u/63950637?v=4"
-                    style={{
-                      aspectRatio: "40/40",
-                      objectFit: "cover",
-                    }}
-                    width="40"
-                  />
+                  {contributors.map(contributor => (
+                    <div key={contributor._id}>
+                      <span>{contributor._id}</span> {/* Display contributor's ID */}
+                      <span>{contributor.username}</span> {/* Display contributor's username */}
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className="w-full sm:h-16">

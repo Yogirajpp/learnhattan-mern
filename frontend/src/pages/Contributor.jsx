@@ -9,6 +9,7 @@ const Contributor = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [submissions, setSubmissions] = useState([]);
+  const [usernames, setUsernames] = useState({});
 
   const user2 = JSON.parse(localStorage.getItem('user'));
 
@@ -37,12 +38,34 @@ const Contributor = () => {
     }
   };
 
+  const getUserName = async (userId) => {
+    try {
+      const response = await axios.get(`https://learnhattan-mern.vercel.app/api/users/${userId}`);
+      setUsernames(prevState => ({
+        ...prevState,
+        [userId]: response.data.user.username
+      }));
+    } catch (error) {
+      console.error('Error fetching User Name:', error)
+    }
+  }
+
+  useEffect(() => {
+    if (selectedCourse) {
+      const fetchUsernames = async () => {
+        await Promise.all(submissions.map(submission => getUserName(submission.userId)));
+      };
+
+      fetchUsernames();
+    }
+  }, [selectedCourse]);
+
   const handleApproveSubmission = async (assignmentId) => {
     try {
-      await axios.put(`https://learnhattan-mern.vercel.app/api/users/mark-complete/${user2.user}/${assignmentId}`);
-      // Refresh submissions
-      handleReviewClick(selectedCourse);
-      console.log("approved successfully");
+      const response = await axios.post(`http://localhost:8080/api/users/mark-complete/${user2.user}/${assignmentId}`);
+      if (response.data.success) {
+        console.log("approved successfully");
+      }
     } catch (error) {
       console.error('Error approving submission:', error);
     }
@@ -50,10 +73,10 @@ const Contributor = () => {
 
   const handleRejectSubmission = async (assignmentId) => {
     try {
-      await axios.put(`https://learnhattan-mern.vercel.app/api/users/mark-reject/${user2.user}/${assignmentId}`);
-      // Refresh submissions
-      handleReviewClick(selectedCourse);
-      console.log("rejected successfully");
+      const response=await axios.post(`http://localhost:8080/api/users/mark-reject/${user2.user}/${assignmentId}`);
+      if(response.data.success){
+        console.log("rejected successfully");
+      }
     } catch (error) {
       console.error('Error rejecting submission:', error);
     }
@@ -129,28 +152,29 @@ const Contributor = () => {
             <div className="flex flex-col gap-4">
               <ul>
                 {submissions.map((submission) => (
-                  <li key={submission._id}>
-                    <CardContent className="flex flex-col gap-2">
-                      <div>
-                        <h2 className="text-lg font-bold">Submitted by:  </h2>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{submission.userId}</p>
-                      </div>
-                      <div>
-                        <h2 className="text-lg font-bold">Date</h2>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{submission.submittedAt}</p>
-                      </div>
-                      <h2 className="text-text-base font-semibold">Submission</h2>
-                      <div className="border rounded-lg p-4">
-                        <pre className="text-sm/relaxed">
-                          {submission.code}
-                        </pre>
-                      </div>
-                    </CardContent>
-                    <CardFooter className="flex gap-2">
-                      <Button size="sm" onClick={() => handleApproveSubmission(submission._id)}>Approve</Button>
-                      <Button size="sm" variant="outline" onClick={() => handleRejectSubmission(submission._id)}>Reject</Button>
-                    </CardFooter>
-                  </li>
+                  !submission.check && (
+                    <li key={submission._id}>
+                      <CardContent className="flex flex-col gap-2">
+                        <div>
+                          <h2 className="text-lg font-bold">Submitted by:  </h2>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">{usernames[submission.userId]}</p>
+                        </div>
+                        <div>
+                          <h2 className="text-lg font-bold">Date</h2>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">{submission.submittedAt}</p>
+                        </div>
+                        <h2 className="text-text-base font-semibold">Submission</h2>
+                        <div className="border rounded-lg p-4">
+                          <pre className="text-sm/relaxed">
+                            {submission.code}
+                          </pre>
+                        </div>
+                      </CardContent>
+                      <CardFooter className="flex gap-2">
+                        <Button size="sm" onClick={() => handleApproveSubmission(submission.assignmentId)}>Approve</Button>
+                        <Button size="sm" variant="outline" onClick={() => handleRejectSubmission(submission.assignmentId)}>Reject</Button>
+                      </CardFooter>
+                    </li>)
                 ))}
               </ul>
             </div>

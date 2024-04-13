@@ -16,9 +16,11 @@ const markContributorForCourse = async (req, res) => {
 
     // Check if the user is already marked as a contributor for the course
     if (course.contributors.includes(userId)) {
-      return res.status(400).json({ message: "User is already a contributor for this course" });
+      return res
+        .status(400)
+        .json({ message: "User is already a contributor for this course" });
     }
-    
+
     // Find the contributor by their user ID
     let contributor = await Contributor.findOne({ userId: userId });
     if (!contributor) {
@@ -45,40 +47,6 @@ const markContributorForCourse = async (req, res) => {
   } catch (error) {
     console.error("Error marking user as contributor:", error);
     res.status(500).json({ message: "Internal server error" });
-  }
-};
-
-// Marking assignment as complete
-const markAssignmentComplete = async (req, res) => {
-  try {
-    const { userId, assignmentId } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(assignmentId)) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid assignment ID" });
-    }
-
-    // Update assignment's submission status
-    await Assignment.findByIdAndUpdate(assignmentId, {
-      submissionStatus: "completed",
-    });
-
-    // Update user's completedAssignments and remove assignment from submittedAssignments
-    await User.findByIdAndUpdate(userId, {
-      $addToSet: { completedAssignments: assignmentId },
-      $pull: { submittedAssignments: { assignmentId } },
-    });
-
-    // Delete submission
-    await Submission.deleteOne({ userId, assignmentId });
-
-    res
-      .status(200)
-      .json({ success: true, message: "Assignment marked as complete" });
-  } catch (error) {
-    console.error("Error marking assignment as complete:", error);
-    res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
 
@@ -109,6 +77,42 @@ const getMarkedCourses = async (req, res) => {
   }
 };
 
+// Marking assignment as complete
+const markAssignmentComplete = async (req, res) => {
+  try {
+    const { userId, assignmentId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(assignmentId)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid assignment ID" });
+    }
+
+    // Update assignment's submission status
+    await Assignment.findByIdAndUpdate(assignmentId, {
+      submissionStatus: "completed",
+    });
+
+    // Update user's completedAssignments
+    await User.findByIdAndUpdate(userId, {
+      $addToSet: { completedAssignments: assignmentId },
+    });
+
+    // Update the check field in the submission
+    await Submission.findOneAndUpdate(
+      { assignmentId, userId },
+      { check: true }
+    );
+
+    res
+      .status(200)
+      .json({ success: true, message: "Assignment marked as complete" });
+  } catch (error) {
+    console.error("Error marking assignment as complete:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
 // Rejecting an assignment
 const rejectAssignment = async (req, res) => {
   try {
@@ -125,14 +129,15 @@ const rejectAssignment = async (req, res) => {
       submissionStatus: "rejected",
     });
 
-    // Remove assignment from user's submittedAssignments
+    // Add assignment to user's rejectedAssignments
     await User.findByIdAndUpdate(userId, {
       $addToSet: { rejectedAssignments: assignmentId },
-      $pull: { submittedAssignments: { assignmentId } },
     });
 
-    // Delete submission
-    await Submission.deleteOne({ userId, assignmentId });
+    await Submission.findOneAndUpdate(
+      { assignmentId, userId },
+      { check: true }
+    );
 
     res.status(200).json({ success: true, message: "Assignment rejected" });
   } catch (error) {

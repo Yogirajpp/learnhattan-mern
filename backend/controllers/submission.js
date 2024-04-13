@@ -8,13 +8,32 @@ export const submitAssignment = async (req, res) => {
     const { userId, courseId, assignmentId } = req.params;
     const { code } = req.body;
 
+    // Check if a submission already exists for the user, course, and assignment
+    const existingSubmission = await Submission.findOne({
+      userId,
+      courseId,
+      assignmentId,
+    });
+
+    if (existingSubmission) {
+      return res
+        .status(200)
+        .json({
+          success: false,
+          message: "Submission already exists for this assignment",
+        });
+    }
+
     // Find the contributor for the course
     const contributor = await Contributor.findOne({ courseId });
 
     if (!contributor) {
       return res
-        .status(404)
-        .json({ message: "No contributor found for the course" });
+        .status(200)
+        .json({
+          success: false,
+          message: "No Contributor found for the course",
+        });
     }
 
     // Create a new submission
@@ -29,8 +48,8 @@ export const submitAssignment = async (req, res) => {
     // Save the submission
     await submission.save();
 
-     // Create a submitted assignment object
-     const submittedAssignment = {
+    // Create a submitted assignment object
+    const submittedAssignment = {
       userId: userId,
       courseId: courseId,
       assignmentId: assignmentId,
@@ -43,18 +62,15 @@ export const submitAssignment = async (req, res) => {
       $push: { submittedAssignments: submittedAssignment },
     });
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Assignment submitted successfully to the contributor",
-      });
+    res.status(200).json({
+      success: true,
+      message: "Assignment submitted successfully to the contributor",
+    });
   } catch (error) {
     console.error("Error submitting assignment:", error);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
-
 
 // Controller function to get all submissions
 export const getAllSubmissions = async (req, res) => {
@@ -64,17 +80,16 @@ export const getAllSubmissions = async (req, res) => {
 
     // If no submissions found, return a 404 error
     if (!submissions) {
-      return res.status(404).json({ message: 'No submissions found' });
+      return res.status(404).json({ message: "No submissions found" });
     }
 
     // If submissions found, return them in the response
     res.status(200).json({ submissions });
   } catch (error) {
-    console.error('Error getting submissions:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("Error getting submissions:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
-
 
 // Controller function to get all submissions based on courseId
 export const getSubmissionsByCourseId = async (req, res) => {
@@ -86,13 +101,15 @@ export const getSubmissionsByCourseId = async (req, res) => {
 
     // If no submissions found, return a 404 error
     if (!submissions) {
-      return res.status(404).json({ message: 'No submissions found for the given courseId' });
+      return res
+        .status(404)
+        .json({ message: "No submissions found for the given courseId" });
     }
 
     // If submissions found, return them in the response
     res.status(200).json({ submissions });
   } catch (error) {
-    console.error('Error getting submissions by courseId:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("Error getting submissions by courseId:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -19,6 +19,10 @@ const submissionSchema = new mongoose.Schema({
     ref: "Contributer",
     required: true,
   },
+  check:{
+    type: Boolean,
+    default: false
+  }
 });
 
 const Submission = mongoose.model("Submission", submissionSchema);

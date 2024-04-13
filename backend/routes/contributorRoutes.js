@@ -8,9 +8,9 @@ router.put("/:userId/mark-contributor/:courseId", markContributorForCourse);
 router.get('/:userId/marked-courses', getMarkedCourses);
 
 // Marking assignment as complete route
-router.put("/mark-complete/:userId/:assignmentId", markAssignmentComplete);
+router.post("/mark-complete/:userId/:assignmentId", markAssignmentComplete);
 
 // Route to reject an assignment
-router.put('/mark-reject/:userId/:assignmentId', rejectAssignment);
+router.post('/mark-reject/:userId/:assignmentId', rejectAssignment);
 
 export default router;

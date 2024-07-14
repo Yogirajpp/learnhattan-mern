@@ -8,6 +8,9 @@ import { RiPieChart2Fill } from "react-icons/ri";
 import { TiThMenu } from "react-icons/ti";
 import { FaShoppingCart } from "react-icons/fa";
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import AadharButton from "./aadharConnect";
+// import {AadharButton} from './aadharConnect.js';
+
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -91,6 +94,7 @@ const Sidebar = () => {
             {user && (
               <div className="flex items-center">
                 <ConnectButton />
+                <AadharButton />
                 <div className="flex items-center ms-3 relative">
                   <button
                     type="button"

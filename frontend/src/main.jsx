@@ -6,6 +6,7 @@ import "./index.css";
 // import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthContextProvider } from "./context/AuthContext";
+import { AnonAadhaarProvider } from "@anon-aadhaar/react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
@@ -28,15 +29,17 @@ const config = getDefaultConfig({
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Router>
-      <AuthContextProvider>
-        <WagmiProvider config={config}>
-          <QueryClientProvider client={queryClient}>
-            <RainbowKitProvider>
-              <App />
-            </RainbowKitProvider>
-          </QueryClientProvider>
-        </WagmiProvider>
-      </AuthContextProvider>
+      <AnonAadhaarProvider _useTestAadhaar={true} _fetchArtifactsFromServer={false}>
+        <AuthContextProvider>
+          <WagmiProvider config={config}>
+            <QueryClientProvider client={queryClient}>
+              <RainbowKitProvider>
+                <App />
+              </RainbowKitProvider>
+            </QueryClientProvider>
+          </WagmiProvider>
+        </AuthContextProvider>
+      </AnonAadhaarProvider>
     </Router>
   </React.StrictMode>
 );

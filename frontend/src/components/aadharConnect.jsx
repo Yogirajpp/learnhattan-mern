@@ -11,6 +11,7 @@ const AadharButton = () => {
 
     useEffect(() => {
         console.log("Anon Aadhaar status: ", anonAadhaar.status);
+        console.log("connected")
     }, [anonAadhaar]);
 
     return (
